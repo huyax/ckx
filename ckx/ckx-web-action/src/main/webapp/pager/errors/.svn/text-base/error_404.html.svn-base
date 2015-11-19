@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>404 Error</title> <#include "/pager/common/quote.html" />
+<style type="text/css">
+html,body {
+    background: #edf6fa;
+}
+</style>
+</head>
+
+<body>
+    <div class="error-panel">
+        <div class="error-left"></div>
+        <div class="error-right">
+            <div>
+                <h3>404 Error</h3>
+            </div>
+            <div>
+                <h2>非常遗憾，您访问的页面不存在！</h2>
+            </div>
+            <div>
+                <h1>看到这个提示，就自认倒霉吧！</h1>
+            </div>
+            <div>
+                <a href=""></a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

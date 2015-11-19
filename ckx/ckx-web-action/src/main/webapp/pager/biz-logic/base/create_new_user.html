@@ -1,0 +1,78 @@
+<@compress single_line=isCompress>
+<!DOCTYPE html>
+<html>
+<head>
+<title>用户管理</title>
+<#include "/pager/common/quote.html" />
+</head>
+<body>
+    <div class="body-center">
+        <div class="html-panel query-panel" id="query_con">
+            <div class="panel-header"><div class="panel-title">创建用户</div></div>
+                <div class="body-center">
+       <form id="createNewUserForm" class="form_style" method="post" onsubmit="return false;">
+       	<table style="width: 90%;height: 90%">
+	       	<tr>
+	       		<td width="200" align="right"  height="40">用户名：<font color="red">*</font></td>
+	       		<td>  <input class="easyui-validatebox" type="text" name="username" id="username" maxlength="30" data-options="required:true,validType:'username'" /></td>
+	       	</tr>
+	       	
+	       	<tr>
+	       		<td align="right" height="40">姓名：<font color="red">*</font></td>
+	       		<td><input class="easyui-validatebox" type="text" name="nick" maxlength="30" data-options="required:true"/>
+	       		</td>
+			</tr>
+			
+	       	<tr>
+	       	<td align="right" height="40">Email：<font color="red">*</font></td>
+	       		<td>
+                    <input class="easyui-validatebox" type="text" name="email" maxlength="50" data-options="required:true,validType:'email'"/>
+	       	</td>
+	       	</tr>
+	       	 	<tr>
+	       	<td align="right" height="40">状态：<font color="red">*</font></td>
+	       		<td>
+  		<input type="radio" name="status" value="1" checked="checked" /><span class="check-label">正常</span>
+                       <input type="radio" name="status" value="0" /><span  class="check-label">ͣ停用</span>	       	</td>
+	       	</tr>
+	       	  	<tr>
+	       	<td align="right" height="40">角色：<font color="red">*</font></td>
+	       		<td>
+                    <input class="easyui-validatebox" type="text" name="roleId" id="roleId" data-options="required:true" />
+	       	</td>
+	       	</tr>
+	       	   	  	<tr>
+	       	<td align="right" height="40">岗位：<font color="red">*</font></td>
+	       		<td>
+                    <select class="easyui-validatebox" name="postId" data-options="required:true">
+                        <option value="">==请选择==</option>
+                        <#if posts?? && posts?size gt 0>
+                        <#list posts as p>
+                        <#if showAllPosts>
+                        	<#if (p.postId != superPost && p.postId != user.postId)>
+	                        <option value="${p.postId}">${p.postName}</option>
+	                        </#if>
+                        <#else>
+	                        <#if p.postId gt user.postId>
+	                        <option value="${p.postId}">${p.postName}</option>
+	                        </#if>
+                        </#if>
+                        
+                        </#list>
+                        </#if>
+                    </select>
+	       	</td>
+	       	</tr>
+	       	<tr>
+	       		<td align="right" height="50">&nbsp;</td>
+	       		<td><input type="submit" value=" 保存 " onclick="add()"/>
+	       			<input id="reset" type="reset" value=" 重置 "/>
+	       		</td>
+	       	</tr>
+       	</table>
+	 </form>
+    </div>
+    </div>
+</body>
+</html>
+</@compress>

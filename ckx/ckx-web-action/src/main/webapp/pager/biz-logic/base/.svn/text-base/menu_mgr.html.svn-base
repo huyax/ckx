@@ -1,0 +1,71 @@
+<@compress single_line=isCompress>
+<!DOCTYPE html>
+<html>
+<head>
+<title>菜单管理</title>
+<#include "/pager/common/quote.html" />
+<script type="text/javascript">
+window.menus = ${menusJson};
+window.menus.push({menuId:0,isParent:true, parentId:-1,status:1,showName:'ROOT',menuName:'ROOT'});
+</script>
+<style type="text/css">
+    .menus{width: 250px;float: left;}
+    .edit{margin-left: 255px;}
+</style>
+</head>
+<body>
+    <div class="body-center">
+        <div class="html-panel menus">
+            <div class="panel-header"><div class="panel-title">菜单结构</div></div>
+            <div class="panel-content" id="menuMgrPanel">
+                <div id="menuPanel" class="ztree"></div>
+            </div>
+        </div>
+        <div class="html-panel edit">
+            <div class="panel-header"><div class="panel-title">菜单编辑</div></div>
+            <div class="panel-content" id="editMenu">
+                <form class="form_style" id="menuEditForm" onsubmit="return false;">
+                    <input type="hidden" name="menuId" id="menuId" />
+                    <div class="form-field">
+                        <label for="menuName">名称：<font color="red">*</font></label>
+                        <input class="easyui-validatebox" type="text" name="menuName" id="menuName" data-options="required:true" maxlength="30" />
+                    </div>
+                    <div class="form-field">
+                        <label for="remark">描述：<font color="red"></font></label>
+                        <input class="easyui-validatebox" type="text" name="remark" id="remark" maxlength="30" />
+                    </div>
+                    <div class="form-field">
+                        <label for="url">URL：<font color="red"></font></label>
+                        <input class="easyui-validatebox" type="text" name="url" id="url" maxlength="40" />
+                    </div>
+                    <div class="form-field">
+                        <label for="parentName">父菜单：<font color="red">*</font></label>
+                        <input class="easyui-validatebox" type="text" name="parentName" id="parentName" readonly="readonly" data-options="required:true" />
+                        <input type="hidden" name="parentId" />
+                    </div>
+                    <div class="form-field">
+                        <label for="parentName">排序：<font color="red"></font></label>
+                        <input class="easyui-validatebox" type="text" name="sort" maxlength="5" />
+                    </div>
+                    <div class="form-field">
+                        <label for="url">类型：<font color="red">*</font></label>
+                        <input class="easyui-validatebox" type="radio" name="isParent" value="true" /><span>菜单目录</span>
+                        <input class="easyui-validatebox" type="radio" name="isParent" value="false" checked="checked" /><span>菜单资源</span>
+                    </div>
+                    <div class="form-field">
+                        <label for="parentName">状态：<font color="red">*</font></label>
+                        <!-- <select name="status" class="easyui-validatebox"><option value="1" selected="selected">正常</option><option value="0">停用</option></select> -->
+                        <input class="easyui-validatebox" type="radio" name="status" value="1" checked="checked"/><span>正常</span>
+                        <input class="easyui-validatebox" type="radio" name="status" value="0" /><span>停用</span>
+                    </div>
+                    <div class="form-field" style="padding-left: 80px;">
+                        <span class="spacing"><input type="submit" id="submitForm" value="提交" /></span>
+                        <span class="spacing"><input type="reset" id="resetForm" value="重置"/></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+</@compress>

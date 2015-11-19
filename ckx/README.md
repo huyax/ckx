@@ -1,0 +1,6 @@
+# 1.基于spring，目的是打造一个高可用，高性能，可扩展的基础Java开发平台
+# 2.对于单表节点的CRUD维护操作采用节点基础代码快速生成策略，界面、Action、业务及持久层均可快速生成，避免了重复造轮子的工作量
+# 3.主要技术集成spring springmvc shiro freemarker ehcache mybatis 
+# 4.管理界面简洁实用（支持非传统的easyui风格以及bootstrap风格）
+# 5.采用maven多模块依赖方式构建，层次清晰，代码规范，可横纵向扩展
+# 6.支持集中式Session管理，集成redis

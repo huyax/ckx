@@ -1,0 +1,73 @@
+<@compress single_line=isCompress>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Movie管理</title>
+<#include "/pager/common/quote.html" />
+</head>
+<body>
+    <div class="body-center">
+        <div class="html-panel query-panel" id="query_con">
+            <div class="panel-header"><div class="panel-title">查询条件</div></div>
+            <div class="panel-content" id="menuMgrPanel">
+                <form onsubmit="return false;" id="queryForm" class="form_style">
+                    <span class="spacing"><label>ID：</label><input type="text" name="id"/></span>
+                   
+                    <span class="spacing"><input type="submit" id="queryButton" value="查询"/></span>
+                </form>
+            </div>
+        </div>
+        <table id="grid" data-options="url:'list'" title="数据列表">
+            <thead>
+           	 		<th data-options="field:'name',width:80,resizable:true,align:'left'">name</th>
+           	 		<th data-options="field:'icon',width:80,resizable:true,align:'left'">icon</th>
+           	 		<th data-options="field:'catelog',width:80,resizable:true,align:'left'">catelog</th>
+           	 		<th data-options="field:'ctime',width:80,resizable:true,align:'left'">ctime</th>
+           	 		<th data-options="field:'detailurl',width:80,resizable:true,align:'left'">detailurl</th>
+           	 		<th data-options="field:'pubDate',width:80,resizable:true,align:'left'">pubDate</th>
+           	 		<!--  <th data-options="field:'content',width:80,resizable:true,align:'left'">content</th> -->
+                <th data-options="field:'opt',width:80,resizable:true,align:'center',formatter:formatter.opt">操作</th>
+            </thead>
+        </table>
+    </div>
+    <div class="hide-panel">
+        <div id="editDialog" style="width:500px;height:300px;padding-left:50px;" data-options="resizable:false,modal:true,closed: true">
+            <form id="editForm" class="form_style" method="post" onsubmit="return false;">
+                <input　type="hidden"　name="_method" id="_method"　value="put"/>
+                <input type="hidden" name="id" id="edit_id" />
+                
+                	<div class="form-field">
+                    <label for="edit_key">name：</label>
+                    <input class="easyui-validatebox" type="text" name="name" id="edit_name" maxlength="30"/>
+                </div>
+                	<div class="form-field">
+                    <label for="edit_key">icon：</label>
+                    <input class="easyui-validatebox" type="text" name="icon" id="edit_icon" maxlength="30"/>
+                </div>
+                	<div class="form-field">
+                    <label for="edit_key">catelog：</label>
+                    <input class="easyui-validatebox" type="text" name="catelog" id="edit_catelog" maxlength="30"/>
+                </div>
+                	<div class="form-field">
+                    <label for="edit_key">ctime：</label>
+                    <input class="easyui-validatebox" type="text" name="ctime" id="edit_ctime" maxlength="30"/>
+                </div>
+                	<div class="form-field">
+                    <label for="edit_key">detailurl：</label>
+                    <input class="easyui-validatebox" type="text" name="detailurl" id="edit_detailurl" maxlength="30"/>
+                </div>
+                	<div class="form-field">
+                    <label for="edit_key">pubDate：</label>
+                    <input class="easyui-validatebox" type="text" name="pubDate" id="edit_pubDate" maxlength="30"/>
+                </div>
+                	<div class="form-field">
+                    <label for="edit_key">content：</label>
+                    <input class="easyui-validatebox" type="text" name="content" id="edit_content" maxlength="30"/>
+                </div>
+              
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+</@compress>

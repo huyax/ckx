@@ -1,0 +1,44 @@
+<@compress single_line=isCompress>
+<!DOCTYPE html>
+<html>
+<head>
+<title>角色管理</title>
+<#include "/pager/common/quote.html" />
+<script type="text/javascript">
+window.menus = ${menusJson};
+window.roles = ${rolesJson};
+</script>
+</head>
+<body>
+    <div class="body-center">
+        <div class="html-panel" style="float: left;width: 50%;">
+            <div class="panel-header"><div class="panel-title">部门结构</div></div>
+            <div class="panel-content" id="roleMgrPanel">
+                <div id="rolePanel" class="ztree"></div>
+            </div>
+        </div>
+        <div class="html-panel" id="rightPanel">
+            <div class="panel-header"><div class="panel-title">菜单权限<span id="titleRoleName"></span></div></div>
+            <div class="panel-content" id="menuMgrPanel">
+                <div id="menuPanel" class="ztree"></div>
+            </div>
+        </div>
+    </div>
+    <div class="hide-panel">
+        <div id="roleEditDialog" style="width:330px;height:150px;" data-options="resizable:false,modal:true,closed: true">
+            <form id="roleEditForm" class="form_style">
+                <div class="form-field">
+                    <label for="username">上级角色：<font color="red">*</font></label>
+                    <input type="hidden" name="parentRole" id="parentRole"/>
+                    <input type="text" name="parentRoleName" id="parentRoleName" disabled="disabled"/>
+                </div>
+                <div class="form-field">
+                    <label for="nick">角色名称：<font color="red">*</font></label>
+                    <input class="easyui-validatebox" type="text" name="roleName" id="roleName" data-options="required:true" maxlength="30"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+</@compress>

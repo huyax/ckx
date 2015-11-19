@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="
+           http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context   
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+  <!-- Demo -->
+  <bean id="reportStateTask" class="org.springframework.scheduling.quartz.CronTriggerBean">
+    <property name="jobDetail">
+      <bean class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="com.ckx.web.task.ReportStateTask" />
+        <property name="jobDataAsMap">
+          <map>
+            <!-- <entry key="reportStateService" value-ref="reportStateService"></entry> -->
+          </map>
+        </property>
+      </bean>
+    </property>
+    <property name="cronExpression" value="2 0 * * * ?" />
+  </bean>
+
+  <!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序 -->
+  <bean id="startQuertz" lazy-init="false" autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+    <property name="triggers">
+      <list>
+        <ref bean="reportStateTask" />
+      </list>
+    </property>
+  </bean>
+</beans>

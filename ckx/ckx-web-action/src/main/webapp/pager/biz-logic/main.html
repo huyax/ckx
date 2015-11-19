@@ -1,0 +1,57 @@
+<@compress single_line=isCompress>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>后台管理系统</title>
+<#include "/pager/common/quote.html" />
+<script type="text/javascript">
+    var date = new Date('${sysDate}');
+    var dateValue = date.valueOf();
+</script>
+</head>
+<body class="easyui-layout">
+    <div data-options="region:'north',split:false" class="north-panel" >
+        <div class="top-panel" >
+            <div class="north-left"><span class="logo" onselectstart="return false">后台管理系统</span></div>
+            <div class="north-right">
+                <div class="message">
+                    <span class="usermsg" style="margin:0;padding-left:40px;"><a href="javascript:void(0);" class="user-name" id="usermsg">${nick}</a></span>
+                       <span class="logout"><span><a href="javascript:void(0);" class="login-out" id="logout">退出</a></span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-options="region:'center',onResize:centerResize" class="center-panel">
+        <div class="content-title">
+            <span class="location"><span>位置：</span><font id="location">首页</font></span>
+            <span class="datepanel" id="show_date"></span>
+        </div>
+        <iframe class="content-body" id="contentBody"  name="contentBody" frameborder="0" src="menus/home.html"></iframe>
+    </div>
+    <div data-options="region:'west',split:false" class="west-panel">
+        <div class="west-title">
+            <span class="west-title-text"></span>
+        </div>
+        <div class="west-body">
+            <ul class="west-menu">
+                <#if menus?? && (menus?size > 0)>
+                   <#list menus as m>
+                   <li class="menu-parent" menuid="${m.menuId}"><div>${m.menuName}</div></li>
+                   <#if m.childrens?? && (m.childrens?size > 0)>
+                   <li class="menu-childs-panel" menuid="${m.menuId}">
+                       <ul class="menu-childs">
+                       <#list m.childrens as mm>
+                           <li class="menu-child" parentid="${m.menuId}" href="${mm.url!''}"><div><i class="icon-caret-right"></i>${mm.menuName}</div></li>
+                       </#list>
+                       </ul>
+                   </li>
+                   </#if>
+                   </#list>
+                </#if>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+</@compress>

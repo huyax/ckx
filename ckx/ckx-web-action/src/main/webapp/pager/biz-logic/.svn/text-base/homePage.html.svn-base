@@ -1,0 +1,131 @@
+<@compress single_line=isCompress>
+<!DOCTYPE html>
+<html>
+<head>
+<title>首页</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<#include "/pager/common/quote.html" />
+</head>
+<body>
+	<div class="body-center">
+		<div>
+			<div class="html-panel query-panel" id="query_con">
+				<div class="panel-content" id="menuMgrPanel">
+					<form onsubmit="return false;" id="queryWarnForm"
+						class="form_style">
+						<div class="panel-header">
+							<div class="panel-title">预警实时记录</div>
+						</div>
+						<div style="margin-top:5px;margin-bottom: 5px">
+							<span class="spacing"><label>预警等级：>=</label> <select
+								name="defVal" style="width:150px;"> <#if
+									allWarnGrades??> <#list allWarnGrades as allWarnGrade>
+									<option value="${allWarnGrade.defVal}"<#if
+										allWarnGrade.name==defultname> selected="selected"</#if> >
+										${allWarnGrade.name}</option> </#list> </#if>
+							</select> </span> <span class="spacing"><input type="submit"
+								id="queryWarnButton" value="查询" /> </span>
+						</div>
+					</form>
+				</div>
+
+				<div id="data_panel" style="height:50%; width:100%;">
+					<table id="grid0" title="记录列表"
+						data-options="url:'homePage/warnList'">
+						<thead>
+							<th
+								data-options="field:'datetime',width:80,resizable:true,align:'center'">日期时间</th>
+							<th
+								data-options="field:'ptname',width:80,resizable:true,align:'center'">平台</th>
+							<th
+								data-options="field:'pname',width:80,resizable:true,align:'center'">产品</th>
+							<th
+								data-options="field:'cname',width:80,resizable:true,align:'center'">渠道</th>
+							<th
+								data-options="field:'mfname',width:80,resizable:true,align:'center'">字段</th>
+							<th
+								data-options="field:'report_value',width:80,resizable:true,align:'center'">值</th>
+							<th
+								data-options="field:'dod',width:80,resizable:true,align:'center'">环比</th>
+							<th
+								data-options="field:'threshold',width:80,resizable:true,align:'center'">阈值</th>
+							<th
+								data-options="field:'wgname',width:80,resizable:true,align:'center'">等级</th>
+						</thead>
+					</table>
+				</div>
+			</div>
+		</div>
+		<br> <br>
+		<div>
+			<div class="html-panel query-panel" id="query_con">
+				<div class="panel-content" id="menuMgrPanel">
+					<form onsubmit="return false;" id="queryThresholdForm"
+						class="form_style">
+						<div class="panel-header">
+							<div class="panel-title">阈值使用时间提醒</div>
+						</div>
+						<div style="margin-top:5px;margin-bottom: 5px">
+							<span class="spacing"><label>渠道：</label> <select
+								name="channelKey" style="width:150px;">
+									<option value="">----请选择----</option> <#if allChannels??>
+									<#list allChannels as allChannel>
+									<option value="${allChannel.id}">${allChannel.name}
+									</option> </#list> </#if>
+							</select> </span> <span class="spacing"><input type="submit"
+								id="queryThresholdButton" value="查询" /> </span>
+						</div>
+					</form>
+				</div>
+
+				<div id="data_panel" style="height:50%; width:100%;">
+					<table id="grid1" title="阈值列表"
+						data-options="url:'homePage/thresholdList'">
+						<thead>
+							<th
+								data-options="field:'ptname',width:80,resizable:true,align:'center'">平台</th>
+							<th
+								data-options="field:'pname',width:80,resizable:true,align:'center'">产品</th>
+							<th
+								data-options="field:'cname',width:80,resizable:true,align:'center'">渠道</th>
+							<th
+								data-options="field:'mfname',width:80,resizable:true,align:'center'">字段</th>
+							<th
+								data-options="field:'lasttime',width:80,resizable:true,align:'center'">最后设置时间</th>
+							<th
+								data-options="field:'diffday',width:80,resizable:true,align:'center'">使用天数</th>	
+							<th
+								data-options="field:'operation',width:100,resizable:true,align:'center',formatter:formatter.opt">操作</th>
+						</thead>
+					</table>
+				</div>
+			</div>
+		</div>
+		<!-- 设置阈值部分 -->
+		<div class="hide-panel">
+			<div id="thresholdEditDialog" style="width:530px;height:480px;" data-options="resizable:false,modal:true,closed: true">
+            <form id="thresholdEditForm" class="form_style" method="post" onsubmit="return false;">
+            	<input type="hidden" name="channelKey"/>
+            	<input type="hidden" name="productKey"/>
+            	<input type="hidden" name="field"/>
+                <span class="spacing"><label>日期：</label>
+                	<input class="easyui-datebox easyui-validatebox" data-options="required:true" name="date" value="${nowDate}" style="width:120px;border-radius: 5px 5px 5px 5px;"/>
+                </span>
+                <span class="spacing"><input type="submit" id="queryButton2" value="抽取数据"/></span>
+            </form>
+            <table id="thresholdGrid" data-options="url:'threshold/loadThreshold.html'" title="阈值列表">
+            <thead>
+            	<th data-options="field:'id',width:80,resizable:true,align:'left',hidden:true">Id</th>
+            	<th data-options="field:'hour',width:80,resizable:true,align:'left'">时间</th>
+            	<th data-options="field:'val',width:30,resizable:true,align:'left',editor:editor.val">值</th>
+            	<th data-options="field:'field',width:30,resizable:true,align:'left',formatter:formatter.field">预警字段</th>
+            </thead>
+        </table>
+        </div>
+        
+		</div>
+		
+	</div>
+</body>
+</html>
+</@compress>

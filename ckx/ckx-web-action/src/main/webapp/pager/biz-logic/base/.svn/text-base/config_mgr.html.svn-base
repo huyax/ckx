@@ -1,0 +1,76 @@
+<@compress single_line=isCompress>
+<!DOCTYPE html>
+<html>
+<head>
+<title>系统设置</title>
+<#include "/pager/common/quote.html" />
+<script>
+
+	
+
+	function timeChange() {
+		if($("#time").val() == ""){
+			return;
+		}
+		$._ajaxPost('config/update.html', {
+			key : 'UPDATE_TIME',
+			value : $("#time").val()
+		}, function(r) {
+			$.messager.alert("提示", "更新提醒设置成功！");
+		});
+	}
+
+	function levelChange() {
+		if($("#level").val() == ""){
+			return;
+		}
+		$._ajaxPost('config/update.html', {
+			key : 'WARN_GRADE',
+			value : $("#level").val()
+		}, function(r) {
+			$.messager.alert("提示", "预警等级设置成功！");
+		});
+	}
+</script>
+</head>
+<body>
+    <div  title="系统设置">
+        <div style="padding:10px 60px 20px 60px">
+        <form id="ff" method="post">
+
+            <table cellpadding="5">
+            	<tr>
+                    <td>阈值设置更新提醒：</td>
+                    <td>
+                        <select id="time"  onchange="timeChange()" style="width:150px;">
+                        	<option value="">----请选择----</option>
+	                        <option value="3" <#if time?? & time=="3">selected="selected"</#if>>3天</option>
+	                        <option value="5" <#if time?? & time=="5">selected="selected"</#if>>5天</option>
+	                        <option value="7" <#if time?? & time=="7">selected="selected"</#if>>一周</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>首页默认预警等级：</td>
+                    <td>
+                       <select id="level" onchange="levelChange()"  style="width:150px;">
+                       	   <option value="">----请选择----</option>
+                           <#if warnGrades??> -->
+							<#list warnGrades as warnGrade>
+							<#if level?? & level==warnGrade.id?string> 
+ 								<option selected="selected" value="${warnGrade.id}">${warnGrade.name}</option>
+ 							<#else>
+ 								<option value="${warnGrade.id}">${warnGrade.name}</option>
+ 							</#if>
+							</#list>
+ 						   </#if>
+                       </select>
+                    </td> 
+                </tr>
+            </table>
+        </form>
+        </div>
+    </div>
+</body>
+</html>
+</@compress>

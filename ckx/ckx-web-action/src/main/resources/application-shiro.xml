@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation=" 
+           http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+           http://www.springframework.org/schema/context 
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+  <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+  <!-- shiro缓存 -->
+  <bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager" init-method="init"
+    destroy-method="destroy">
+    <property name="cacheManagerConfigFile" value="classpath:ehcache-shiro.xml" />
+  </bean>
+
+  <!-- shiroSessionManager -->
+  <bean id="shiroSessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+    <property name="sessionListeners">
+      <set>
+        <bean class="com.ckx.web.shiro.SessionHandler" />
+      </set>
+    </property>
+    <!-- <property name="sessionDAO">
+      <bean class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
+        <property name="activeSessionsCacheName" value="shiro-activeSessionCache" />
+      </bean>
+    </property> -->
+    <!-- 自定义集中式session -->
+    <property name="sessionDAO">
+      <bean class="com.ckx.web.session.CkxSessionDAO">
+      </bean>
+    </property>
+    <property name="sessionValidationScheduler">
+      <bean class="org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler">
+        <property name="interval" value="5000" />
+      </bean>
+    </property>
+    <!-- sessionIdCookie的实现,用于重写覆盖容器默认的JSESSIONID -->  
+    <property name="sessionIdCookie" ref="ckxSession" />  
+    <property name="sessionValidationSchedulerEnabled" value="true" />
+    <property name="globalSessionTimeout" value="18000000" />
+    <property name="deleteInvalidSessions" value="true" />
+  </bean>
+  
+  	<!-- sessionIdCookie的实现,用于重写覆盖容器默认的JSESSIONID -->  
+    <bean id="ckxSession" class="org.apache.shiro.web.servlet.SimpleCookie">  
+        <!-- cookie的name,对应的默认是 JSESSIONID -->  
+        <constructor-arg name="name" value="CKXSESSIONID" />  
+        <!-- jsessionId的path为 / 用于多个系统共享jsessionId -->  
+        <property name="path" value="/" />  
+        <property name="httpOnly" value="true"/>  
+    </bean>
+
+  <!-- 加密验证 -->
+  <bean id="hashedCredentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+    <property name="storedCredentialsHexEncoded" value="true" />
+    <property name="hashAlgorithmName" value="MD5" />
+    <property name="hashIterations" value="1" />
+  </bean>
+
+  <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+    <property name="sessionMode" value="http" />
+    <property name="cacheManager" ref="shiroCacheManager" />
+    <property name="sessionManager" ref="shiroSessionManager" />
+    <property name="realm">
+      <bean class="com.ckx.web.shiro.LoginAuthRealm">
+        <property name="credentialsMatcher" ref="hashedCredentialsMatcher" />
+      </bean>
+    </property>
+  </bean>
+
+  <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+    <property name="arguments" ref="securityManager" />
+    <property name="staticMethod" value="org.apache.shiro.SecurityUtils.setSecurityManager" />
+  </bean>
+
+  <!-- Shiro Filter -->
+  <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+    <property name="securityManager" ref="securityManager" />
+    <property name="loginUrl" value="/login.html" />
+    <property name="successUrl" value="/main.html" />
+    <property name="unauthorizedUrl" value="/login.html" />
+    <property name="filters">
+      <map>
+        <entry key="menus" value-ref="menuAuthorizationFilter" />
+      </map>
+    </property>
+    <property name="filterChainDefinitions">
+      <value>
+        / = anon
+        /rpt/**/*.do = anon
+        /error/** = anon
+        /assets/** = anon
+        /config.js = anon
+        /abc.js = anon
+        /base.js = anon
+        /play.js = anon
+        /login.html = anon
+        /logout.html = logout
+        /** = authc
+        /menus/** = authc, menus
+      </value>
+    </property>
+  </bean>
+</beans>

@@ -1,0 +1,28 @@
+<@compress single_line=isCompress>
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>监控预警平台 - 登入</title>
+<#include "/pager/common/quote.html" />
+<link type="text/css" rel="stylesheet" href="${base}/assets/common/biz-logic/css/flexi-background.css" />
+<link type="text/css" rel="stylesheet" href="${base}/assets/common/biz-logic/css/signin.css"/>
+
+</head>
+<body>
+
+	<div id="box" >
+	<div class="alert alert-danger strong" style="display: none;">
+    </div>
+    	<img src="${base}/assets/biz-logic/images/login_logo.png" class="logo" alt="logo" />
+		<h1>登入</h1>
+		<form class="form-signin" role="form" id="loginForm" action="login.html" method="post" onsubmit="return false;">
+			<input type="text" name="username"  id="username" class="form-control" title="账号" placeholder="账号" required autofocus>
+        	<input type="password" name="password" id="password" class="form-control" title="密码" placeholder="密码" required>
+			<input type="submit" name="" value="登录" id="submit" />
+		</form>
+	</div>
+	<a href="#" class="forgot">Powered by 监控预警平台  Copyright © 2010-2014 Hy-Vedio. All Rights Reserved. 微赢互动 版权所有 渝ICP备11022409号-2</a>
+</body>
+</html>
+</@compress>

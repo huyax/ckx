@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/hy/!svn/ver/5200/ews/trunk/ews/src/main/webapp/assets/common/uploadify
+END
+license.txt
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/hy/!svn/ver/5200/ews/trunk/ews/src/main/webapp/assets/common/uploadify/license.txt
+END
+uploadify-cancel.png
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/hy/!svn/ver/5200/ews/trunk/ews/src/main/webapp/assets/common/uploadify/uploadify-cancel.png
+END
+uploadify.php
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/hy/!svn/ver/5200/ews/trunk/ews/src/main/webapp/assets/common/uploadify/uploadify.php
+END
+uploadify.css
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/hy/!svn/ver/5200/ews/trunk/ews/src/main/webapp/assets/common/uploadify/uploadify.css
+END
+jquery.uploadify.js
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/hy/!svn/ver/5200/ews/trunk/ews/src/main/webapp/assets/common/uploadify/jquery.uploadify.js
+END
+jquery.uploadify.min.js
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/hy/!svn/ver/5200/ews/trunk/ews/src/main/webapp/assets/common/uploadify/jquery.uploadify.min.js
+END
+uploadify.swf
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/hy/!svn/ver/5200/ews/trunk/ews/src/main/webapp/assets/common/uploadify/uploadify.swf
+END
