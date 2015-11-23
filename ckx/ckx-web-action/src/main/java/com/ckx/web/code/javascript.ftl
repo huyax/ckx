@@ -69,7 +69,7 @@ $(function() {
 });
 var formatter = {
     opt : function(value, rowData, rowIndex) {
-        var html = '<a class="spacing a-blue" onclick="upd('+rowIndex+');" href="javascript:void(0);">修改</a>';
+        var html = '<a class="spacing a-blue" onclick="update('+rowIndex+');" href="javascript:void(0);">修改</a>';
             html+= '<a class="spacing a-red" onclick="del('+rowIndex+');" href="javascript:void(0);">删除</a>';
         return html;
     }
