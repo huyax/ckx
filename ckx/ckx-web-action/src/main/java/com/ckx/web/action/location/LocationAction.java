@@ -1,4 +1,4 @@
-package com.${project}.web.action.${module};
+package com.ckx.web.action.location;
 
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.ckx.web.action.base.BaseAction;
-import com.${project}.web.core.${module}.${name}Service;
-import com.${project}.lang.Pager;
-import com.${project}.web.persist.entity.${name};
-@RequestMapping(value = "/${nameLow}")
+import com.ckx.web.core.location.LocationService;
+import com.ckx.lang.Pager;
+import com.ckx.web.persist.entity.Location;
+@RequestMapping(value = "/location")
 @Controller
-public class ${name}Action extends BaseAction
+public class LocationAction extends BaseAction
 {
 
-	private @Autowired ${name}Service	${nameLow}Service;
+	private @Autowired LocationService	locationService;
 	
 	/**
 	 * 菜单入口
@@ -29,7 +29,7 @@ public class ${name}Action extends BaseAction
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(ModelMap model)
 	{
-		return AD_HTML + "${nameLow}/index";
+		return AD_HTML + "location/index";
 	}
 
 	/**
@@ -44,7 +44,7 @@ public class ${name}Action extends BaseAction
 	{
 		Pager pager = createPager(request);
 		pager.addParam("id", getRequestParams(String.class, request, "id"));
-		${nameLow}Service.paginate(pager);
+		locationService.paginate(pager);
 		return getGridData(pager);
 	}
 	
@@ -57,10 +57,10 @@ public class ${name}Action extends BaseAction
 	 */
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST)
-	public Object post(${name} vo, HttpServletRequest request,ModelMap model) {
+	public Object post(Location vo, HttpServletRequest request,ModelMap model) {
 		Map<String, Object> result = getResultMap();
 		try {
-			if (${nameLow}Service.add(vo)) {
+			if (locationService.add(vo)) {
 				result.put(RESULT, true);
 				result.put(MESSAGE, "新增成功！");
 			} else {
@@ -84,13 +84,13 @@ public class ${name}Action extends BaseAction
 	 */
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.PUT)
-	public Object put(${name} vo,HttpServletRequest request,ModelMap model) {
+	public Object put(Location vo,HttpServletRequest request,ModelMap model) {
 		Map<String, Object> result = getResultMap();
 		try {
 			if (vo.getId() == null) {
 				result.put(RESULT, false);
 				result.put(MESSAGE, "提交数据不完整！");
-			} else if (${nameLow}Service.updateByPk(vo)) {
+			} else if (locationService.updateByPk(vo)) {
 				result.put(RESULT, true);
 				result.put(MESSAGE, "修改成功！");
 			} else {
@@ -118,7 +118,7 @@ public class ${name}Action extends BaseAction
 	public Object delete(@PathVariable Integer id, HttpServletRequest request, ModelMap model) {
 		Map<String, Object> result = getResultMap();
 		try {
-			if (id != null && ${nameLow}Service.deleteById(id) > 0) {
+			if (id != null && locationService.deleteById(id) > 0) {
 				result.put(RESULT, true);
 				result.put(MESSAGE, "删除成功！");
 			} else {
@@ -145,7 +145,7 @@ public class ${name}Action extends BaseAction
 	public Object batchDel(String ids, HttpServletRequest request, ModelMap model) {
 		Map<String, Object> result = getResultMap();
 		try {
-			if (!StringUtils.isBlank(ids) && ${nameLow}Service.batchDelete(ids) > 0) {
+			if (!StringUtils.isBlank(ids) && locationService.batchDelete(ids) > 0) {
 				result.put(RESULT, true);
 				result.put(MESSAGE, "删除成功！");
 			} else {

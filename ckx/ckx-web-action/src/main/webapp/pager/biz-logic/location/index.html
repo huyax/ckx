@@ -1,0 +1,94 @@
+<@compress single_line=isCompress>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Location管理</title>
+<#include "/pager/common/quote.html" />
+
+<style type="text/css">
+#container {
+	width: 600px;
+	height: 500px;
+	margin: 0 auto;
+	margin-top: 20px;
+	border: 1px #666 solid;
+}
+#track {
+	width: 800px;
+	height: 500px;
+	margin: 0 auto;
+	margin-top: 20px;
+	border: 1px #666 solid;
+}
+</style>
+<!--引用百度地图API-->
+<script type="text/javascript"
+	src="http://api.map.baidu.com/api?v=2.0&ak=eWmhGdhH9WYPVrj8WBWEptNn"></script>
+<style type="text/css">
+/* 消除百度logo信息 */
+.anchorBL {
+	display: none;
+}
+</style>
+</head>
+<body>
+	<div class="body-center">
+		<div class="html-panel query-panel" id="query_con">
+			<div class="panel-header">
+				<div class="panel-title">查询条件</div>
+			</div>
+			<div class="panel-content" id="menuMgrPanel">
+				<form onsubmit="return false;" id="queryForm" class="form_style">
+					<span class="spacing"><label>ID：</label><input type="text"
+						name="id" /></span> <span class="spacing"><input type="submit"
+						id="queryButton" value="查询" /></span>
+				</form>
+			</div>
+		</div>
+		<table id="grid" data-options="url:'list'" title="数据列表">
+			<thead>
+				<th
+					data-options="field:'userName',width:80,resizable:true,align:'left'">用户名</th>
+				<th
+					data-options="field:'longitude',width:80,resizable:true,align:'left'">经度</th>
+				<th
+					data-options="field:'latitude',width:80,resizable:true,align:'left'">纬度</th>
+				<th
+					data-options="field:'location',width:80,resizable:true,align:'left'">坐标</th>
+				<th
+					data-options="field:'locTime',width:80,resizable:true,align:'left'">上报时间</th>
+				<th
+					data-options="field:'opt',width:80,resizable:true,align:'center',formatter:formatter.opt">操作</th>
+			</thead>
+		</table>
+	</div>
+	<div class="hide-panel">
+		<div id="editDialog" style="width: 700px; height: 600px;"
+			data-options="resizable:false,modal:true,closed: true">
+			<form id="editForm" action="${base}/location" class="form_style"
+				method="post" onsubmit="return false;">
+				<input 　type="hidden" 　name="_method" id="_method" 　value="put" />
+				<input type="hidden" name="id" id="edit_id" /> <input type="hidden"
+					name="longitude" id="longitude" /> <input type="hidden"
+					name="latitude" id="latitude" />
+
+
+				<div id="container"></div>
+			</form>
+		</div>
+
+	</div>
+
+	<br>
+
+	
+	<div class="hide-panel">
+		<div id="trackDialog" style="width: 900px; height: 600px;"
+			data-options="resizable:false,modal:true,closed: true">
+			<div id="track"></div>
+		</div>
+
+	</div>
+</body>
+</html>
+</@compress>

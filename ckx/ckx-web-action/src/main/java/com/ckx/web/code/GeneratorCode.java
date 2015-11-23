@@ -55,9 +55,12 @@ public class GeneratorCode {
 	public static void main(String[] args) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		//map.put("name", "Catelogs");
-		map.put("name", "Movie");
+		//map.put("name", "Movie");
+		map.put("name", "Location");
 		map.put("project", PROJECT_NAME);
 		create(map);
+		
+	
 	}
 
 	private static void create(Map<String, Object> map) {
@@ -115,7 +118,7 @@ public class GeneratorCode {
 	}
 
 	public static void createService(Map<String, Object> data) {
-		String root = System.getProperty("user.dir").replace("-web",
+		String root = System.getProperty("user.dir").replace("-action",
 				"-" + SERVICE);
 		String name = (String) data.get("name");
 		data.put("nameLow", name.toLowerCase());
@@ -131,7 +134,7 @@ public class GeneratorCode {
 			cfg.setTemplateLoader(templateLoader);
 			Template template = cfg.getTemplate(PATH + "service.ftl", "UTF-8");
 			template.setEncoding("UTF-8");
-			String dir = root + PATH.replace("web\\code", "core")
+			String dir = root + PATH.replace("web\\code", "web\\core")
 					+ name.toLowerCase();
 			File dirFile = new File(dir);
 			if (!dirFile.exists()) {
@@ -153,7 +156,7 @@ public class GeneratorCode {
 	}
 
 	public static void createServiceImpl(Map<String, Object> data) {
-		String root = System.getProperty("user.dir").replace("-web",
+		String root = System.getProperty("user.dir").replace("-action",
 				"-" + SERVICE);
 		String name = (String) data.get("name");
 		data.put("nameLow", name.toLowerCase());
@@ -170,7 +173,7 @@ public class GeneratorCode {
 			Template template = cfg.getTemplate(PATH + "serviceImpl.ftl",
 					"UTF-8");
 			template.setEncoding("UTF-8");
-			String dir = root + PATH.replace("web\\code", "core")
+			String dir = root + PATH.replace("web\\code", "web\\core")
 					+ name.toLowerCase() + File.separator + "impl";
 			File dirFile = new File(dir);
 			if (!dirFile.exists()) {
@@ -197,7 +200,7 @@ public class GeneratorCode {
 		String name = (String) data.get("name");
 		List<String> columns = new ArrayList<String>();
 		try {
-			Field[] fields = Class.forName("com.ckx.persist.entity." + name).getDeclaredFields();
+			Field[] fields = Class.forName("com.ckx.web.persist.entity." + name).getDeclaredFields();
 			for (Field field : fields) {
 				if ("id".equals(field.getName())) {
 					continue;

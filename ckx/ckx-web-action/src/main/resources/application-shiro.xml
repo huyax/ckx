@@ -21,16 +21,16 @@
         <bean class="com.ckx.web.shiro.SessionHandler" />
       </set>
     </property>
-    <!-- <property name="sessionDAO">
+    <property name="sessionDAO">
       <bean class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
         <property name="activeSessionsCacheName" value="shiro-activeSessionCache" />
       </bean>
-    </property> -->
+    </property> 
     <!-- 自定义集中式session -->
-    <property name="sessionDAO">
+    <!-- <property name="sessionDAO">
       <bean class="com.ckx.web.session.CkxSessionDAO">
       </bean>
-    </property>
+    </property> -->
     <property name="sessionValidationScheduler">
       <bean class="org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler">
         <property name="interval" value="5000" />
