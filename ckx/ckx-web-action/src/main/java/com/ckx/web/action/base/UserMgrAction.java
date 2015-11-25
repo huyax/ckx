@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ckx.lang.Pager;
+import com.ckx.lang.mybatis.Pager;
 import com.ckx.lang.util.MD5Encrypt;
 import com.ckx.web.core.base.PostService;
 import com.ckx.web.core.base.RoleService;

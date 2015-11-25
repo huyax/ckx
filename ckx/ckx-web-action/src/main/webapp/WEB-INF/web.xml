@@ -3,7 +3,13 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-	<display-name>ckx</display-name>
+	<display-name>ckx-web</display-name>
+	
+	<context-param>
+		<param-name>webAppRootKey</param-name>
+		<param-value>www.cikex.com</param-value>
+		<description>刺客熊，值得信赖！</description>
+	</context-param>
 
 	<session-config>
 		<session-timeout>30</session-timeout>

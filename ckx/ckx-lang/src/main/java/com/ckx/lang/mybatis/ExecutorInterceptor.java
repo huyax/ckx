@@ -1,4 +1,4 @@
-package com.ckx.web.persist.mybatis;
+package com.ckx.lang.mybatis;
 
 import java.util.Properties;
 

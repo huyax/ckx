@@ -33,9 +33,9 @@
 
 
 	<import resource="application-jdbc.xml" />
-	<import resource="application-quartz.xml" />
 	<import resource="application-cache.xml" />
 	<import resource="application-redis.xml" />
 	<import resource="application-shiro.xml" />
 	<import resource="application-freemarker.xml" />
+	<import resource="application-quartz.xml" />
 </beans>

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ckx.lang.Pager;
+import com.ckx.lang.mybatis.Pager;
 import com.ckx.lang.util.MD5Encrypt;
 import com.ckx.web.core.base.UserService;
 import com.ckx.web.core.constants.SysConstants;

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ckx.lang.Pager;
+import com.ckx.lang.mybatis.Pager;
 import com.ckx.web.core.base.RoleService;
 import com.ckx.web.persist.entity.SysRoleMenuKey;
 import com.ckx.web.persist.entity.SysRoles;

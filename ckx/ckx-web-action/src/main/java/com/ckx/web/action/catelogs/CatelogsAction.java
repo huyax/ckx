@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ckx.lang.mybatis.Pager;
 import com.ckx.web.action.base.BaseAction;
 import com.ckx.web.core.catelogs.CatelogsService;
 import com.ckx.web.persist.entity.Catelogs;
-import com.ckx.lang.Pager;
 @RequestMapping(value = "/catelogs")
 @Controller
 public class CatelogsAction extends BaseAction

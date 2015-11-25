@@ -15,6 +15,7 @@ public class ReportStateTask extends QuartzJobBean {
 
 	@Override
 	protected void executeInternal(JobExecutionContext arg0) throws JobExecutionException {
+		log.debug("-----------------------------------------------------------coding here");
 		log.debug("coding here");
 	}
 

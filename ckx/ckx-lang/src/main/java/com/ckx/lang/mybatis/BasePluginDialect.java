@@ -1,4 +1,4 @@
-package com.ckx.web.persist.mybatis;
+package com.ckx.lang.mybatis;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,8 +16,6 @@ import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.ParameterMapping;
 import org.apache.ibatis.scripting.defaults.DefaultParameterHandler;
-
-import com.ckx.lang.Pager;
 
 public abstract class BasePluginDialect implements PluginDialect {
   private static final Log log = LogFactory.getLog(BasePluginDialect.class);

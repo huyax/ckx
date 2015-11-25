@@ -1,4 +1,4 @@
-package com.ckx.lang;
+package com.ckx.lang.util;
 
 public class FileUpload {
 	

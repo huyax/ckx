@@ -2,7 +2,7 @@ package com.ckx.web.core.base;
 
 import java.util.List;
 
-import com.ckx.lang.Pager;
+import com.ckx.lang.mybatis.Pager;
 import com.ckx.web.persist.entity.SysUserRoleKey;
 import com.ckx.web.persist.entity.SysUsers;
 

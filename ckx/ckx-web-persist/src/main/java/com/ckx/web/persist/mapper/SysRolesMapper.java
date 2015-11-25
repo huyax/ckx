@@ -2,7 +2,7 @@ package com.ckx.web.persist.mapper;
 
 import java.util.List;
 
-import com.ckx.lang.Pager;
+import com.ckx.lang.mybatis.Pager;
 import com.ckx.web.persist.entity.SysRoles;
 
 public interface SysRolesMapper {

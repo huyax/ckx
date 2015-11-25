@@ -1,8 +1,6 @@
-package com.ckx.web.persist.mybatis;
+package com.ckx.lang.mybatis;
 
 import java.util.List;
-
-import com.ckx.lang.Pager;
 
 public class PluginDialectMySQL5 extends BasePluginDialect {
   private static final PluginDialectMySQL5 instance = new PluginDialectMySQL5();

@@ -1,6 +1,6 @@
 package com.ckx.web.core.location;
 
-import com.ckx.lang.Pager;
+import com.ckx.lang.mybatis.Pager;
 import com.ckx.web.persist.entity.Location;
 
 public interface LocationService {
@@ -14,5 +14,7 @@ public interface LocationService {
 	int deleteById(Integer id);
 	
 	int batchDelete(String ids);
+
+	void scanQueue();
 
 }

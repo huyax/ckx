@@ -1,4 +1,4 @@
-package com.ckx.web.persist.mybatis;
+package com.ckx.lang.mybatis;
 
 import java.sql.Connection;
 import java.util.Properties;
@@ -15,8 +15,6 @@ import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.plugin.Plugin;
 import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.session.Configuration;
-
-import com.ckx.lang.Pager;
 
 @Intercepts(@Signature(type = StatementHandler.class, method = "prepare", args = { Connection.class }))
 public class PageInterceptor implements Interceptor {

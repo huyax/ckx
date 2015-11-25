@@ -18,9 +18,9 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.ckx.lang.FileUpload;
-import com.ckx.lang.Pager;
+import com.ckx.lang.mybatis.Pager;
 import com.ckx.lang.util.CastToBean;
+import com.ckx.lang.util.FileUpload;
 import com.ckx.web.core.constants.SysConstants;
 import com.ckx.web.persist.entity.SysUsers;
 

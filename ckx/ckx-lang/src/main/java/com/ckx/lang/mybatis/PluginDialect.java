@@ -1,11 +1,9 @@
-package com.ckx.web.persist.mybatis;
+package com.ckx.lang.mybatis;
 
 import java.sql.Connection;
 
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
-
-import com.ckx.lang.Pager;
 
 public interface PluginDialect {
 

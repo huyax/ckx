@@ -523,4 +523,39 @@ public class RedisClient {
 		});
 	}
 	
+	/**
+	 * 入栈
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	public Long lPush(final String key, final String value) {
+		return template.execute(new RedisCallback<Long>() {
+			public Long doInRedis(RedisConnection connection)throws DataAccessException {
+				byte[] bKey = redisTemplate.getStringSerializer().serialize(key);
+				byte[] bValue = redisTemplate.getStringSerializer().serialize(value);
+				return connection.lPush(bKey,bValue);
+			}
+		});
+	}
+
+	/**
+	 * 出栈（阻塞）
+	 * @param key
+	 * @param time（等待阻塞时间，0为永久）
+	 * @return
+	 */
+	public Object bRPop(final String key, final Integer time){
+		return template.execute(new RedisCallback<Object>() {
+			public Object doInRedis(RedisConnection connection) throws DataAccessException {
+				byte[] bKey = template.getStringSerializer().serialize(key);
+				List<byte[]> list = connection.bRPop(time, bKey);
+				if(list != null && list.size() > 1){
+					return template.getValueSerializer().deserialize(list.get(1));
+				}
+				return null;
+			}
+		});
+	}
+	
 }

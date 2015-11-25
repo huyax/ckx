@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ckx.lang.Pager;
+import com.ckx.lang.mybatis.Pager;
 import com.ckx.web.core.base.SysConfigService;
 import com.ckx.web.persist.entity.SysConfig;
 import com.ckx.web.persist.mapper.SysConfigMapper;

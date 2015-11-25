@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ckx.lang.Constants;
+import com.ckx.lang.constants.Constants;
 import com.ckx.web.core.redis.RedisClient;
 
 public class CkxSessionDAO extends AbstractSessionDAO {

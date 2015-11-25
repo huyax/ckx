@@ -1,4 +1,4 @@
-package com.ckx.lang;
+package com.ckx.lang.mybatis;
 
 import java.util.ArrayList;
 import java.util.HashMap;

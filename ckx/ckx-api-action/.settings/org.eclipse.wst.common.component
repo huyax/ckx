@@ -5,6 +5,15 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
+        <dependent-module archiveName="ckx-lang-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ckx-lang/ckx-lang">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ckx-api-persist-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ckx-api-persist/ckx-api-persist">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ckx-api-core-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ckx-api-core/ckx-api-core">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="ckx-api-action"/>
         <property name="java-output-path" value="/ckx-api-action/target/classes"/>
     </wb-module>

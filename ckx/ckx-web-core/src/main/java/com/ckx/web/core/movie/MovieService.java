@@ -1,6 +1,6 @@
 package com.ckx.web.core.movie;
 
-import com.ckx.lang.Pager;
+import com.ckx.lang.mybatis.Pager;
 import com.ckx.web.persist.entity.Movie;
 
 public interface MovieService {

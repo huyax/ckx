@@ -2,14 +2,13 @@ package com.ckx.web.core.catelogs.impl;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ckx.lang.Pager;
+import com.ckx.lang.mybatis.Pager;
 import com.ckx.web.core.catelogs.CatelogsService;
 import com.ckx.web.persist.entity.Catelogs;
 import com.ckx.web.persist.mapper.CatelogsMapper;
