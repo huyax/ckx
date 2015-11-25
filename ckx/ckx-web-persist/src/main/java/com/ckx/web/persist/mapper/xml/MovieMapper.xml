@@ -20,6 +20,13 @@
     content
   </sql>
   
+  <select id="listAll" resultMap="BaseResultMap" parameterType="map">
+		select 'false' as QUERYID,
+		id,name,pub_date
+		from movie
+		order by pub_date desc
+ </select>
+  
   <select id="paginate" resultMap="BaseResultMap" parameterType="map">
 		select 'false' as QUERYID,
 		<include refid="Base_Column_List" />,

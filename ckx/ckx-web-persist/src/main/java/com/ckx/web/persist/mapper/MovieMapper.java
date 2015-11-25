@@ -23,4 +23,6 @@ public interface MovieMapper {
 	List<Movie> paginate(Map<String, Object> paramsMap);
 
 	int paginateCount(Map<String, Object> paramsMap);
+
+	List<Movie> listAll();
 }

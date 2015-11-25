@@ -31,12 +31,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.apache.lucene</groupId>
-			<artifactId>lucene-highlighter</artifactId>
-			<version>4.10.2</version>
-		</dependency>
-
-		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
 			<version>1.8.1</version>
