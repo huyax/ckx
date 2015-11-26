@@ -11,7 +11,8 @@
         http://www.springframework.org/schema/util  http://www.springframework.org/schema/util/spring-util-3.0.xsd"
 	default-autowire="byName">
 
-	<util:constant id="LUCENE_VERSION" static-field="org.apache.lucene.util.Version.LUCENE_4_10_2"/>
+	<util:constant id="LUCENE_VERSION"
+		static-field="org.apache.lucene.util.Version.LUCENE_4_10_2" />
 	<bean id="directory" class="org.apache.lucene.store.SimpleFSDirectory">
 		<constructor-arg>
 			<bean class="java.io.File">
@@ -30,6 +31,17 @@
 		<constructor-arg name="d" ref="directory" />
 		<constructor-arg name="conf" ref="indexWriterConfig" />
 	</bean>
+
+
+
+	<bean id="indexReader" class="org.apache.lucene.index.DirectoryReader">
+		<constructor-arg ref="directory" />
+	</bean>
+	<!-- define the IndexSearcher -->
+	<bean id="indexSearcher" class="org.apache.lucene.search.IndexSearcher">
+		<constructor-arg ref="indexReader" />
+	</bean>
+
 
 
 </beans>  
