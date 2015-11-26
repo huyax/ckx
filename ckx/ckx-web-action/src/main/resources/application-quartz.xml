@@ -48,13 +48,43 @@
       		<value>0</value>  
  		</property>
 	</bean>  
+	
+	<!-- 定义触发时间 -->
+	<bean id="luceneIndex" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail">
+			<bean id="luceneJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+				<property name="jobClass" value="com.ckx.web.task.LuceneIndexTask"/>
+				<property name="jobDataAsMap">
+					<map>
+						<entry key="luceneService" value-ref="luceneService"></entry>
+					</map>
+				</property>
+			</bean>
+		</property>
+		<!-- 延迟10S -->
+		<property name="startDelay">
+			<value>10000</value>
+		</property>
+		<!-- 启动频率1S -->
+		<property name="repeatInterval">  
+            <value>1</value>  
+        </property>
+        <!-- 重复次数0 -->
+        <property name="repeatCount">  
+      		<value>0</value>  
+ 		</property>
+	</bean>  
   
 
   <!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序 -->
   <bean id="startQuertz" lazy-init="false" autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
     <property name="triggers">
       <list>
-        <ref bean="locationQuene" />
+      
+      	<ref bean="locationQuene" />
+       
+       <!-- <ref bean="luceneIndex" /> -->
+        
       </list>
     </property>
   </bean>

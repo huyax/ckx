@@ -38,4 +38,5 @@
 	<import resource="application-shiro.xml" />
 	<import resource="application-freemarker.xml" />
 	<import resource="application-quartz.xml" />
+	<import resource="application-lucene.xml" />
 </beans>

@@ -130,11 +130,9 @@
 			<version>4.10.2</version>
 		</dependency>
 		<dependency>
-            <groupId>IKAnalyzer-5.0.1.jar</groupId>
-            <artifactId>IKAnalyzer-5.0.1.jar</artifactId>
+            <groupId>org.wltea.analyzer.lucene</groupId>
+            <artifactId>IKAnalyzer</artifactId>
             <version>5.0.1</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/IKAnalyzer-5.0.1.jar</systemPath>
         </dependency>
 
 	</dependencies>
