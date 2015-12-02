@@ -37,7 +37,7 @@ public class BaseAction
 
 	protected final String									MESSAGE			= "m";
 
-	protected final String									AD_HTML			= "biz-logic/";
+	protected final String									AD_HTML			= "admin/";
 
 	private int												defaultPageSize	= 40;
 
