@@ -14,48 +14,44 @@ import com.ckx.web.persist.entity.Movie;
 import com.ckx.web.persist.mapper.MovieMapper;
 
 @Service
-public class MovieServiceImpl implements MovieService
-{
-	private @Autowired MovieMapper	movieMapper;
+public class MovieServiceImpl implements MovieService {
+    private
+    @Autowired
+    MovieMapper movieMapper;
 
-	@Override
-	public void paginate(Pager pager)
-	{
-		pager.setResult(movieMapper.paginate(pager.getParamsMap()));
-		pager.setTotalRecord(movieMapper.paginateCount(pager.getParamsMap()));
-	}
+    @Override
+    public void paginate(Pager pager) {
+        pager.setResult(movieMapper.paginate(pager.getParamsMap()));
+        pager.setTotalRecord(movieMapper.paginateCount(pager.getParamsMap()));
+    }
 
-	@Override
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = java.lang.Exception.class)
-	public boolean updateByPk(Movie movie)
-	{
-		return movieMapper.updateByPrimaryKey(movie) > 0 ? true : false;
-	}
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = java.lang.Exception.class)
+    public boolean updateByPk(Movie movie) {
+        return movieMapper.updateByPrimaryKey(movie) > 0 ? true : false;
+    }
 
-	@Override
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = java.lang.Exception.class)
-	public boolean add(Movie movie)
-	{
-		return movieMapper.insert(movie) > 0 ? true : false;
-	}
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = java.lang.Exception.class)
+    public boolean add(Movie movie) {
+        return movieMapper.insert(movie) > 0 ? true : false;
+    }
 
-	@Override
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = java.lang.Exception.class)
-	public int batchDelete(String ids)
-	{
-		List<String> idsList = Arrays.asList(ids.split("\\|"));
-		int i = 0;
-		for(String id:idsList){
-			i += movieMapper.deleteByPrimaryKey(Integer.valueOf(id));
-		}
-		return i;
-	}
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = java.lang.Exception.class)
+    public int batchDelete(String ids) {
+        List<String> idsList = Arrays.asList(ids.split("\\|"));
+        int i = 0;
+        for (String id : idsList) {
+            i += movieMapper.deleteByPrimaryKey(Integer.valueOf(id));
+        }
+        return i;
+    }
 
-	@Override
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = java.lang.Exception.class)
-	public int deleteById(Integer id)
-	{
-		return movieMapper.deleteByPrimaryKey(id);
-	}
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = java.lang.Exception.class)
+    public int deleteById(Integer id) {
+        return movieMapper.deleteByPrimaryKey(id);
+    }
 
 }

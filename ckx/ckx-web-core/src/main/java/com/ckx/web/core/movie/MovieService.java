@@ -5,14 +5,14 @@ import com.ckx.web.persist.entity.Movie;
 
 public interface MovieService {
 
-	void paginate(Pager pager);
-	
-	boolean add(Movie movie);
-	
-	boolean updateByPk(Movie movie);
-	
-	int deleteById(Integer id);
-	
-	int batchDelete(String ids);
+    void paginate(Pager pager);
+
+    boolean add(Movie movie);
+
+    boolean updateByPk(Movie movie);
+
+    int deleteById(Integer id);
+
+    int batchDelete(String ids);
 
 }

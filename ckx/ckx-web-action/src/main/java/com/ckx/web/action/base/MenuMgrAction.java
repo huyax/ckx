@@ -18,7 +18,9 @@ import com.ckx.web.persist.entity.SysMenus;
 @Controller
 public class MenuMgrAction extends BaseAction {
 
-    private @Autowired MenuService menuSv;
+    private
+    @Autowired
+    MenuService menuSv;
 
     @RequestMapping(value = "/menus/menu_mgr.html", method = RequestMethod.GET)
     public String index(HttpServletRequest request, ModelMap model) {
@@ -36,7 +38,7 @@ public class MenuMgrAction extends BaseAction {
     public Object addMenu(SysMenus menu, HttpServletRequest request, ModelMap model) {
         Map<String, Object> result = getResultMap();
         try {
-        
+
             if (menuSv.insertMenu(menu) > 0) {
                 result.put(RESULT, true);
                 result.put(MESSAGE, "新增成功！");

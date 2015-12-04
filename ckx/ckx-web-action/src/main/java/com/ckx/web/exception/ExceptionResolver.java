@@ -19,7 +19,7 @@ public class ExceptionResolver extends SimpleMappingExceptionResolver {
 
     @Override
     protected ModelAndView doResolveException(HttpServletRequest request, HttpServletResponse response, Object handler,
-            Exception ex) {
+                                              Exception ex) {
         if (response.isCommitted()) {
             return null;
         }

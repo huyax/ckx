@@ -20,9 +20,9 @@ public interface MovieMapper {
 
     int updateByPrimaryKey(Movie record);
 
-	List<Movie> paginate(Map<String, Object> paramsMap);
+    List<Movie> paginate(Map<String, Object> paramsMap);
 
-	int paginateCount(Map<String, Object> paramsMap);
+    int paginateCount(Map<String, Object> paramsMap);
 
-	List<Movie> listAll();
+    List<Movie> listAll();
 }

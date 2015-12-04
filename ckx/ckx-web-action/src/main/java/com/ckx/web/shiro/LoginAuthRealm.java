@@ -23,18 +23,19 @@ import com.ckx.web.persist.entity.SysUsers;
 
 /**
  * 登录验证（shiro框架）
- * 
  */
 @Component
 public class LoginAuthRealm extends AuthorizingRealm {
 
-    private @Autowired UserService userSv;
-     
-	public void setUserSv(UserService userSv) {
-		this.userSv = userSv;
-	}
+    private
+    @Autowired
+    UserService userSv;
 
-	public LoginAuthRealm() {
+    public void setUserSv(UserService userSv) {
+        this.userSv = userSv;
+    }
+
+    public LoginAuthRealm() {
         super();
         // 设置认证token的实现类
         setAuthenticationTokenClass(UsernamePasswordToken.class);
@@ -60,9 +61,9 @@ public class LoginAuthRealm extends AuthorizingRealm {
             UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
             String username = token.getUsername();
             SysUsers user = userSv.getByName(token.getUsername());
-            Map<String, Object> paramsMap=new HashMap<String, Object>();
-            paramsMap.put("userId",user.getUserId());
-            
+            Map<String, Object> paramsMap = new HashMap<String, Object>();
+            paramsMap.put("userId", user.getUserId());
+
             if (!StringUtils.isBlank(username)) {
                 if (user != null && user.getStatus() == 1) {
                     return new SimpleAuthenticationInfo(user, user.getPassword(), getName());

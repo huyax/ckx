@@ -35,122 +35,126 @@ import com.ckx.web.persist.mapper.MovieMapper;
 
 @Service("luceneService")
 public class LuceneServiceImpl implements LuceneService {
-	private @Autowired(required = true)
-	IndexWriter indexWriter;
+    private
+    @Autowired(required = true)
+    IndexWriter indexWriter;
 
-	private @Autowired(required = true)
-	MovieMapper movieMapper;
+    private
+    @Autowired(required = true)
+    MovieMapper movieMapper;
 
-	private @Autowired(required = true)
-	IndexSearcher indexSearcher;
+    private
+    @Autowired(required = true)
+    IndexSearcher indexSearcher;
 
-	private @Autowired(required = true)
-	IKAnalyzer analyzer;
-	private Log log = LogFactory.getLog(getClass());
+    private
+    @Autowired(required = true)
+    IKAnalyzer analyzer;
+    private Log log = LogFactory.getLog(getClass());
 
-	@Override
-	public boolean createIndex() {
-		List<Movie> list = movieMapper.listAll();
-		try {
-			Document doc = null;
-			for (Movie movie : list) {
-				doc = new Document();
-				Field id = new StringField("id", movie.getId() + "",
-						Field.Store.YES);
-				Field name = new TextField("name", movie.getName() + "",
-						Field.Store.YES);
-				Field pubDate = new StringField("pubDate",
-						DateUtil.formatDate(movie.getPubDate()),
-						Field.Store.YES);
-				doc.add(id);
-				doc.add(name);
-				doc.add(pubDate);
-				indexWriter.addDocument(doc);
-			}
+    @Override
+    public boolean createIndex() {
+        List<Movie> list = movieMapper.listAll();
+        try {
+            Document doc = null;
+            for (Movie movie : list) {
+                doc = new Document();
+                Field id = new StringField("id", movie.getId() + "",
+                        Field.Store.YES);
+                Field name = new TextField("name", movie.getName() + "",
+                        Field.Store.YES);
+                Field pubDate = new StringField("pubDate",
+                        DateUtil.formatDate(movie.getPubDate()),
+                        Field.Store.YES);
+                doc.add(id);
+                doc.add(name);
+                doc.add(pubDate);
+                indexWriter.addDocument(doc);
+            }
 
-			indexWriter.close();
-			log.debug("创建完成....");
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
+            indexWriter.close();
+            log.debug("创建完成....");
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
 
-	}
+    }
 
-	/**
-	 * 删除索引
-	 * 
-	 * @param movie
-	 * @throws Exception
-	 */
-	public void removeIndex(Movie movie) throws Exception {
-		indexWriter.deleteDocuments(new Term("id", movie.getId() + ""));
-		indexWriter.deleteDocuments(new Term("name", movie.getName()));
-		indexWriter.deleteDocuments(new Term("pubDate", DateUtil
-				.formatDate(movie.getPubDate())));
-		indexWriter.close();
-	}
+    /**
+     * 删除索引
+     *
+     * @param movie
+     * @throws Exception
+     */
+    public void removeIndex(Movie movie) throws Exception {
+        indexWriter.deleteDocuments(new Term("id", movie.getId() + ""));
+        indexWriter.deleteDocuments(new Term("name", movie.getName()));
+        indexWriter.deleteDocuments(new Term("pubDate", DateUtil
+                .formatDate(movie.getPubDate())));
+        indexWriter.close();
+    }
 
-	/**
-	 * 增加索引
-	 */
-	public void addIndex(Movie movie) throws Exception {
-		Document doc = null;
-		doc = new Document();
-		Field id = new StringField("id", movie.getId() + "", Field.Store.YES);
-		Field name = new TextField("name", movie.getName() + "",
-				Field.Store.YES);
-		Field pubDate = new StringField("pubDate", DateUtil.formatDate(movie
-				.getPubDate()), Field.Store.YES);
-		doc.add(id);
-		doc.add(name);
-		doc.add(pubDate);
-		indexWriter.addDocument(doc);
-		indexWriter.close();
-	}
+    /**
+     * 增加索引
+     */
+    public void addIndex(Movie movie) throws Exception {
+        Document doc = null;
+        doc = new Document();
+        Field id = new StringField("id", movie.getId() + "", Field.Store.YES);
+        Field name = new TextField("name", movie.getName() + "",
+                Field.Store.YES);
+        Field pubDate = new StringField("pubDate", DateUtil.formatDate(movie
+                .getPubDate()), Field.Store.YES);
+        doc.add(id);
+        doc.add(name);
+        doc.add(pubDate);
+        indexWriter.addDocument(doc);
+        indexWriter.close();
+    }
 
-	/**
-	 * 更新索引
-	 * 
-	 * @throws Exception
-	 */
-	public void updateIndex(Movie movie) throws Exception {
+    /**
+     * 更新索引
+     *
+     * @throws Exception
+     */
+    public void updateIndex(Movie movie) throws Exception {
 
-		Document doc = new Document();
-		Field id = new StringField("id", movie.getId() + "", Field.Store.YES);
-		Field name = new TextField("name", movie.getName() + "",
-				Field.Store.YES);
-		Field pubDate = new StringField("pubDate", DateUtil.formatDate(movie
-				.getPubDate()), Field.Store.YES);
-		doc.add(id);
-		doc.add(name);
-		doc.add(pubDate);
-		indexWriter.updateDocument(new Term("name", movie.getName()), doc);
-		indexWriter.close();
+        Document doc = new Document();
+        Field id = new StringField("id", movie.getId() + "", Field.Store.YES);
+        Field name = new TextField("name", movie.getName() + "",
+                Field.Store.YES);
+        Field pubDate = new StringField("pubDate", DateUtil.formatDate(movie
+                .getPubDate()), Field.Store.YES);
+        doc.add(id);
+        doc.add(name);
+        doc.add(pubDate);
+        indexWriter.updateDocument(new Term("name", movie.getName()), doc);
+        indexWriter.close();
 
-	}
+    }
 
-	@Override
-	public List<SearchBean> search(String q) throws Exception {
-		QueryParser parser = new QueryParser("name", analyzer);
-		Query query = parser.parse(q);
+    @Override
+    public List<SearchBean> search(String q) throws Exception {
+        QueryParser parser = new QueryParser("name", analyzer);
+        Query query = parser.parse(q);
 
-		TopDocs topDocs = indexSearcher.search(query, indexSearcher
-				.getIndexReader().maxDoc());
-		List<SearchBean> list = new ArrayList<SearchBean>();
-		SearchBean bean = null;
-		ScoreDoc[] scoreDocs = topDocs.scoreDocs;
-		for (int i = 0; i < scoreDocs.length; i++) {
-			int docId = scoreDocs[i].doc;
-			Document doc = indexSearcher.doc(docId);
-			bean = new SearchBean();
-			bean.setId(doc.get("id"));
-			bean.setName(doc.get("name"));
-			bean.setPubDate(doc.get("pubDate"));
-			list.add(bean);
-		}
-		return list;
-	}
+        TopDocs topDocs = indexSearcher.search(query, indexSearcher
+                .getIndexReader().maxDoc());
+        List<SearchBean> list = new ArrayList<SearchBean>();
+        SearchBean bean = null;
+        ScoreDoc[] scoreDocs = topDocs.scoreDocs;
+        for (int i = 0; i < scoreDocs.length; i++) {
+            int docId = scoreDocs[i].doc;
+            Document doc = indexSearcher.doc(docId);
+            bean = new SearchBean();
+            bean.setId(doc.get("id"));
+            bean.setName(doc.get("name"));
+            bean.setPubDate(doc.get("pubDate"));
+            list.add(bean);
+        }
+        return list;
+    }
 
 }

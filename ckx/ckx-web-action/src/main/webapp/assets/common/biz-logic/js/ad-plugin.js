@@ -4,18 +4,18 @@ function initSize() {
         if (typeof resize === 'function') {
             resize(size.width, size.height);
         }
-        if(typeof custom === 'function') {
+        if (typeof custom === 'function') {
             custom(size.width, size.height);
         }
     }
 }
 
-function resize(width,height){
-    if(!$.isEmptyObject($('#query_con').get(0))) {
+function resize(width, height) {
+    if (!$.isEmptyObject($('#query_con').get(0))) {
         height -= $('#query_con').height() + 7;
     }
-    if(!$.isEmptyObject($('#grid').get(0))) {
-        $('#grid').datagrid('resize',{width:width,height:height});
+    if (!$.isEmptyObject($('#grid').get(0))) {
+        $('#grid').datagrid('resize', {width: width, height: height});
     }
 }
 /**
@@ -36,7 +36,7 @@ function getLink(path) {
  * 引入翻译显示JS
  * @param {} types
  */
-function display(types){
+function display(types) {
     document.write('<script type="text/javascript" src="' + window.rootPath + "/display.js?type=" + encodeURIComponent(types) + "&v=" + new Date() + '"></script>');
 }
 
@@ -44,60 +44,71 @@ function formatDate(date, format) {
     return $.formatDate(date, format);
 }
 
-Number.prototype.toPercent = function(){
-    return (Math.round(this * 10000)/100).toFixed(2) + '%';
-    };
-(function($){
+Number.prototype.toPercent = function () {
+    return (Math.round(this * 10000) / 100).toFixed(2) + '%';
+};
+(function ($) {
     var randomList = {};
     /*生产随机数*/
-    function getRandom(length){
+    function getRandom(length) {
         length = length ? length : 8;
         var str;
-        while(true){
+        while (true) {
             str = Math.random().toString().substr(2, length);
-            if(!randomList[str]){
+            if (!randomList[str]) {
                 randomList[str] = null;
                 break;
             }
         }
         return str;
     }
+
     /*键盘F5刷新mainFrame中的内容*/
-    $(document).bind('keydown',function(event){
+    $(document).bind('keydown', function (event) {
         event = window.event || event;
-        if(event.keyCode == 116){
-            if(document.getElementById("contentBody")){
+        if (event.keyCode == 116) {
+            if (document.getElementById("contentBody")) {
                 document.getElementById("contentBody").contentWindow.location.reload();
             } else {
                 document.location.reload();
             }
-            event.keyCode = 0;   
-            event.cancelBubble = true;   
+            event.keyCode = 0;
+            event.cancelBubble = true;
             return false;
         }
     });
     /*Dom加载完成之后调用*/
-    $(function(){
-        if(typeof top.showFrameLoading === 'function'){ top.showFrameLoading(false); }
-        $.ajaxSetup({cache:false,error:function(XMLHttpRequest, textStatus, errorThrown){
-            if(textStatus == 'timeout' || textStatus == 'error'){
-                $.messager.alert('请求错误','AJAX请求失败~[请检查网络]','error');
-            } else {
-                $.messager.alert('请求错误','AJAX请求错误~','error');
+    $(function () {
+        if (typeof top.showFrameLoading === 'function') {
+            top.showFrameLoading(false);
+        }
+        $.ajaxSetup({
+            cache: false, error: function (XMLHttpRequest, textStatus, errorThrown) {
+                if (textStatus == 'timeout' || textStatus == 'error') {
+                    $.messager.alert('请求错误', 'AJAX请求失败~[请检查网络]', 'error');
+                } else {
+                    $.messager.alert('请求错误', 'AJAX请求错误~', 'error');
+                }
+                /*console.log('AJAX请求超时~');*/
+            }, dataFilter: function (data, type) {
+                return data;
+            }, statusCode: {
+                404: function () {
+                    $.messager.alert('请求错误', '请求路径错误~', 'error');
+                },
+                302: function () {
+                    $.messager.alert('请求错误', '用户登录失效~', 'error');
+                },
+                500: function () {
+                    $.messager.alert('请求错误', '服务端出现异常~', 'error');
+                }
             }
-            /*console.log('AJAX请求超时~');*/
-        },dataFilter:function(data,type){
-            return data;
-        },statusCode:{
-            404:function(){$.messager.alert('请求错误','请求路径错误~','error');},
-            302:function(){$.messager.alert('请求错误','用户登录失效~','error');},
-            500:function(){$.messager.alert('请求错误','服务端出现异常~','error');}
-        }});
+        });
         /* 绑定文档加载完成事件 */
-        $(window).bind('load',initSize);
+        $(window).bind('load', initSize);
         /*格式所有select*/
-        $('select').each(function(i, n){
-            if($(this).css('display') != 'none'){
+        $('select').each(function (i, n) {
+            if ($(this).css('display') != 'none') {
                 var width = $(this).css('width').replace('px', '');
                 $(this)._pullDownList({width: Number(width)});
             }
@@ -105,25 +116,26 @@ Number.prototype.toPercent = function(){
     });
     function ajaxRequest(url, params, callback, type, dataType) {
         $.ajax({
-            dataType:type ? type : 'json',
-            url:url,
-            data:params,
-            cache:false,
-            type:dataType,
-            success:callback
+            dataType: type ? type : 'json',
+            url: url,
+            data: params,
+            cache: false,
+            type: dataType,
+            success: callback
         });
     }
+
     /*jQuery插件$.method(params1, params2, ...)*/
     $.extend({
-        _ajaxPost:function(url, params, callback, type){
+        _ajaxPost: function (url, params, callback, type) {
             ajaxRequest(url, params, callback, type, 'POST');
         },
-        _ajaxGet:function(url, params, callback, type){
+        _ajaxGet: function (url, params, callback, type) {
             ajaxRequest(url, params, callback, type, 'GET');
         },
         formatDate: function formatDate(date, format) {
             var weeks = ['日', '一', '二', '三', '四', '五', '六'];
-            return format.replace(/YYYY|MM|DD|hh|mm|ss|星期/g, function(a) {
+            return format.replace(/YYYY|MM|DD|hh|mm|ss|星期/g, function (a) {
                 switch (a) {
                     case 'YYYY' :
                         return date.getFullYear();
@@ -145,161 +157,188 @@ Number.prototype.toPercent = function(){
     });
     /*jQuery插件$(select).method(params1, params2, ...)*/
     $.fn.extend({
-        _jsonToForm:function(json){
+        _jsonToForm: function (json) {
             var form = $(this);
-            if($.isPlainObject(json)){
-                $.each(json,function(i,n){
-                    var field = form.find('input[name='+i+']');
+            if ($.isPlainObject(json)) {
+                $.each(json, function (i, n) {
+                    var field = form.find('input[name=' + i + ']');
                     switch (field.attr('type')) {
-                    case 'hidden':
-                        field.val(n);
-                        break;
-                    case 'text':
-                        field.val(n);
-                        break;
-                    case 'radio':
-                        field.each(function(){
-                            var value = $(this).val();
-                            if(value == 'true'){value = true;}else if(value == 'false'){value = false;}
-                            if(value == n){$(this).get(0).checked = true;}
-                            });
-                        break;
-                    case 'checkbox':
-                        field.each(function(){
-                            var value = $(this).val();
-                            if(value == 'true'){value = true;}else if(value == 'false'){value = false;}
-                            if(value == n){$(this).get(0).checked = true;}
-                        });
-                        break;
-                    default:
-                        field = form.find('select[name='+i+']');
-                        if(!$.isEmptyObject(field.get(0))){
-                            field.children('option').each(function(){
-                                if($(this).val() == n){this.selected = true;}
-                            });
-                        }
-                        field = form.find('textarea[name='+i+']');
-                        if(!$.isEmptyObject(field.get(0))){
+                        case 'hidden':
                             field.val(n);
-                        }
-                        break;
+                            break;
+                        case 'text':
+                            field.val(n);
+                            break;
+                        case 'radio':
+                            field.each(function () {
+                                var value = $(this).val();
+                                if (value == 'true') {
+                                    value = true;
+                                } else if (value == 'false') {
+                                    value = false;
+                                }
+                                if (value == n) {
+                                    $(this).get(0).checked = true;
+                                }
+                            });
+                            break;
+                        case 'checkbox':
+                            field.each(function () {
+                                var value = $(this).val();
+                                if (value == 'true') {
+                                    value = true;
+                                } else if (value == 'false') {
+                                    value = false;
+                                }
+                                if (value == n) {
+                                    $(this).get(0).checked = true;
+                                }
+                            });
+                            break;
+                        default:
+                            field = form.find('select[name=' + i + ']');
+                            if (!$.isEmptyObject(field.get(0))) {
+                                field.children('option').each(function () {
+                                    if ($(this).val() == n) {
+                                        this.selected = true;
+                                    }
+                                });
+                            }
+                            field = form.find('textarea[name=' + i + ']');
+                            if (!$.isEmptyObject(field.get(0))) {
+                                field.val(n);
+                            }
+                            break;
                     }
                 });
             }
-        },_formToJson:function(){
+        }, _formToJson: function () {
             var str = $(this).serialize();
-                str = str.replace(/\+/g,"%20");
-                str = str.replace(/&/g,"\",\"");
-                str = str.replace(/=/g,"\":\"");
-            var data = eval("({\""+str +"\"})");
-            $.each(data,function(i,n){data[i] = $.trim(decodeURIComponent(n));});
-            return data; 
-        },_ajaxForm:function(callback){
+            str = str.replace(/\+/g, "%20");
+            str = str.replace(/&/g, "\",\"");
+            str = str.replace(/=/g, "\":\"");
+            var data = eval("({\"" + str + "\"})");
+            $.each(data, function (i, n) {
+                data[i] = $.trim(decodeURIComponent(n));
+            });
+            return data;
+        }, _ajaxForm: function (callback) {
             var target = $(this);
-            if($.isEmptyObject($('#ajaxFormResultTip').get(0))){$('body').append('<div id="ajaxFormResultTip" style="display: none;"></div>');}
-            var options = {target:'#ajaxFormResultTip',url:$(this).attr('action'),type:'POST',beforeSubmit:function(){
-                var submit = target.data('submit') ? false : true;
-                target.data('submit', true);
-                if(!submit) {
-                    asyncbox.tips('不可重复提交表单！', 'error');
-                }
-                return submit;
-            },success: function(){
-                if(typeof callback === 'function'){
-                    try {
-                        callback(eval('('+$('#ajaxFormResultTip').text()+')'));
-                    } catch (e) {
-                        $.messager.alert('操作提示','AJAX请求返回数据解析错误~','error');
-                        console.error('AJAX请求返回数据解析错误~['+e.message+']');
+            if ($.isEmptyObject($('#ajaxFormResultTip').get(0))) {
+                $('body').append('<div id="ajaxFormResultTip" style="display: none;"></div>');
+            }
+            var options = {
+                target: '#ajaxFormResultTip', url: $(this).attr('action'), type: 'POST', beforeSubmit: function () {
+                    var submit = target.data('submit') ? false : true;
+                    target.data('submit', true);
+                    if (!submit) {
+                        asyncbox.tips('不可重复提交表单！', 'error');
                     }
+                    return submit;
+                }, success: function () {
+                    if (typeof callback === 'function') {
+                        try {
+                            callback(eval('(' + $('#ajaxFormResultTip').text() + ')'));
+                        } catch (e) {
+                            $.messager.alert('操作提示', 'AJAX请求返回数据解析错误~', 'error');
+                            console.error('AJAX请求返回数据解析错误~[' + e.message + ']');
+                        }
+                    }
+                }, complete: function () {
+                    target.data('submit', false);
                 }
-            }, complete : function(){
-                target.data('submit', false);
-            }};
+            };
             $(this).ajaxSubmit(options);
-        },_datagrid:function(params){
+        }, _datagrid: function (params) {
             var defaults = {
-                pageSize : 20,
-                nowrap : true,
-                pagination : true,
-                rownumbers : true,
-                width : 'auto',
-                height : 'auto',
-                fitColumns : true,
-                singleSelect : true,
-                striped : true,
-                queryParams : {},
-                onLoadError:function(){
-                    $.messager.alert('操作提示','加载远程数据发生错误~','error');
+                pageSize: 20,
+                nowrap: true,
+                pagination: true,
+                rownumbers: true,
+                width: 'auto',
+                height: 'auto',
+                fitColumns: true,
+                singleSelect: true,
+                striped: true,
+                queryParams: {},
+                onLoadError: function () {
+                    $.messager.alert('操作提示', '加载远程数据发生错误~', 'error');
                 }
             };
             $.extend(defaults, params || {});
             $(this).datagrid(defaults);
             return this;
-        },_datagridTip:function(field, callback) {
+        }, _datagridTip: function (field, callback) {
             var arr = [], grid = $(this), body = grid.datagrid('getPanel');
             if ($.isArray(field)) {
                 $.merge(arr, field);
             } else {
                 arr.push(field);
             }
-            $.each(arr, function(i, f){
+            $.each(arr, function (i, f) {
                 var tds = body.find('table td[field=' + f + ']');
-                $.each(tds, function(i, n){
-                    if(i > 0) {
-                        $(n).poshytip({className: 'tip-yellowsimple',alignX: 'inner-left',alignY: 'bottom',followCursor: false,slide: false,content:function(updateCallback){
-                            if(callback && $.isFunction(callback)) {
-                                var rowIndex = $(n).parent().attr('datagrid-row-index'),data = grid.datagrid('getRows')[rowIndex];
-                                return callback(updateCallback, f, data);
-                            } else {
-                                return $.trim($(n).text());
+                $.each(tds, function (i, n) {
+                    if (i > 0) {
+                        $(n).poshytip({
+                            className: 'tip-yellowsimple',
+                            alignX: 'inner-left',
+                            alignY: 'bottom',
+                            followCursor: false,
+                            slide: false,
+                            content: function (updateCallback) {
+                                if (callback && $.isFunction(callback)) {
+                                    var rowIndex = $(n).parent().attr('datagrid-row-index'), data = grid.datagrid('getRows')[rowIndex];
+                                    return callback(updateCallback, f, data);
+                                } else {
+                                    return $.trim($(n).text());
+                                }
                             }
-                        }});
+                        });
                     }
                 });
             });
-        },_uploadify:function(options){
+        }, _uploadify: function (options) {
             var defaults = {
-                height : 22,
-				width : 60,
-				auto : true,
-				multi : false,
-				debug : false,
-				swf : window.rootPath + '/res/js/uploadify/uploadify.swf',
-				buttonImage : window.rootPath + '/res/admin/images/file_select_btn.png',
-				queueID : 'no_queueID',
-                 onUploadStart : function (file){
-                     $.messager.progress({title:'文件上传', msg: file.name + ' - 上传中……', interval:86400000});
-                     $.messager.progress('bar').progressbar('setValue', 0);
-                 },
-                 onUploadProgress : function(file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal){
-                     $.messager.progress('bar').progressbar('setValue', Math.round(bytesUploaded / bytesTotal * 100));
-                 },
-                 onUploadComplete : function(file){
-                     $.messager.progress('close');
-                 },
-                 onUploadError : function(file, errorCode, errorMsg, errorString){
-                     alert(file.name + '上传失败！');
-                 }
+                height: 22,
+                width: 60,
+                auto: true,
+                multi: false,
+                debug: false,
+                swf: window.rootPath + '/res/js/uploadify/uploadify.swf',
+                buttonImage: window.rootPath + '/res/admin/images/file_select_btn.png',
+                queueID: 'no_queueID',
+                onUploadStart: function (file) {
+                    $.messager.progress({title: '文件上传', msg: file.name + ' - 上传中……', interval: 86400000});
+                    $.messager.progress('bar').progressbar('setValue', 0);
+                },
+                onUploadProgress: function (file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal) {
+                    $.messager.progress('bar').progressbar('setValue', Math.round(bytesUploaded / bytesTotal * 100));
+                },
+                onUploadComplete: function (file) {
+                    $.messager.progress('close');
+                },
+                onUploadError: function (file, errorCode, errorMsg, errorString) {
+                    alert(file.name + '上传失败！');
+                }
             };
             $.extend(defaults, options || {});
             $(this).uploadify(defaults);
         },
-        _validatorGropDisabled : function(validType, disabled){
+        _validatorGropDisabled: function (validType, disabled) {
             $(this).data('validator_group_' + validType + '_disabled', disabled);
         },
-        _pullDownList : function(options){/*下拉菜单*/
+        _pullDownList: function (options) {/*下拉菜单*/
             var defaults = {
-                width:150,
-                maxHeight:200,
-                compatibility:false
+                width: 150,
+                maxHeight: 200,
+                compatibility: false
             };
             $.extend(defaults, options || {});
             /*defaults.width += 2;*/
-            var target = $(this),targetId = $(this).attr('id');
-            if(target.data('isload')) {
+            var target = $(this), targetId = $(this).attr('id');
+            if (target.data('isload')) {
                 if (typeof options == "string") {
-                    switch(options){
+                    switch (options) {
                         case 'refresh':
                             target.data('refresh', true);
                             target.change();
@@ -312,62 +351,73 @@ Number.prototype.toPercent = function(){
                 var random = getRandom();
                 target.hide();
                 target.data('isload', true).data('random', random);
-                var html = '<span class="pull-down-list-input" listid="'+random+'" style="width: ' + defaults.width + 'px;">';
-                    html += '<input type="text" class="input-text" readonly="readonly" onfocus="$(this).blur()"/>';
-                    html += '<span class="pull-down-list-button"></span></span>';
+                var html = '<span class="pull-down-list-input" listid="' + random + '" style="width: ' + defaults.width + 'px;">';
+                html += '<input type="text" class="input-text" readonly="readonly" onfocus="$(this).blur()"/>';
+                html += '<span class="pull-down-list-button"></span></span>';
                 target.after(html);
                 var span_tag = target.next();
                 span_tag.prepend(target);
                 var input_tag = target.next();
-                if(target.attr('data-options') && target.attr('data-options').indexOf('required') != -1){
-                    var valid = eval('({'+target.attr('data-options')+'})');
-                    if(valid.required){
+                if (target.attr('data-options') && target.attr('data-options').indexOf('required') != -1) {
+                    var valid = eval('({' + target.attr('data-options') + '})');
+                    if (valid.required) {
                         valid.validType = 'requiredSelect[true]';
                     }
                     input_tag.validatebox(valid);
                     target.removeAttr('data-options').removeAttr('class').removeAttr('required');
                 }
-                input_tag.css({border:'solid 1px #B1C242',background:'url('+window.rootPath+'/assets/biz-logic/images/input_bg_d.jpg) repeat-x',color:'#999',height: '18px',cursor: 'pointer'});
-                input_tag.width(defaults.width - 20).css('border-right','0px');
-                $('body').append('<div class="pull-down-list-panel" listid="'+random+'"><ul class="pull-down-list"></ul></div>');
+                input_tag.css({
+                    border: 'solid 1px #B1C242',
+                    background: 'url(' + window.rootPath + '/assets/biz-logic/images/input_bg_d.jpg) repeat-x',
+                    color: '#999',
+                    height: '18px',
+                    cursor: 'pointer'
+                });
+                input_tag.width(defaults.width - 20).css('border-right', '0px');
+                $('body').append('<div class="pull-down-list-panel" listid="' + random + '"><ul class="pull-down-list"></ul></div>');
                 var item_panel = $('body > div').last();
-                item_panel.css({width:defaults.width - ($.browser.msie ? 0 : 2) + "px", 'max-height':defaults.maxHeight + "px"});
+                item_panel.css({
+                    width: defaults.width - ($.browser.msie ? 0 : 2) + "px",
+                    'max-height': defaults.maxHeight + "px"
+                });
                 /*浏览器兼容性控制*/
-                if(defaults.compatibility && $.browser.msie && Number($.browser.version) < 8){
-                    input_tag.next().css('margin-top','1px');
+                if (defaults.compatibility && $.browser.msie && Number($.browser.version) < 8) {
+                    input_tag.next().css('margin-top', '1px');
                 }
                 var item_ul = item_panel.children('ul:first');
-                function loadList(){
-                    target.children('option').each(function(){
+
+                function loadList() {
+                    target.children('option').each(function () {
                         var text = $(this).text();
                         var value = $(this).val();
                         item_ul.append('<li class="pull-down-list-li' + ($(this).attr('selected') ? ' selected' : '') + '" val=' + value + '>' + text + '</li>');
-                        if($(this).attr('selected')){
+                        if ($(this).attr('selected')) {
                             input_tag.val(text);
                         }
                     });
-                    item_ul.children('li').click(function(){
+                    item_ul.children('li').click(function () {
                         item_panel.hide();
                         input_tag.val($(this).text()).focus();
                         target.val($(this).attr('val')).change();
                     });
                 }
+
                 loadList();
-                target.bind('change', function(){
-                    if(target.data('refresh')){
+                target.bind('change', function () {
+                    if (target.data('refresh')) {
                         item_ul.children('li').remove();
                         loadList();
                         target.data('refresh', false);
                     }
                     item_ul.children('li').removeClass('selected');
-                    var item_li = item_ul.children('li[val='+$(this).val()+']').addClass('selected');
+                    var item_li = item_ul.children('li[val=' + $(this).val() + ']').addClass('selected');
                     input_tag.val(item_li.text()).focus();
                     item_panel.hide();
                 });
-                function listDivToggle(){
-                    if(!target.get(0).disabled){
-                        item_panel.toggle(0, function(){
-                            if($(this).css('display') == 'block'){
+                function listDivToggle() {
+                    if (!target.get(0).disabled) {
+                        item_panel.toggle(0, function () {
+                            if ($(this).css('display') == 'block') {
                                 listDivShow();
                             } else {
                                 listDivHide();
@@ -375,64 +425,71 @@ Number.prototype.toPercent = function(){
                         });
                     }
                 }
+
                 input_tag.click(listDivToggle).next().click(listDivToggle);
-                function listDivShow(){
+                function listDivShow() {
                     var offset = input_tag.offset();
-                    item_panel.css({left:offset.left + "px", top:offset.top + input_tag.outerHeight() + 1 + "px"}).show();
+                    item_panel.css({
+                        left: offset.left + "px",
+                        top: offset.top + input_tag.outerHeight() + 1 + "px"
+                    }).show();
                     input_tag.focus();
-                    $(document).unbind('mousedown', mousedown).unbind('keydown',keydown);
-                    $(document).bind('mousedown', mousedown).bind('keydown',keydown);
+                    $(document).unbind('mousedown', mousedown).unbind('keydown', keydown);
+                    $(document).bind('mousedown', mousedown).bind('keydown', keydown);
                 }
-                function listDivHide(){
-                    $(document).unbind('mousedown', mousedown).unbind('keydown',keydown);
+
+                function listDivHide() {
+                    $(document).unbind('mousedown', mousedown).unbind('keydown', keydown);
                 }
+
                 /*点击非控件内组建隐藏面板*/
-                function mousedown(event){
+                function mousedown(event) {
                     event = window.event || event;
-                    var object = event.srcElement ? event.srcElement:event.target;
+                    var object = event.srcElement ? event.srcElement : event.target;
                     var listid = $(object).parents('span[listid]').attr('listid');
                     listid = listid ? listid : $(object).parents('div[listid]').attr('listid');
                     listid = listid ? listid : $(object).attr('listid');
-                    if(listid != random) {
+                    if (listid != random) {
                         item_panel.hide();
                         listDivHide();
                     }
                 }
-                function keydown(event){
+
+                function keydown(event) {
                     event = window.event || event;
-                    if(event.keyCode == 9){
+                    if (event.keyCode == 9) {
                         item_panel.hide();
                         listDivHide();
                     }
                 }
             }
         },
-        _pullDownTree : function(options){/*下拉树结构*/
+        _pullDownTree: function (options) {/*下拉树结构*/
             var defaults = {
-                width:200,
-                height:250,
-                expand:true,
+                width: 200,
+                height: 250,
+                expand: true,
                 treeName: 'name',
                 treeId: 'id',
-                treePId : 'pId',
+                treePId: 'pId',
                 filterParent: true,
-                compatibility:false,
-                data:null,
-                clear:false,
-                refresh:false,
-                url:null,
-                checkeds:null,
-                qryParams:{},
-                chkStyle:'checkbox',
-                radioType:'level',
-                onCheck:null,
-                chkboxType:{ "Y" : "ps", "N" : "ps"},
-                successCallback:null
+                compatibility: false,
+                data: null,
+                clear: false,
+                refresh: false,
+                url: null,
+                checkeds: null,
+                qryParams: {},
+                chkStyle: 'checkbox',
+                radioType: 'level',
+                onCheck: null,
+                chkboxType: {"Y": "ps", "N": "ps"},
+                successCallback: null
             };
             $.extend(defaults, options || {});
             defaults.width += ($.browser.msie ? 4 : 2);
             var target = $(this), targetId = $(this).attr('id'), zTree;
-            if(target.data('isload')){
+            if (target.data('isload')) {
                 var zTree = $.fn.zTree.getZTreeObj(targetId + '_pull_down_tree');
                 if (typeof options == "string") {
                     switch (options) {
@@ -451,19 +508,19 @@ Number.prototype.toPercent = function(){
                             alert('控件未提供该方法');
                     }
                 }
-                if(defaults.clear){
+                if (defaults.clear) {
                     zTree.checkAllNodes(false);
                     target.val('');
                     target.next().val('');
                 }
-                if(defaults.refresh){
+                if (defaults.refresh) {
                     zTree.destroy();
                     loadTree();
                 }
-                if($.isArray(defaults.checkeds)){
+                if ($.isArray(defaults.checkeds)) {
                     zTree.checkAllNodes(false);
                     var ids = new Array(), names = new Array(), n = 0, node;
-                    for(var i in defaults.checkeds){
+                    for (var i in defaults.checkeds) {
                         node = zTree.getNodeByParam(defaults.treeId, defaults.checkeds[i][defaults.treeId], null);
                         zTree.checkNode(node, true, true, false);
                         ids[n] = node[defaults.treeId];
@@ -475,87 +532,108 @@ Number.prototype.toPercent = function(){
             } else {
                 var random = getRandom();
                 target.data('isload', true).data('random', random).addClass('input-text');
-                target.focus(function(){$(this).blur();});
-                target.css({border:'solid 1px #B1C242',background:'url('+window.rootPath+'/assets/biz-logic/images/input_bg_d.jpg) repeat-x',color:'#999',height: '18px'});
-                var html = '<span class="pull-down-list-input" listid="'+random+'" style="width: ' + defaults.width + 'px;">';
-                    html+= '<span class="pull-down-list-button"></span>';
-                    html+= '<input name="' + target.attr('name') + '" type="hidden" /></span>';
+                target.focus(function () {
+                    $(this).blur();
+                });
+                target.css({
+                    border: 'solid 1px #B1C242',
+                    background: 'url(' + window.rootPath + '/assets/biz-logic/images/input_bg_d.jpg) repeat-x',
+                    color: '#999',
+                    height: '18px'
+                });
+                var html = '<span class="pull-down-list-input" listid="' + random + '" style="width: ' + defaults.width + 'px;">';
+                html += '<span class="pull-down-list-button"></span>';
+                html += '<input name="' + target.attr('name') + '" type="hidden" /></span>';
                 target.after(html);
                 target.next().prepend(target);
-                target.width(defaults.width - 20).css('border-right','0px').attr('readonly','readonly').attr('name', target.attr('name') + '_show');
-                $('body').append('<div class="pull-down-list-panel" listid="'+random+'"><ul class="ztree" id="' + targetId + '_pull_down_tree"></ul></div>');
+                target.width(defaults.width - 20).css('border-right', '0px').attr('readonly', 'readonly').attr('name', target.attr('name') + '_show');
+                $('body').append('<div class="pull-down-list-panel" listid="' + random + '"><ul class="ztree" id="' + targetId + '_pull_down_tree"></ul></div>');
                 var item_panel = $('body > div').last();
-                item_panel.css({width:defaults.width - ($.browser.msie ? 0 : 2) + "px", height:defaults.height + "px"});
+                item_panel.css({
+                    width: defaults.width - ($.browser.msie ? 0 : 2) + "px",
+                    height: defaults.height + "px"
+                });
                 /*浏览器兼容性控制*/
-                if(defaults.compatibility && $.browser.msie && Number($.browser.version) < 8){
-                    target.next().css('margin-top','1px');
+                if (defaults.compatibility && $.browser.msie && Number($.browser.version) < 8) {
+                    target.next().css('margin-top', '1px');
                 }
-                function treeDivToggle(){
-                    item_panel.toggle(0, function(){
-                        if($(this).css('display') == 'block'){
+                function treeDivToggle() {
+                    item_panel.toggle(0, function () {
+                        if ($(this).css('display') == 'block') {
                             treeDivShow();
                         } else {
                             treeDivHide();
                         }
                     });
                 }
+
                 /*切换显示/隐藏*/
                 target.click(treeDivToggle).next().click(treeDivToggle);
-                function treeDivShow(){
+                function treeDivShow() {
                     var offset = target.offset();
-                    item_panel.css({left:offset.left + "px", top:offset.top + target.outerHeight() + 1 + "px"}).show();
+                    item_panel.css({
+                        left: offset.left + "px",
+                        top: offset.top + target.outerHeight() + 1 + "px"
+                    }).show();
                     target.focus();
-                    $(document).unbind('mousedown', mousedown).unbind('keydown',keydown);
-                    $(document).bind('mousedown', mousedown).bind('keydown',keydown);
+                    $(document).unbind('mousedown', mousedown).unbind('keydown', keydown);
+                    $(document).bind('mousedown', mousedown).bind('keydown', keydown);
                 }
-                function treeDivHide(){
-                    $(document).unbind('mousedown', mousedown).unbind('keydown',keydown);
+
+                function treeDivHide() {
+                    $(document).unbind('mousedown', mousedown).unbind('keydown', keydown);
                 }
+
                 /*点击非控件内组建隐藏面板*/
-                function mousedown(event){
+                function mousedown(event) {
                     event = window.event || event;
-                    var object = event.srcElement ? event.srcElement:event.target;
+                    var object = event.srcElement ? event.srcElement : event.target;
                     var listid = $(object).parents('span[listid]').attr('listid');
                     listid = listid ? listid : $(object).parents('div[listid]').attr('listid');
                     listid = listid ? listid : $(object).attr('listid');
-                    if(listid != random) {
+                    if (listid != random) {
                         item_panel.hide();
                         treeDivHide();
                     }
                 }
-                function keydown(event){
+
+                function keydown(event) {
                     event = window.event || event;
-                    if(event.keyCode == 9){
+                    if (event.keyCode == 9) {
                         item_panel.hide();
                         treeDivHide();
                     }
                 }
+
                 loadTree();
             }
-            
+
             function loadTree() {
                 /*初始化树结构*/
                 var setting = {
-                    check : {
-                        enable : true, chkStyle : defaults.chkStyle, chkboxType : defaults.chkboxType, radioType:defaults.radioType
+                    check: {
+                        enable: true,
+                        chkStyle: defaults.chkStyle,
+                        chkboxType: defaults.chkboxType,
+                        radioType: defaults.radioType
                     },
-                    data : {
-                        simpleData : { enable : true, idKey : defaults.treeId, pIdKey : defaults.treePId},
-                        key : { name : defaults.treeName, url : 'noUrl' }
+                    data: {
+                        simpleData: {enable: true, idKey: defaults.treeId, pIdKey: defaults.treePId},
+                        key: {name: defaults.treeName, url: 'noUrl'}
                     },
-                    callback : {
-                        onClick : function(event, treeId, treeNode) {
+                    callback: {
+                        onClick: function (event, treeId, treeNode) {
                             if (treeNode.isParent) {
                                 zTree.expandNode(treeNode, !treeNode.open, false, true);
                             }
                         },
-                        onCheck:function(event, treeId, treeNode){
-                            if($.isFunction(defaults.onCheck)) {
+                        onCheck: function (event, treeId, treeNode) {
+                            if ($.isFunction(defaults.onCheck)) {
                                 defaults.onCheck(zTree, treeNode, target, target.next().next());
                             } else {
                                 var nodes = zTree.getCheckedNodes(true), ids = new Array(), names = new Array(), n = 0;
-                                for(var i in nodes){
-                                    if(defaults.filterParent && nodes[i].isParent){
+                                for (var i in nodes) {
+                                    if (defaults.filterParent && nodes[i].isParent) {
                                         continue;
                                     }
                                     ids[n] = nodes[i][defaults.treeId];
@@ -567,17 +645,18 @@ Number.prototype.toPercent = function(){
                             }
                         }
                     },
-                    view : { showTitle : false, selectedMulti : false, autoCancelSelected : false }
+                    view: {showTitle: false, selectedMulti: false, autoCancelSelected: false}
                 };
-                $._ajaxPost(defaults.url,defaults.qryParams,function(r) {
-                    if(r.r){
+                $._ajaxPost(defaults.url, defaults.qryParams, function (r) {
+                    if (r.r) {
                         $.fn.zTree.init($('#' + targetId + '_pull_down_tree'), setting, r.d);
                         zTree = $.fn.zTree.getZTreeObj(targetId + '_pull_down_tree');
-                        zTree.expandAll(defaults.expand);/*展开全部节点*/
-                        if($.isFunction(defaults.successCallback)){
+                        zTree.expandAll(defaults.expand);
+                        /*展开全部节点*/
+                        if ($.isFunction(defaults.successCallback)) {
                             defaults.successCallback(zTree);
                         }
-                    }else {
+                    } else {
                         alert(r.m);
                     }
                 });
@@ -587,20 +666,20 @@ Number.prototype.toPercent = function(){
     /*EasyUI功能拓展*/
     $.extend($.fn.validatebox.defaults.rules, {
         requiredSelect: {
-          validator: function(value, param){
+            validator: function (value, param) {
                 return param ? ($.trim(value) != '' && $.trim(value) != '==请选择==') : false;
             },
             message: '该输入项为必输项'
         },
         number: {
-            validator: function(value, param){
+            validator: function (value, param) {
                 return !/\D/g.test(value);
             },
             message: '该输入项只能输入数字'
         },
         numberv: {
-            validator: function(value, param){
-                if(value.length>9){
+            validator: function (value, param) {
+                if (value.length > 9) {
                     return false;
                 }
                 return !/\D/g.test(value);
@@ -608,11 +687,11 @@ Number.prototype.toPercent = function(){
             message: '请输入一个长度不超过9的有效数字'
         },
         numberlength: {
-            validator: function(value, param){
-                if(isNaN(value)){
+            validator: function (value, param) {
+                if (isNaN(value)) {
                     return false;
                 }
-                if(value>100){
+                if (value > 100) {
                     return false;
                 }
 //                var numberarry=value.split('.');
@@ -625,11 +704,11 @@ Number.prototype.toPercent = function(){
             message: '请输入一个不大于100%的有效百分比'
         },
         double: {
-            validator: function(value, param){
-                if(isNaN(value)){
+            validator: function (value, param) {
+                if (isNaN(value)) {
                     return false;
                 }
-                if(value>1){
+                if (value > 1) {
                     return false;
                 }
                 return true;
@@ -637,54 +716,54 @@ Number.prototype.toPercent = function(){
             message: '请输入一个不大于100%的有效比例'
         },
         money: {
-            validator: function(value, param){
-                if(/^[-\+]?\d+(\.\d+)?$/.test(value)){
-                    if(value>1000000){
+            validator: function (value, param) {
+                if (/^[-\+]?\d+(\.\d+)?$/.test(value)) {
+                    if (value > 1000000) {
                         return false;
                     }
                     return true;
                 }
-                return false ;
+                return false;
             },
             message: '请输入一个不大于100万有效的金钱数字'
         },
         username: {
-            validator: function(value, param){
+            validator: function (value, param) {
                 return /^[a-z0-9_-]{3,16}$/.test(value);
             },
             message: '请输入规范的用户名'
         },
         password: {
-            validator: function(value, param){
+            validator: function (value, param) {
                 return /^[a-z0-9_-]{6,18}$/.test(value);
             },
             message: '请输入规范的密码'
         },
         verify_password: {
-            validator: function(value, param){
+            validator: function (value, param) {
                 return value === $('#' + param).val();
             },
             message: '两次输入密码不一致'
         },
         group: {
-            validator: function(value, param){
+            validator: function (value, param) {
                 /*
                  * 组合验证：validType:'group[{\'username\':null,\'length\':[0,3]},\'nick\']';
                  * 启用和停止某一个验证：$('#nick')._validatorGropDisabled('length',true);(true:不验证，false:验证)
                  * */
                 var valid = $.fn.validatebox.defaults.rules, target, ok = true;
-                if(param.length > 1){
+                if (param.length > 1) {
                     target = $('#' + param[1]);
                 }
-                for(var i in param[0]) {
-                    if(target && target.data('validator_group_' + i + '_disabled')){
+                for (var i in param[0]) {
+                    if (target && target.data('validator_group_' + i + '_disabled')) {
                         continue;
                     }
                     ok = valid[i].validator(value, param[0][i]);
-                    if(!ok){
+                    if (!ok) {
                         var msg = valid[i].message;
-                        if(param[0][i]){
-                            for(var n in param[0][i]){
+                        if (param[0][i]) {
+                            for (var n in param[0][i]) {
                                 msg = msg.replace(new RegExp("\\{" + n + "\\}", "g"), param[0][i][n]);
                             }
                         }
@@ -698,25 +777,25 @@ Number.prototype.toPercent = function(){
         }
     });
     $.extend($.fn.dialog.defaults, {
-        onOpen:function(){
-            $(this).find('.datebox input').css('border','0px');
+        onOpen: function () {
+            $(this).find('.datebox input').css('border', '0px');
             $(this).find('select').change();
         }
     });
     $.extend($.fn.validatebox.defaults.rules, {
         integer: {
-            validator: function(value, param){
-                if(/^(0|([1-9]\d*))$/.test(value)){
-                    if(value > 100000000){
+            validator: function (value, param) {
+                if (/^(0|([1-9]\d*))$/.test(value)) {
+                    if (value > 100000000) {
                         return false;
                     }
                     return true;
-                }else {
+                } else {
                     false;
                 }
             },
             message: '请输入0到99999999的正整数'
         }
-       
+
     });
 })(jQuery);

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-    xsi:schemaLocation=" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
            http://www.springframework.org/schema/beans 
            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
            http://www.springframework.org/schema/context 
@@ -9,7 +10,7 @@
 
     <!-- freemarker(模版配置) -->
     <bean id="freeMarkerConfigurer" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-        <property name="templateLoaderPath" value="/" />
+        <property name="templateLoaderPath" value="/"/>
         <property name="freemarkerSettings">
             <props>
                 <prop key="template_update_delay">5</prop>
@@ -27,10 +28,10 @@
         <property name="freemarkerVariables">
             <map>
                 <entry key="xml_escape">
-                    <bean class="freemarker.template.utility.XmlEscape" />
+                    <bean class="freemarker.template.utility.XmlEscape"/>
                 </entry>
                 <entry key="display">
-                    <bean class="com.ckx.web.freemarker.DisplayDirective" />
+                    <bean class="com.ckx.web.freemarker.DisplayDirective"/>
                 </entry>
             </map>
         </property>

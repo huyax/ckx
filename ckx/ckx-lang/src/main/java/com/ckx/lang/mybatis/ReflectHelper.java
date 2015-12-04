@@ -9,7 +9,7 @@ public class ReflectHelper {
 
     /**
      * 获取obj对象fieldName的Field
-     * 
+     *
      * @param obj
      * @param fieldName
      * @return
@@ -26,7 +26,7 @@ public class ReflectHelper {
 
     /**
      * 获取obj对象fieldName的属性值
-     * 
+     *
      * @param obj
      * @param fieldName
      * @return
@@ -53,7 +53,7 @@ public class ReflectHelper {
 
     /**
      * 设置obj对象fieldName的属性值
-     * 
+     *
      * @param obj
      * @param fieldName
      * @param value

@@ -38,7 +38,7 @@ define('echarts/chart/eventRiver', [
             emphasis: {
                 borderColor: 'rgba(0,0,0,0)',
                 borderWidth: 1,
-                label: { show: true }
+                label: {show: true}
             }
         }
     };
@@ -46,6 +46,7 @@ define('echarts/chart/eventRiver', [
     var ecDate = require('../util/date');
     var zrUtil = require('zrender/tool/util');
     var zrColor = require('zrender/tool/color');
+
     function EventRiver(ecTheme, messageCenter, zr, option, myChart) {
         ChartBase.call(this, ecTheme, messageCenter, zr, option, myChart);
         var self = this;
@@ -54,6 +55,7 @@ define('echarts/chart/eventRiver', [
         };
         this.refresh(option);
     }
+
     EventRiver.prototype = {
         type: ecConfig.CHART_TYPE_EVENTRIVER,
         _buildShape: function () {
@@ -217,15 +219,18 @@ define('echarts/chart/eventRiver', [
     zrUtil.inherits(EventRiver, ChartBase);
     require('../chart').define('eventRiver', EventRiver);
     return EventRiver;
-});define('echarts/layout/eventRiver', ['require'], function (require) {
+});
+define('echarts/layout/eventRiver', ['require'], function (require) {
     function eventRiverLayout(series, intervalX, area) {
         var space = 5;
         var scale = intervalX;
+
         function importanceSort(a, b) {
             var x = a.importance;
             var y = b.importance;
             return x > y ? -1 : x < y ? 1 : 0;
         }
+
         function indexOf(array, value) {
             if (array.indexOf) {
                 return array.indexOf(value);
@@ -237,6 +242,7 @@ define('echarts/chart/eventRiver', [
             }
             return -1;
         }
+
         for (var i = 0; i < series.length; i++) {
             for (var j = 0; j < series[i].data.length; j++) {
                 if (series[i].data[j].weight == null) {
@@ -307,6 +313,7 @@ define('echarts/chart/eventRiver', [
         }
         scaleY(series, area, totalMaxY, space);
     }
+
     function scaleY(series, area, maxY, space) {
         var yBase = area.y;
         var yScale = (area.height - space) / maxY;
@@ -322,6 +329,7 @@ define('echarts/chart/eventRiver', [
             }
         }
     }
+
     function segmentTreeBuild(left, right) {
         var root = {
             'left': left,
@@ -337,6 +345,7 @@ define('echarts/chart/eventRiver', [
         }
         return root;
     }
+
     function segmentTreeQuery(root, left, right) {
         if (right - left < 1) {
             return 0;
@@ -362,6 +371,7 @@ define('echarts/chart/eventRiver', [
         }
         return result;
     }
+
     function segmentTreeInsert(root, left, right, value) {
         if (root == null) {
             return;
@@ -379,5 +389,6 @@ define('echarts/chart/eventRiver', [
             segmentTreeInsert(root.rightChild, mid, right, value);
         }
     }
+
     return eventRiverLayout;
 });

@@ -2,52 +2,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Catelogs管理</title>
-<#include "/pager/common/quote.html" />
+    <title>Catelogs管理</title>
+    <#include "/pager/common/quote.html" />
 </head>
 <body>
-    <div class="body-center">
-        <div class="html-panel query-panel" id="query_con">
-            <div class="panel-header"><div class="panel-title">查询条件</div></div>
-            <div class="panel-content" id="menuMgrPanel">
-                <form onsubmit="return false;" id="queryForm" class="form_style">
-                    <span class="spacing"><label>ID：</label><input type="text" name="id"/></span>
-                   
-                    <span class="spacing"><input type="submit" id="queryButton" value="查询"/></span>
-                </form>
-            </div>
+<div class="body-center">
+    <div class="html-panel query-panel" id="query_con">
+        <div class="panel-header">
+            <div class="panel-title">查询条件</div>
         </div>
-        <table id="grid" data-options="url:'list'" title="数据列表">
-            <thead>
-           	 		<th data-options="field:'name',width:80,resizable:true,align:'left'">name</th>
-           	 		<th data-options="field:'pid',width:80,resizable:true,align:'left'">pid</th>
-           	 		<th data-options="field:'url',width:80,resizable:true,align:'left'">url</th>
-                <th data-options="field:'opt',width:80,resizable:true,align:'center',formatter:formatter.opt">操作</th>
-            </thead>
-        </table>
-    </div>
-    <div class="hide-panel">
-        <div id="editDialog" style="width:500px;height:300px;padding-left:50px;" data-options="resizable:false,modal:true,closed: true">
-            <form id="editForm" class="form_style" method="post" onsubmit="return false;">
-                <input　type="hidden"　name="_method" id="_method"　value="put"/>
-                <input type="hidden" name="id" id="edit_id" />
-                
-                	<div class="form-field">
-                    <label for="edit_key">name：</label>
-                    <input class="easyui-validatebox" type="text" name="name" id="edit_name" maxlength="30"/>
-                </div>
-                	<div class="form-field">
-                    <label for="edit_key">pid：</label>
-                    <input class="easyui-validatebox" type="text" name="pid" id="edit_pid" maxlength="30"/>
-                </div>
-                	<div class="form-field">
-                    <label for="edit_key">url：</label>
-                    <input class="easyui-validatebox" type="text" name="url" id="edit_url" maxlength="30"/>
-                </div>
-              
+        <div class="panel-content" id="menuMgrPanel">
+            <form onsubmit="return false;" id="queryForm" class="form_style">
+                <span class="spacing"><label>ID：</label><input type="text" name="id"/></span>
+
+                <span class="spacing"><input type="submit" id="queryButton" value="查询"/></span>
             </form>
         </div>
     </div>
+    <table id="grid" data-options="url:'list'" title="数据列表">
+        <thead>
+        <th data-options="field:'name',width:80,resizable:true,align:'left'">name</th>
+        <th data-options="field:'pid',width:80,resizable:true,align:'left'">pid</th>
+        <th data-options="field:'url',width:80,resizable:true,align:'left'">url</th>
+        <th data-options="field:'opt',width:80,resizable:true,align:'center',formatter:formatter.opt">操作</th>
+        </thead>
+    </table>
+</div>
+<div class="hide-panel">
+    <div id="editDialog" style="width:500px;height:300px;padding-left:50px;"
+         data-options="resizable:false,modal:true,closed: true">
+        <form id="editForm" class="form_style" method="post" onsubmit="return false;">
+            <input　type="hidden"　name="_method" id="_method"　value="put"/>
+            <input type="hidden" name="id" id="edit_id"/>
+
+            <div class="form-field">
+                <label for="edit_key">name：</label>
+                <input class="easyui-validatebox" type="text" name="name" id="edit_name" maxlength="30"/>
+            </div>
+            <div class="form-field">
+                <label for="edit_key">pid：</label>
+                <input class="easyui-validatebox" type="text" name="pid" id="edit_pid" maxlength="30"/>
+            </div>
+            <div class="form-field">
+                <label for="edit_key">url：</label>
+                <input class="easyui-validatebox" type="text" name="url" id="edit_url" maxlength="30"/>
+            </div>
+
+        </form>
+    </div>
+</div>
 </body>
 </html>
 </@compress>

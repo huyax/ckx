@@ -15,7 +15,9 @@ import com.ckx.web.persist.mapper.SysMenusMapper;
 @Transactional(propagation = Propagation.REQUIRED, rollbackFor = java.lang.Exception.class)
 public class MenuServiceImpl implements MenuService {
 
-    private @Autowired SysMenusMapper menuMapper;
+    private
+    @Autowired
+    SysMenusMapper menuMapper;
 
     public List<SysMenus> getAllMenus() {
         return menuMapper.getAllMenus();

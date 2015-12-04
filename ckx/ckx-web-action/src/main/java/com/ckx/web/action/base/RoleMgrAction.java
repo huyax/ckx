@@ -21,8 +21,12 @@ import com.ckx.web.persist.entity.SysRoles;
 @Controller
 public class RoleMgrAction extends BaseAction {
 
-    private @Autowired MenuService menuSv;
-    private @Autowired RoleService roleSv;
+    private
+    @Autowired
+    MenuService menuSv;
+    private
+    @Autowired
+    RoleService roleSv;
 
     @RequestMapping(value = "/menus/role_mgr.html", method = RequestMethod.GET)
     public String index(HttpServletRequest request, ModelMap model) {

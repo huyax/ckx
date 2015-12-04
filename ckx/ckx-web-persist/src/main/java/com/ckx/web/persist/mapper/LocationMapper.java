@@ -18,7 +18,7 @@ public interface LocationMapper {
 
     int updateByPrimaryKey(Location record);
 
-	List<Location> paginate(Map<String, Object> paramsMap);
+    List<Location> paginate(Map<String, Object> paramsMap);
 
-	int paginateCount(Map<String, Object> paramsMap);
+    int paginateCount(Map<String, Object> paramsMap);
 }

@@ -20,13 +20,13 @@ public interface SysConfigMapper {
 
     int updateByPrimaryKey(SysConfig record);
 
-	SysConfig selectByKey(Map<String, Object> param);
+    SysConfig selectByKey(Map<String, Object> param);
 
-	void updateConfig(Map<String, Object> param);
+    void updateConfig(Map<String, Object> param);
 
-	List<SysConfig> paginate(Map<String, Object> paramsMap);
+    List<SysConfig> paginate(Map<String, Object> paramsMap);
 
-	int paginateCount(Map<String, Object> paramsMap);
+    int paginateCount(Map<String, Object> paramsMap);
 
-	int batchDelete(@Param("ids") List<String> idsList);
+    int batchDelete(@Param("ids") List<String> idsList);
 }

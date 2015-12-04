@@ -1,8 +1,7 @@
 package com.ckx.api.core.location;
 
-public interface LocationService
-{
+public interface LocationService {
 
-	boolean post(Integer uid, String longitude, String latitude);
+    boolean post(Integer uid, String longitude, String latitude);
 
 }

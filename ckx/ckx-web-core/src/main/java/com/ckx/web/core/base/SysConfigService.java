@@ -7,18 +7,18 @@ import com.ckx.web.persist.entity.SysConfig;
 
 public interface SysConfigService {
 
-	SysConfig getConfigByParam(Map<String, Object> param);
+    SysConfig getConfigByParam(Map<String, Object> param);
 
-	void updateConfig(Map<String, Object> param);
+    void updateConfig(Map<String, Object> param);
 
-	void paginate(Pager pager);
+    void paginate(Pager pager);
 
-	boolean updateByPk(SysConfig config);
+    boolean updateByPk(SysConfig config);
 
-	boolean addConfig(SysConfig config);
+    boolean addConfig(SysConfig config);
 
-	int batchDelete(String ids);
+    int batchDelete(String ids);
 
-	int delete(Integer id);
+    int delete(Integer id);
 
 }

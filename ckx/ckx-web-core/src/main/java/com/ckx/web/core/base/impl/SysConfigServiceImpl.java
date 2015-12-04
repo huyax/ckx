@@ -16,52 +16,46 @@ import com.ckx.web.persist.mapper.SysConfigMapper;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED, rollbackFor = java.lang.Exception.class)
-public class SysConfigServiceImpl implements SysConfigService
-{
-	private @Autowired SysConfigMapper	configMapper;
+public class SysConfigServiceImpl implements SysConfigService {
+    private
+    @Autowired
+    SysConfigMapper configMapper;
 
-	@Override
-	public SysConfig getConfigByParam(Map<String, Object> param)
-	{
-		return configMapper.selectByKey(param);
-	}
+    @Override
+    public SysConfig getConfigByParam(Map<String, Object> param) {
+        return configMapper.selectByKey(param);
+    }
 
-	@Override
-	public void updateConfig(Map<String, Object> param)
-	{
-		configMapper.updateConfig(param);
-	}
+    @Override
+    public void updateConfig(Map<String, Object> param) {
+        configMapper.updateConfig(param);
+    }
 
-	@Override
-	public void paginate(Pager pager)
-	{
-		pager.setResult(configMapper.paginate(pager.getParamsMap()));
-		pager.setTotalRecord(configMapper.paginateCount(pager.getParamsMap()));
-	}
+    @Override
+    public void paginate(Pager pager) {
+        pager.setResult(configMapper.paginate(pager.getParamsMap()));
+        pager.setTotalRecord(configMapper.paginateCount(pager.getParamsMap()));
+    }
 
-	@Override
-	public boolean updateByPk(SysConfig config)
-	{
-		return configMapper.updateByPrimaryKey(config) > 0 ? true : false;
-	}
+    @Override
+    public boolean updateByPk(SysConfig config) {
+        return configMapper.updateByPrimaryKey(config) > 0 ? true : false;
+    }
 
-	@Override
-	public boolean addConfig(SysConfig config)
-	{
-		return configMapper.insert(config) > 0 ? true : false;
-	}
+    @Override
+    public boolean addConfig(SysConfig config) {
+        return configMapper.insert(config) > 0 ? true : false;
+    }
 
-	@Override
-	public int batchDelete(String ids)
-	{
-		List<String> idsList = Arrays.asList(ids.split("\\|"));
-		return configMapper.batchDelete(idsList);
-	}
+    @Override
+    public int batchDelete(String ids) {
+        List<String> idsList = Arrays.asList(ids.split("\\|"));
+        return configMapper.batchDelete(idsList);
+    }
 
-	@Override
-	public int delete(Integer id)
-	{
-		return configMapper.deleteByPrimaryKey(id);
-	}
+    @Override
+    public int delete(Integer id) {
+        return configMapper.deleteByPrimaryKey(id);
+    }
 
 }

@@ -17,7 +17,7 @@ public class ExceptionResolver extends SimpleMappingExceptionResolver {
 
     @Override
     protected ModelAndView doResolveException(HttpServletRequest request, HttpServletResponse response, Object handler,
-            Exception ex) {
+                                              Exception ex) {
         if (response.isCommitted()) {
             return null;
         }
@@ -33,5 +33,5 @@ public class ExceptionResolver extends SimpleMappingExceptionResolver {
                         + request.getRemoteAddr() + "][request URL:" + request.getRequestURI() + "]", ex);
         return super.doResolveException(request, response, handler, ex);
     }
-    
+
 }

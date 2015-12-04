@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xsi:schemaLocation="
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="
            http://www.springframework.org/schema/beans 
            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
            http://www.springframework.org/schema/context   
@@ -11,50 +11,50 @@
            http://www.springframework.org/schema/mvc
            http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
-	<!-- 配置扫描包（多个包之间用逗号分割；注意：修改base为对应的项目名称） -->
-	<context:component-scan base-package="com.ckx.api.action">
-		<context:include-filter type="annotation"
-			expression="org.springframework.stereotype.Controller" />
-	</context:component-scan>
+    <!-- 配置扫描包（多个包之间用逗号分割；注意：修改base为对应的项目名称） -->
+    <context:component-scan base-package="com.ckx.api.action">
+        <context:include-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
 
-	<!-- 全局异常处理 -->
-	<bean id="exceptionResolver"
-		class="com.ckx.api.exception.ExceptionResolver">
-		<property name="warnLogCategory"
-			value="com.ckx.api.exception.ExceptionResolver" />
-		<property name="exceptionAttribute" value="ex" />
-		<property name="defaultStatusCode" value="500" />
-		<property name="defaultErrorView" value="errors/error_500" />
-	</bean>
+    <!-- 全局异常处理 -->
+    <bean id="exceptionResolver"
+          class="com.ckx.api.exception.ExceptionResolver">
+        <property name="warnLogCategory"
+                  value="com.ckx.api.exception.ExceptionResolver"/>
+        <property name="exceptionAttribute" value="ex"/>
+        <property name="defaultStatusCode" value="500"/>
+        <property name="defaultErrorView" value="errors/error_500"/>
+    </bean>
 
-	<bean id="defaultAnnotationHandlerMapping"
-		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
-	<bean id="annotationMethodHandlerAdapter"
-		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-		<property name="messageConverters">
-			<list>
-				<ref bean="mappingJacksonHttpMessageConverter" />
-			</list>
-		</property>
-	</bean>
+    <bean id="defaultAnnotationHandlerMapping"
+          class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
+    <bean id="annotationMethodHandlerAdapter"
+          class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <ref bean="mappingJacksonHttpMessageConverter"/>
+            </list>
+        </property>
+    </bean>
 
-	<!-- Jackson(JSON配置) -->
-	<bean name="mappingJacksonHttpMessageConverter"
-		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-		<property name="supportedMediaTypes">
-			<list>
-				<value>application/json;charset=UTF-8</value>
-				<value>text/html;charset=UTF-8</value>
-			</list>
-		</property>
-		<property name="objectMapper">
-			<bean class="com.fasterxml.jackson.databind.ObjectMapper">
-				<property name="dateFormat">
-					<bean class="java.text.SimpleDateFormat">
-						<constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
-					</bean>
-				</property>
-			</bean>
-		</property>
-	</bean>
+    <!-- Jackson(JSON配置) -->
+    <bean name="mappingJacksonHttpMessageConverter"
+          class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>application/json;charset=UTF-8</value>
+                <value>text/html;charset=UTF-8</value>
+            </list>
+        </property>
+        <property name="objectMapper">
+            <bean class="com.fasterxml.jackson.databind.ObjectMapper">
+                <property name="dateFormat">
+                    <bean class="java.text.SimpleDateFormat">
+                        <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"/>
+                    </bean>
+                </property>
+            </bean>
+        </property>
+    </bean>
 </beans>

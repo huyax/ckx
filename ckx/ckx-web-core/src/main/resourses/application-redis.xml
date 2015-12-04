@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation=" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
           http://www.springframework.org/schema/beans 
           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
           http://www.springframework.org/schema/tx   
@@ -12,35 +12,35 @@
           http://www.springframework.org/schema/aop   
           http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-	<!-- 对象池配置 -->
-	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
-		<property name="maxIdle" value="${redis.pool.maxIdle}" />
-	</bean>
-	
-	<!-- jedis连接池 -->
-	<bean id="jedisPool" class="redis.clients.jedis.JedisPool" destroy-method="destroy">
-		<constructor-arg ref="jedisPoolConfig" />
-		<constructor-arg value="${redis.host.cache}" />
-		<constructor-arg type="int" value="${redis.port.cache}" />
-		<constructor-arg type="int" value="${redis.timeout}" />
-		<constructor-arg value="${redis.pass}" />
-		<!-- <constructor-arg type="int" value="1" /> -->
-	</bean>
-	
-	<!-- jedis工厂实现 -->
-	<bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
-		<property name="poolConfig" ref="jedisPoolConfig" />
-		<property name="hostName" value="${redis.host.data}" />
-		<property name="port" value="${redis.port.data}" />
-		<property name="timeout" value="${redis.timeout}" />
-		<property name="password" value="${redis.pass}" />
-		<property name="database" value="${redis.dbIndex}" />
-	</bean>
-	
-	<bean id="template" class="org.springframework.data.redis.core.StringRedisTemplate">
-		<property name="connectionFactory" ref="jedisConnectionFactory" />
-	</bean>
-	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
-		<property name="connectionFactory" ref="jedisConnectionFactory" />
-	</bean>
+    <!-- 对象池配置 -->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxIdle" value="${redis.pool.maxIdle}"/>
+    </bean>
+
+    <!-- jedis连接池 -->
+    <bean id="jedisPool" class="redis.clients.jedis.JedisPool" destroy-method="destroy">
+        <constructor-arg ref="jedisPoolConfig"/>
+        <constructor-arg value="${redis.host.cache}"/>
+        <constructor-arg type="int" value="${redis.port.cache}"/>
+        <constructor-arg type="int" value="${redis.timeout}"/>
+        <constructor-arg value="${redis.pass}"/>
+        <!-- <constructor-arg type="int" value="1" /> -->
+    </bean>
+
+    <!-- jedis工厂实现 -->
+    <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="poolConfig" ref="jedisPoolConfig"/>
+        <property name="hostName" value="${redis.host.data}"/>
+        <property name="port" value="${redis.port.data}"/>
+        <property name="timeout" value="${redis.timeout}"/>
+        <property name="password" value="${redis.pass}"/>
+        <property name="database" value="${redis.dbIndex}"/>
+    </bean>
+
+    <bean id="template" class="org.springframework.data.redis.core.StringRedisTemplate">
+        <property name="connectionFactory" ref="jedisConnectionFactory"/>
+    </bean>
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="jedisConnectionFactory"/>
+    </bean>
 </beans>

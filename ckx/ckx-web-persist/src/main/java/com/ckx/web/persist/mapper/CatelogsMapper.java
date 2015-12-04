@@ -18,7 +18,7 @@ public interface CatelogsMapper {
 
     int updateByPrimaryKey(Catelogs record);
 
-	List<Catelogs> paginate(Map<String, Object> paramsMap);
+    List<Catelogs> paginate(Map<String, Object> paramsMap);
 
-	int paginateCount(Map<String, Object> paramsMap);
+    int paginateCount(Map<String, Object> paramsMap);
 }

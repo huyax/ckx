@@ -1,70 +1,87 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title>用户信息</title>
     <#include "/pager/common/quote.html" />
     <style type="text/css">
-        .ad-body input[type=text],.ad-body input[type=password]{height: 25px;width: 250px;}
+        .ad-body input[type=text], .ad-body input[type=password] {
+            height: 25px;
+            width: 250px;
+        }
     </style>
-  </head>
-  
-  <body>
-    <div class="body-center">
-        <div class="ad-panel">
-            <div class="ad-title"><div class="ad-title-text"><span>基本信息</span></div></div>
-            <div class="ad-body">
-                <form id="userMsgForm" class="form_style" method="post" onsubmit="return false;" action="${base}/user/upd_msg.html">
-                    <div class="form-field">
-                        <label for="username">用户名：<font color="red">*</font></label>
-                        <input type="hidden" name="userId" value="${user.userId}" />
-                        <input class="easyui-validatebox" type="text" value="${user.username}" name="username" id="username" disabled="disabled" />
-                    </div>
-                    <div class="form-field">
-                        <label for="parentUser">上级组织：<font color="red">*</font></label>
-                        <input class="easyui-validatebox" type="text" value="<@display type='role' key=user.parentRole/>" data-options="required:true" disabled="disabled" />
-                    </div>
-                    <div class="form-field">
-                        <label for="parentUser">职位：<font color="red">*</font></label>
-                        <input class="easyui-validatebox" type="text" value="<@display type='role' key=user.roleId/>" data-options="required:true" disabled="disabled" />
-                    </div>
-                    <div class="form-field">
-                        <label for="nick">昵称：<font color="red">*</font></label>
-                        <input class="easyui-validatebox" type="text" value="${user.nick}" name="nick" data-options="required:true"/>
-                    </div>
-                    <div class="form-field">
-                        <label for="email">Email：<font color="red">*</font></label>
-                        <input class="easyui-validatebox" type="text" value="${user.email}" name="email" data-options="required:true,validType:'email'"/>
-                    </div>
-                    <div class="form-field" style="padding-left: 120px;">
-                        <input type="submit" value="保&nbsp;&nbsp;存" />
-                        <input type="reset" value="重&nbsp;&nbsp;置" style="margin-left: 20px;" />
-                    </div>
-                </form>
-            </div>
+</head>
+
+<body>
+<div class="body-center">
+    <div class="ad-panel">
+        <div class="ad-title">
+            <div class="ad-title-text"><span>基本信息</span></div>
         </div>
-        <div class="ad-panel">
-            <div class="ad-title"><div class="ad-title-text"><span>修改密码</span></div></div>
-            <div class="ad-body">
-                <form id="userPwdForm" class="form_style" method="post" onsubmit="return false;" action="${base}/updpass.html">
-                    <div class="form-field">
-                        <label for="password">旧密码：<font color="red">*</font></label>
-                        <input class="easyui-validatebox" type="password" name="oldPassword" id="oldPassword" data-options="required:true" />
-                    </div>
-                    <div class="form-field">
-                        <label for="nick">新密码：<font color="red">*</font></label>
-                        <input class="easyui-validatebox" type="password" name="newPassword" id="newPassword" data-options="required:true,validType:'password'"/>
-                    </div>
-                    <div class="form-field">
-                        <label for="email">确认新密码：<font color="red">*</font></label>
-                        <input class="easyui-validatebox" type="password" name="entPassword" id="entPassword" data-options="required:true,validType:'verify_password[\'newPassword\']'" />
-                    </div>
-                    <div class="form-field" style="padding-left: 120px;">
-                        <input type="submit" value="修&nbsp;&nbsp;改" />
-                        <input type="reset" value="重&nbsp;&nbsp;置" style="margin-left: 20px;" />
-                    </div>
-                </form>
-            </div>
+        <div class="ad-body">
+            <form id="userMsgForm" class="form_style" method="post" onsubmit="return false;"
+                  action="${base}/user/upd_msg.html">
+                <div class="form-field">
+                    <label for="username">用户名：<font color="red">*</font></label>
+                    <input type="hidden" name="userId" value="${user.userId}"/>
+                    <input class="easyui-validatebox" type="text" value="${user.username}" name="username" id="username"
+                           disabled="disabled"/>
+                </div>
+                <div class="form-field">
+                    <label for="parentUser">上级组织：<font color="red">*</font></label>
+                    <input class="easyui-validatebox" type="text" value="<@display type='role' key=user.parentRole/>"
+                           data-options="required:true" disabled="disabled"/>
+                </div>
+                <div class="form-field">
+                    <label for="parentUser">职位：<font color="red">*</font></label>
+                    <input class="easyui-validatebox" type="text" value="<@display type='role' key=user.roleId/>"
+                           data-options="required:true" disabled="disabled"/>
+                </div>
+                <div class="form-field">
+                    <label for="nick">昵称：<font color="red">*</font></label>
+                    <input class="easyui-validatebox" type="text" value="${user.nick}" name="nick"
+                           data-options="required:true"/>
+                </div>
+                <div class="form-field">
+                    <label for="email">Email：<font color="red">*</font></label>
+                    <input class="easyui-validatebox" type="text" value="${user.email}" name="email"
+                           data-options="required:true,validType:'email'"/>
+                </div>
+                <div class="form-field" style="padding-left: 120px;">
+                    <input type="submit" value="保&nbsp;&nbsp;存"/>
+                    <input type="reset" value="重&nbsp;&nbsp;置" style="margin-left: 20px;"/>
+                </div>
+            </form>
         </div>
     </div>
-  </body>
+    <div class="ad-panel">
+        <div class="ad-title">
+            <div class="ad-title-text"><span>修改密码</span></div>
+        </div>
+        <div class="ad-body">
+            <form id="userPwdForm" class="form_style" method="post" onsubmit="return false;"
+                  action="${base}/updpass.html">
+                <div class="form-field">
+                    <label for="password">旧密码：<font color="red">*</font></label>
+                    <input class="easyui-validatebox" type="password" name="oldPassword" id="oldPassword"
+                           data-options="required:true"/>
+                </div>
+                <div class="form-field">
+                    <label for="nick">新密码：<font color="red">*</font></label>
+                    <input class="easyui-validatebox" type="password" name="newPassword" id="newPassword"
+                           data-options="required:true,validType:'password'"/>
+                </div>
+                <div class="form-field">
+                    <label for="email">确认新密码：<font color="red">*</font></label>
+                    <input class="easyui-validatebox" type="password" name="entPassword" id="entPassword"
+                           data-options="required:true,validType:'verify_password[\'newPassword\']'"/>
+                </div>
+                <div class="form-field" style="padding-left: 120px;">
+                    <input type="submit" value="修&nbsp;&nbsp;改"/>
+                    <input type="reset" value="重&nbsp;&nbsp;置" style="margin-left: 20px;"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
 </html>

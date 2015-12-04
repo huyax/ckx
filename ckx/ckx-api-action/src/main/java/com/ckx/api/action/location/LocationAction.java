@@ -11,38 +11,41 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ckx.api.action.base.BaseAction;
 import com.ckx.api.core.location.LocationService;
+
 @RequestMapping(value = "/location")
 @Controller
-public class LocationAction extends BaseAction
-{
+public class LocationAction extends BaseAction {
 
-	private @Autowired LocationService	locationService;
-	
-	
-	/**
-	 * 坐标上报
-	 * @param request
-	 * @param model
-	 * @return
-	 */
-	@ResponseBody
-	@RequestMapping(value="/{uid}/{longitude}/{latitude}",method = RequestMethod.GET)
-	public Object post(@PathVariable Integer uid,@PathVariable String longitude,@PathVariable String latitude) {
-		Map<String, Object> result = getResultMap();
-		try {
-			if(locationService.post(uid,longitude,latitude)){
-				result.put("error", 0);
-				result.put("message", "success");
-			}else{
-				result.put("error", 1);
-				result.put("message", "fail");
-			}
-		} catch (Exception e) {
-			result.put("error", 0);
-			result.put("message", "系统异常，上报失败！");
-			getLog(this).error(e.getMessage(), e);
-		}
-		return result;
-	}
+    private
+    @Autowired
+    LocationService locationService;
+
+
+    /**
+     * 坐标上报
+     *
+     * @param request
+     * @param model
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/{uid}/{longitude}/{latitude}", method = RequestMethod.GET)
+    public Object post(@PathVariable Integer uid, @PathVariable String longitude, @PathVariable String latitude) {
+        Map<String, Object> result = getResultMap();
+        try {
+            if (locationService.post(uid, longitude, latitude)) {
+                result.put("error", 0);
+                result.put("message", "success");
+            } else {
+                result.put("error", 1);
+                result.put("message", "fail");
+            }
+        } catch (Exception e) {
+            result.put("error", 0);
+            result.put("message", "系统异常，上报失败！");
+            getLog(this).error(e.getMessage(), e);
+        }
+        return result;
+    }
 
 }

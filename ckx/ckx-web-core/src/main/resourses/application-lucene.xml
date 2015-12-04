@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation=" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
           http://www.springframework.org/schema/beans 
           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
           http://www.springframework.org/schema/tx   
@@ -11,48 +11,45 @@
           http://www.springframework.org/schema/context/spring-context-3.0.xsd   
           http://www.springframework.org/schema/aop   
           http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
-	<bean id="LUCENE_VERSION" class="org.apache.lucene.util.Version">
-		<constructor-arg index="0">
-			<value>4</value>
-		</constructor-arg>
-		<constructor-arg index="1">
-			<value>10</value>
-		</constructor-arg>
-		<constructor-arg index="2">
-			<value>2</value>
-		</constructor-arg>
-	</bean>
-	<bean id="directory" class="org.apache.lucene.store.SimpleFSDirectory">
-		<constructor-arg>
-			<bean class="java.io.File">
-				<constructor-arg value="D:\\lucene\\test" />
-			</bean>
-		</constructor-arg>
-	</bean>
-	<bean id="analyzer" class="org.wltea.analyzer.lucene.IKAnalyzer">
-		<constructor-arg value="true"></constructor-arg>
-	</bean>
-	<bean id="indexWriterConfig" class="org.apache.lucene.index.IndexWriterConfig">
-		<constructor-arg name="matchVersion" ref="LUCENE_VERSION" />
-		<constructor-arg name="analyzer" ref="analyzer"></constructor-arg>
-	</bean>
-	<bean id="indexWriter" class="org.apache.lucene.index.IndexWriter">
-		<constructor-arg name="d" ref="directory" />
-		<constructor-arg name="conf" ref="indexWriterConfig" />
-	</bean>
+    <bean id="LUCENE_VERSION" class="org.apache.lucene.util.Version">
+        <constructor-arg index="0">
+            <value>4</value>
+        </constructor-arg>
+        <constructor-arg index="1">
+            <value>10</value>
+        </constructor-arg>
+        <constructor-arg index="2">
+            <value>2</value>
+        </constructor-arg>
+    </bean>
+    <bean id="directory" class="org.apache.lucene.store.SimpleFSDirectory">
+        <constructor-arg>
+            <bean class="java.io.File">
+                <constructor-arg value="D:\\lucene\\test"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+    <bean id="analyzer" class="org.wltea.analyzer.lucene.IKAnalyzer">
+        <constructor-arg value="true"></constructor-arg>
+    </bean>
+    <bean id="indexWriterConfig" class="org.apache.lucene.index.IndexWriterConfig">
+        <constructor-arg name="matchVersion" ref="LUCENE_VERSION"/>
+        <constructor-arg name="analyzer" ref="analyzer"></constructor-arg>
+    </bean>
+    <bean id="indexWriter" class="org.apache.lucene.index.IndexWriter">
+        <constructor-arg name="d" ref="directory"/>
+        <constructor-arg name="conf" ref="indexWriterConfig"/>
+    </bean>
 
 
-	<bean id="indexReader" class="org.apache.lucene.index.DirectoryReader" factory-method="open">
-		<!-- 静态方法参数 -->
-		<constructor-arg ref="directory"/>
-	</bean>
-	<!-- define the IndexSearcher -->
-	<bean id="indexSearcher" class="org.apache.lucene.search.IndexSearcher">
-		<constructor-arg ref="indexReader" />
-	</bean>
-
-	
-
+    <bean id="indexReader" class="org.apache.lucene.index.DirectoryReader" factory-method="open">
+        <!-- 静态方法参数 -->
+        <constructor-arg ref="directory"/>
+    </bean>
+    <!-- define the IndexSearcher -->
+    <bean id="indexSearcher" class="org.apache.lucene.search.IndexSearcher">
+        <constructor-arg ref="indexReader"/>
+    </bean>
 
 
 </beans>  

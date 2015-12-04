@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 /**
  * 菜单授权认证
- * 
  */
 @Component
 public class MenuAuthorizationFilter extends AuthorizationFilter {

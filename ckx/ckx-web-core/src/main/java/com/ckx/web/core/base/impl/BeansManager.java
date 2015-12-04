@@ -11,25 +11,25 @@ import org.springframework.stereotype.Component;
 @Component
 public class BeansManager implements ApplicationContextAware {
 
-	public static ApplicationContext context;
+    public static ApplicationContext context;
 
-	public static Object getBean(String beanName){
-		return context.getBean(beanName);
-	}
-	
-	public static <T> T getBean(Class<T> bean){
-		return context.getBean(bean);
-	}
-	
-	public static ApplicationContext getContext() {
-		return context;
-	}
+    public static Object getBean(String beanName) {
+        return context.getBean(beanName);
+    }
 
-	public void setApplicationContext(ApplicationContext context) throws BeansException {
-		BeansManager.context = context;
-	}
-	
-	@PostConstruct
+    public static <T> T getBean(Class<T> bean) {
+        return context.getBean(bean);
+    }
+
+    public static ApplicationContext getContext() {
+        return context;
+    }
+
+    public void setApplicationContext(ApplicationContext context) throws BeansException {
+        BeansManager.context = context;
+    }
+
+    @PostConstruct
     public void init() {
         SqlSessionTemplate template = getBean(SqlSessionTemplate.class);
         template.getConnection();

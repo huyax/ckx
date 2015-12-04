@@ -25,7 +25,7 @@ public class SysMenus implements Serializable {
     private Integer sort;
 
     private List<SysMenus> childrens;
-    
+
 
     public Integer getMenuId() {
         return menuId;
@@ -106,6 +106,6 @@ public class SysMenus implements Serializable {
     public void setChildrens(List<SysMenus> childrens) {
         this.childrens = childrens;
     }
-	
+
 
 }

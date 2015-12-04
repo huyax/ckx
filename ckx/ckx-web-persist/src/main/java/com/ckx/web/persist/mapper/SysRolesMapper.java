@@ -29,7 +29,7 @@ public interface SysRolesMapper {
     String getRoleParent(Integer roleId);
 
     List<SysRoles> selectRoleByParent(String childRole);
-    
+
     Integer selectIdByName();
-    
+
 }

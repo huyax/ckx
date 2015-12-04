@@ -8,15 +8,14 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 
 /**
  * 定时任务demo
- * 
  */
 public class ReportStateTask extends QuartzJobBean {
-	private Log log = LogFactory.getLog(getClass());
+    private Log log = LogFactory.getLog(getClass());
 
-	@Override
-	protected void executeInternal(JobExecutionContext arg0) throws JobExecutionException {
-		log.debug("-----------------------------------------------------------coding here");
-		log.debug("coding here");
-	}
+    @Override
+    protected void executeInternal(JobExecutionContext arg0) throws JobExecutionException {
+        log.debug("-----------------------------------------------------------coding here");
+        log.debug("coding here");
+    }
 
 }

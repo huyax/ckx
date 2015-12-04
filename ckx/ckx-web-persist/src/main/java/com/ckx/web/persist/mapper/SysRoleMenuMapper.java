@@ -12,6 +12,6 @@ public interface SysRoleMenuMapper {
     int insertSelective(SysRoleMenuKey record);
 
     List<SysRoleMenuKey> selectByRoleId(Integer roleId);
-    
-    
+
+
 }

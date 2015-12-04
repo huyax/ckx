@@ -35,7 +35,7 @@ public class BaseAction {
 
     /**
      * 创建分页对象
-     * 
+     *
      * @param pageSize
      * @param pageNo
      * @return
@@ -54,7 +54,7 @@ public class BaseAction {
 
     /**
      * 创建分页对象
-     * 
+     *
      * @param request
      * @return
      */
@@ -74,7 +74,7 @@ public class BaseAction {
 
     /**
      * 获取result Map对象
-     * 
+     *
      * @return
      */
     protected Map<String, Object> getResultMap() {
@@ -82,11 +82,9 @@ public class BaseAction {
     }
 
 
- 
-
     /**
      * 获取日志输出对象
-     * 
+     *
      * @param object
      * @return
      */
@@ -96,7 +94,7 @@ public class BaseAction {
 
     /**
      * 生成表格数据格式
-     * 
+     *
      * @param pager
      * @return
      */
@@ -109,10 +107,10 @@ public class BaseAction {
 
     /**
      * 获取客户端IP地址
-     * 
-     * @author 吴尚云 2014-2-25 下午5:44:12
+     *
      * @param request
      * @return
+     * @author 吴尚云 2014-2-25 下午5:44:12
      */
     public String getClientIP(HttpServletRequest request) {
         String ip = request.getHeader("x-forwarded-for");
@@ -130,7 +128,7 @@ public class BaseAction {
 
     /**
      * 获取请求域名
-     * 
+     *
      * @param request
      * @return
      */
@@ -143,34 +141,35 @@ public class BaseAction {
         domain += path;
         return domain;
     }
-    
+
     /**
      * 打印qequest中的请求参数
-     * @Author lx 2014-9-28 下午5:35:43
+     *
      * @param request
      * @param log
+     * @Author lx 2014-9-28 下午5:35:43
      */
-    public void debugParameter(HttpServletRequest request,Log log){
-        if(log.isDebugEnabled()){
-            Map<String, String[]> map=request.getParameterMap();
-            Set<Entry<String, String[]>> keSet=map.entrySet();
+    public void debugParameter(HttpServletRequest request, Log log) {
+        if (log.isDebugEnabled()) {
+            Map<String, String[]> map = request.getParameterMap();
+            Set<Entry<String, String[]>> keSet = map.entrySet();
             String uri = request.getRequestURI();
             log.debug("URI=" + uri);
-            for(Iterator<Entry<String, String[]>> itr=keSet.iterator();itr.hasNext();){
+            for (Iterator<Entry<String, String[]>> itr = keSet.iterator(); itr.hasNext(); ) {
                 @SuppressWarnings("rawtypes")
-                Map.Entry me=(Map.Entry)itr.next();
-                Object ok=me.getKey();
-                Object ov=me.getValue();
-                String[] value=new String[1];
-                if(ov instanceof String[]){
-                    value=(String[])ov;
-                }else{
-                    value[0]=ov.toString();
+                Map.Entry me = (Map.Entry) itr.next();
+                Object ok = me.getKey();
+                Object ov = me.getValue();
+                String[] value = new String[1];
+                if (ov instanceof String[]) {
+                    value = (String[]) ov;
+                } else {
+                    value[0] = ov.toString();
                 }
-                for(int k=0;k<value.length;k++){
-                    log.debug(uri +":"+ ok+"="+value[k]);
+                for (int k = 0; k < value.length; k++) {
+                    log.debug(uri + ":" + ok + "=" + value[k]);
                 }
-              }
+            }
         }
     }
 }

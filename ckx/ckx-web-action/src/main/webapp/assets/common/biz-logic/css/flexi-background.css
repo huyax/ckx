@@ -9,17 +9,17 @@
 	
 */
 
-body { 
-	background-attachment:		fixed; 
-	background-position:		top center; 
-	background-repeat:			no-repeat; 
-	
-	margin:						0;
-	padding:					0;
+body {
+    background-attachment: fixed;
+    background-position: top center;
+    background-repeat: no-repeat;
 
-	background-size:			cover;
-	-moz-background-size:		cover;
-	-webkit-background-size:	cover;
+    margin: 0;
+    padding: 0;
+
+    background-size: cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
 }
 
 /*
@@ -30,11 +30,11 @@ body {
 */
 
 @media only all and (max-width: 640px) and (max-height: 426px) {
-	body {		
-		background-size:			640px 426px;
-		-moz-background-size:		640px 426px;
-		-webkit-background-size:	640px 426px;
-	}
+    body {
+        background-size: 640px 426px;
+        -moz-background-size: 640px 426px;
+        -webkit-background-size: 640px 426px;
+    }
 }
 
 /*
@@ -44,37 +44,38 @@ body {
 */
 
 @media only screen and (orientation: portrait) and (device-width: 320px), (device-width: 768px) {
-	body {
-		-webkit-background-size: auto 100%;
-	}
+    body {
+        -webkit-background-size: auto 100%;
+    }
 }
 
 @media only screen and (orientation: landscape) and (device-width: 320px), (device-width: 768px) {
-	body {
-		-webkit-background-size: 100% auto;
-	}
+    body {
+        -webkit-background-size: 100% auto;
+    }
 }
+
 /* All of the following styles only get used when background-size isn't supported */
 
-img#expando { 
-	display:	none;
-	position:	absolute; 
-	z-index:	1;
-	 
-	-ms-interpolation-mode: bicubic; 
-} 
+img#expando {
+    display: none;
+    position: absolute;
+    z-index: 1;
 
-.wide img#expando, 
-.tall img#expando { 
-	display: 	block; 
-} 
+    -ms-interpolation-mode: bicubic;
+}
 
-.wide img#expando { 
-	height: 	auto;
-	width: 		100%; 
-} 
+.wide img#expando,
+.tall img#expando {
+    display: block;
+}
 
-.tall img#expando { 
-	height:		100%;
-	width:		auto; 
+.wide img#expando {
+    height: auto;
+    width: 100%;
+}
+
+.tall img#expando {
+    height: 100%;
+    width: auto;
 }

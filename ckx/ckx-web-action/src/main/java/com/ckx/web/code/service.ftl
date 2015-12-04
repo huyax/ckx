@@ -5,14 +5,14 @@ import com.${project}.web.persist.entity.${name};
 
 public interface ${name}Service {
 
-	void paginate(Pager pager);
-	
-	boolean add(${name} ${nameLow});
-	
-	boolean updateByPk(${name} ${nameLow});
-	
-	int deleteById(Integer id);
-	
-	int batchDelete(String ids);
+void paginate(Pager pager);
+
+boolean add(${name} ${nameLow});
+
+boolean updateByPk(${name} ${nameLow});
+
+int deleteById(Integer id);
+
+int batchDelete(String ids);
 
 }

@@ -1,10 +1,10 @@
 <@compress single_line=isCompress>
 (function($){
-    $.fn.display = {
-    <#if types?? && types?size gt 0>
-        <#list types as t>${t}:<@display type=t />
-            <#if t_has_next>,</#if>
-        </#list>
-    </#if>};
+$.fn.display = {
+<#if types?? && types?size gt 0>
+    <#list types as t>${t}:<@display type=t />
+        <#if t_has_next>,</#if>
+    </#list>
+</#if>};
 })(jQuery);
 </@compress>

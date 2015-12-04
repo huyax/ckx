@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.ckx.lang.util;
 
@@ -15,67 +15,67 @@ import java.util.List;
  * @Author: wangjifa 2014-3-11 上午10:25:50
  * @Version: 1.0
  * @Desc: <p>
- *        </p>
+ * </p>
  */
 public class IOUtils {
 
-  /**
-   * @param in
-   * @param out
-   * @throws IOException
-   */
-  public static void piping(InputStream in, OutputStream out) throws IOException {
-    piping(in, out, new byte[4 * 1024]);
-  }
-
-  /**
-   * @param in
-   * @param out
-   * @param buf
-   * @throws IOException
-   */
-  public static void piping(InputStream in, OutputStream out, byte[] buf) throws IOException {
-    int bytesRead = 0;
-
-    while ((bytesRead = in.read(buf)) != -1) {
-      out.write(buf, 0, bytesRead);
-      out.flush();
+    /**
+     * @param in
+     * @param out
+     * @throws IOException
+     */
+    public static void piping(InputStream in, OutputStream out) throws IOException {
+        piping(in, out, new byte[4 * 1024]);
     }
-  }
 
-  /**
-   * @param closeables
-   * @throws IOException
-   */
-  public static void free(Closeable... closeables) throws IOException {
+    /**
+     * @param in
+     * @param out
+     * @param buf
+     * @throws IOException
+     */
+    public static void piping(InputStream in, OutputStream out, byte[] buf) throws IOException {
+        int bytesRead = 0;
 
-    List<Throwable> throwables = new LinkedList<Throwable>();
-    for (Closeable closeable : closeables) {
-
-      try {
-
-        if (null != closeable) {
-          closeable.close();
+        while ((bytesRead = in.read(buf)) != -1) {
+            out.write(buf, 0, bytesRead);
+            out.flush();
         }
-      } catch (IOException e) {
-        throwables.add(e);
-      }
     }
 
-  }
+    /**
+     * @param closeables
+     * @throws IOException
+     */
+    public static void free(Closeable... closeables) throws IOException {
 
-  /**
-   * @param closeables
-   */
-  public static void freeQuietly(Closeable... closeables) {
-    try {
+        List<Throwable> throwables = new LinkedList<Throwable>();
+        for (Closeable closeable : closeables) {
 
-      free(closeables);
-    } catch (Exception e) {
-      // ingore this exception
+            try {
+
+                if (null != closeable) {
+                    closeable.close();
+                }
+            } catch (IOException e) {
+                throwables.add(e);
+            }
+        }
+
     }
-  }
 
-  private IOUtils() {
-  }
+    /**
+     * @param closeables
+     */
+    public static void freeQuietly(Closeable... closeables) {
+        try {
+
+            free(closeables);
+        } catch (Exception e) {
+            // ingore this exception
+        }
+    }
+
+    private IOUtils() {
+    }
 }

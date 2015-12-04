@@ -7,7 +7,6 @@ import org.apache.shiro.session.SessionListener;
 
 /**
  * session状态监听
- * 
  */
 public class SessionHandler implements SessionListener {
 

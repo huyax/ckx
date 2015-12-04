@@ -6,14 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class HomePageAction extends BaseAction
-{
+public class HomePageAction extends BaseAction {
 
-	@RequestMapping(value = "/menus/home.html", method = RequestMethod.GET)
-	public String index(ModelMap model)
-	{
+    @RequestMapping(value = "/menus/home.html", method = RequestMethod.GET)
+    public String index(ModelMap model) {
 
-		return AD_HTML + "home";
-	}
+        return AD_HTML + "home";
+    }
 
 }

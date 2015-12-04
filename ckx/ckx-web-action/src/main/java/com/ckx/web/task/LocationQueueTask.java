@@ -11,24 +11,20 @@ import com.ckx.web.core.location.LocationService;
 
 /**
  * 定时任务demo
- * 
  */
-public class LocationQueueTask extends QuartzJobBean
-{
-	private Log							log	= LogFactory.getLog(getClass());
+public class LocationQueueTask extends QuartzJobBean {
+    private Log log = LogFactory.getLog(getClass());
 
-	private LocationService	locationService;
+    private LocationService locationService;
 
-	@Override
-	protected void executeInternal(JobExecutionContext arg0) throws JobExecutionException
-	{
-		log.debug("redis定位队列扫描任务启动，开始扫描...");
-		locationService.scanQueue();
-	}
+    @Override
+    protected void executeInternal(JobExecutionContext arg0) throws JobExecutionException {
+        log.debug("redis定位队列扫描任务启动，开始扫描...");
+        locationService.scanQueue();
+    }
 
-	public void setLocationService(LocationService locationService)
-	{
-		this.locationService = locationService;
-	}
+    public void setLocationService(LocationService locationService) {
+        this.locationService = locationService;
+    }
 
 }

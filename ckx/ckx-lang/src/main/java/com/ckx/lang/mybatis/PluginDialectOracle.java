@@ -7,9 +7,9 @@ import org.apache.ibatis.mapping.MappedStatement;
 
 public class PluginDialectOracle implements PluginDialect {
 
-  @Override
-  public String prepareStatement(MappedStatement mappedStatement, BoundSql boundSql, Connection connection, Pager page) {
-    return null;
-  }
+    @Override
+    public String prepareStatement(MappedStatement mappedStatement, BoundSql boundSql, Connection connection, Pager page) {
+        return null;
+    }
 
 }

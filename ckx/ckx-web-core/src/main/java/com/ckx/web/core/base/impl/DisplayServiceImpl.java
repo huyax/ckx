@@ -21,18 +21,24 @@ import com.ckx.web.persist.mapper.SysUsersMapper;
 public class DisplayServiceImpl implements DisplayService {
 
     private String DISPLAY_CACHE_KEY = "DISPLAY_CACHE_KEY";
-    private @Autowired SysUsersMapper usersMapper;
-    private @Autowired SysRolesMapper rolesMapper;
-    private @Autowired SysPostsMapper postsMapper;
- 
+    private
+    @Autowired
+    SysUsersMapper usersMapper;
+    private
+    @Autowired
+    SysRolesMapper rolesMapper;
+    private
+    @Autowired
+    SysPostsMapper postsMapper;
+
 
     /**
      * 获取Cache对象
-     * 
-     * @author 吴尚云
-     * @date 2014-3-4 下午1:16:34
+     *
      * @param id
      * @return
+     * @author 吴尚云
+     * @date 2014-3-4 下午1:16:34
      */
     private Cache getCache(String id) {
         return new EhcacheCache(id);
@@ -101,6 +107,5 @@ public class DisplayServiceImpl implements DisplayService {
         return result;
     }
 
-   
-  
+
 }

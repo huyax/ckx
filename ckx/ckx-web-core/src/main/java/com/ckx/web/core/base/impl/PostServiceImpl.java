@@ -12,7 +12,9 @@ import com.ckx.web.persist.mapper.SysPostsMapper;
 @Service
 public class PostServiceImpl implements PostService {
 
-    private @Autowired SysPostsMapper postDao;
+    private
+    @Autowired
+    SysPostsMapper postDao;
 
     public List<SysPosts> getAllPost() {
         return postDao.getAllPosts();

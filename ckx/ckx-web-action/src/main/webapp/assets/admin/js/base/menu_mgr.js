@@ -1,58 +1,72 @@
-$(function(){
+$(function () {
     function addHoverDom(treeId, treeNode) {
         var sObj = $("#" + treeNode.tId + "_span");
-        if (!treeNode.isParent || $("#addBtn_"+treeNode.tId).length > 0) return;
+        if (!treeNode.isParent || $("#addBtn_" + treeNode.tId).length > 0) return;
         var addStr = "<span class='button add' id='addBtn_" + treeNode.tId + "' title='新增' onfocus='this.blur();'></span>";
         sObj.after(addStr);
-        var btn = $("#addBtn_"+treeNode.tId);
-        if (btn) btn.bind("click", function(){
+        var btn = $("#addBtn_" + treeNode.tId);
+        if (btn) btn.bind("click", function () {
             $('#menuEditForm').resetForm();
-            var node = {isParent:false, parentId:treeNode.menuId, parentName:treeNode.menuName,menuId:''};
+            var node = {isParent: false, parentId: treeNode.menuId, parentName: treeNode.menuName, menuId: ''};
             $('#menuEditForm')._jsonToForm(node);
             $('#menuName').focus();
             return false;
         });
     }
+
     function removeHoverDom(treeId, treeNode) {
-        $("#addBtn_"+treeNode.tId).unbind().remove();
+        $("#addBtn_" + treeNode.tId).unbind().remove();
     }
+
     var setting = {
         edit: {
             enable: true,
             renameTitle: '编辑',
             removeTitle: '删除',
-            showRenameBtn: function(treeId, treeNode){if(treeNode.menuId == 0){return false;} else {return true;}},
-            showRemoveBtn: function(treeId, treeNode){if(treeNode.menuId == 0){return false;} else {return true;}},
-            drag:{isCopy : false,isMove : false}
+            showRenameBtn: function (treeId, treeNode) {
+                if (treeNode.menuId == 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            },
+            showRemoveBtn: function (treeId, treeNode) {
+                if (treeNode.menuId == 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            },
+            drag: {isCopy: false, isMove: false}
         },
         data: {
-            simpleData: { enable: true, idKey: "menuId", pIdKey: "parentId" },
-            key : { name : "showName",url: "mUrl"},
-            keep : {parent: true, leaf: true}
+            simpleData: {enable: true, idKey: "menuId", pIdKey: "parentId"},
+            key: {name: "showName", url: "mUrl"},
+            keep: {parent: true, leaf: true}
         },
-        callback : {
-            onClick : function(event, treeId, treeNode) {
-                if(treeNode.isParent) {
+        callback: {
+            onClick: function (event, treeId, treeNode) {
+                if (treeNode.isParent) {
                     zTree.expandNode(treeNode, !treeNode.open, false, true);
                 }
             },
-            beforeRemove:function(treeId, treeNode) {
+            beforeRemove: function (treeId, treeNode) {
                 zTree.selectNode(treeNode);
-                $.messager.confirm('提醒','确定要删除该'+(treeNode.isParent ? '及其子' : '')+'菜单吗？',function(r) {
-                    if(r){
-                        $._ajaxPost('menu/del.html',{menuId:treeNode.menuId},function(r){
-                            if(r.r) {
+                $.messager.confirm('提醒', '确定要删除该' + (treeNode.isParent ? '及其子' : '') + '菜单吗？', function (r) {
+                    if (r) {
+                        $._ajaxPost('menu/del.html', {menuId: treeNode.menuId}, function (r) {
+                            if (r.r) {
                                 zTree.removeNode(treeNode);
                                 $('#menuEditForm').resetForm();
                             }
-                            asyncbox.tips(r.m,r.r ? 'success' : 'error');
+                            asyncbox.tips(r.m, r.r ? 'success' : 'error');
                         });
                     }
                 });
                 return false;
             },
-            beforeEditName : function(treeId, treeNode) {
-                if(treeNode.parentId == null)treeNode.parentId = 0;
+            beforeEditName: function (treeId, treeNode) {
+                if (treeNode.parentId == null)treeNode.parentId = 0;
                 $('#menuEditForm')._jsonToForm(treeNode);
                 var parent = treeNode.getParentNode();
                 $('#parentName').val(parent == null ? '无' : parent.showName);
@@ -60,17 +74,17 @@ $(function(){
                 return false;
             }
         },
-        view : {
-            showTitle : false,
-            selectedMulti : false,
-            autoCancelSelected : false,
-            addHoverDom : addHoverDom,
-            removeHoverDom : removeHoverDom,
-            fontCss : function(treeId, treeNode){
-                if(treeNode.status == 0){
-                    return {color:"red"};
+        view: {
+            showTitle: false,
+            selectedMulti: false,
+            autoCancelSelected: false,
+            addHoverDom: addHoverDom,
+            removeHoverDom: removeHoverDom,
+            fontCss: function (treeId, treeNode) {
+                if (treeNode.status == 0) {
+                    return {color: "red"};
                 } else {
-                    return {color:"black"};
+                    return {color: "black"};
                 }
             }
         }
@@ -78,12 +92,14 @@ $(function(){
     $.fn.zTree.init($("#menuPanel"), setting, window.menus);
     var zTree = $.fn.zTree.getZTreeObj("menuPanel");
     zTree.expandAll(true);
-    $('#menuEditForm').submit(function(){
-        if(!$(this).form('validate')){return;}
+    $('#menuEditForm').submit(function () {
+        if (!$(this).form('validate')) {
+            return;
+        }
         var node = $(this)._formToJson();
-        if($.trim(node.menuId) == '') {
-            $._ajaxPost('menu/add.html', node, function(r){
-                if(r.r) {
+        if ($.trim(node.menuId) == '') {
+            $._ajaxPost('menu/add.html', node, function (r) {
+                if (r.r) {
                     var parentNode = zTree.getNodeByParam('menuId', node.parentId, null);
                     node.menuId = r.menuId;
                     node.showName = $.trim(node.remark) == '' ? node.menuName : node.menuName + '[' + node.remark + ']';
@@ -91,13 +107,13 @@ $(function(){
                     zTree.selectNode(zTree.getNodeByParam('menuId', node.menuId));
                     $('#menuEditForm').resetForm();
                 }
-                asyncbox.tips(r.m,r.r ? 'success' : 'error');
+                asyncbox.tips(r.m, r.r ? 'success' : 'error');
             });
         } else {
-            $._ajaxPost('menu/upd.html', node, function(r){
-                if(r.r) {
+            $._ajaxPost('menu/upd.html', node, function (r) {
+                if (r.r) {
                     var treeNode = zTree.getNodeByParam('menuId', node.menuId, null);
-                    for(var key in node){
+                    for (var key in node) {
                         treeNode[key] = node[key];
                     }
                     treeNode.isParent = node.isParent == 'true' ? true : false;
@@ -105,11 +121,11 @@ $(function(){
                     zTree.updateNode(treeNode);
                     $('#menuEditForm').resetForm();
                 }
-                asyncbox.tips(r.m,r.r ? 'success' : 'error');
+                asyncbox.tips(r.m, r.r ? 'success' : 'error');
             });
         }
     });
 });
-function custom(width, height){
+function custom(width, height) {
     $('#menuMgrPanel,#editMenu').height(height - 29);
 }

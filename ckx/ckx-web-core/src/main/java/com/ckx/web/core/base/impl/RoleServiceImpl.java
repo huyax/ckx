@@ -18,8 +18,12 @@ import com.ckx.web.persist.mapper.SysRolesMapper;
 @Transactional(propagation = Propagation.REQUIRED, rollbackFor = java.lang.Exception.class)
 public class RoleServiceImpl implements RoleService {
 
-    private @Autowired SysRolesMapper roleDao;
-    private @Autowired SysRoleMenuMapper roleMenuDao;
+    private
+    @Autowired
+    SysRolesMapper roleDao;
+    private
+    @Autowired
+    SysRoleMenuMapper roleMenuDao;
 
     public List<SysRoles> getAllRoles() {
         return roleDao.getAllRoles();
@@ -52,48 +56,51 @@ public class RoleServiceImpl implements RoleService {
             return roleMenuDao.deleteByPrimaryKey(roleMenu);
         }
     }
-    
+
     @Override
     public List<SysRoles> getRoleByParent(Integer roleId) {
         return roleDao.selectRoleByParent(getRoleChild(roleId));
     }
-    
+
     /**
      * 查询角色对应的所有子角色
-     * @author 吴尚云
-     * @date 2014-3-3 下午5:07:31
+     *
      * @param roleId
      * @return
+     * @author 吴尚云
+     * @date 2014-3-3 下午5:07:31
      */
     public static String getRoleChild(int roleId) {
         return BeansManager.getBean(SysRolesMapper.class).getRoleChild(roleId);
     }
-    
+
     /**
      * 查询角色对应的所有父角色
-     * @author 吴尚云
-     * @date 2014-3-3 下午5:07:51
+     *
      * @param roleId
      * @return
+     * @author 吴尚云
+     * @date 2014-3-3 下午5:07:51
      */
     public static String getRoleParent(int roleId) {
         return BeansManager.getBean(SysRolesMapper.class).getRoleParent(roleId);
     }
-    
+
     /**
      * 查询角色所有的子父角色
-     * @author 吴尚云
-     * @date 2014-3-3 下午5:08:08
+     *
      * @param roleId
      * @return
+     * @author 吴尚云
+     * @date 2014-3-3 下午5:08:08
      */
     public static String getRoleTree(int roleId) {
         return BeansManager.getBean(SysRolesMapper.class).getRoleTree(roleId);
     }
-    
+
     @Override
-	public Integer selectIdByName() {
-		return roleDao.selectIdByName();
-	}
+    public Integer selectIdByName() {
+        return roleDao.selectIdByName();
+    }
 
 }
