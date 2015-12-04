@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import com.${project}.web.core.${module}.${name}Service;
-import com.${project}.lang.Pager;
+import com.${project}.lang.mybatis.Pager;
 import com.${project}.web.persist.entity.${name};
 import com.${project}.web.persist.mapper.${name}Mapper;
 

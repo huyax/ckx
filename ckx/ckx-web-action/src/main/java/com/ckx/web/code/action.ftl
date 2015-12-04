@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.ckx.web.action.base.BaseAction;
 import com.${project}.web.core.${module}.${name}Service;
-import com.${project}.lang.Pager;
+import com.${project}.lang.mybatis.Pager;
 import com.${project}.web.persist.entity.${name};
 @RequestMapping(value = "/${nameLow}")
 @Controller
@@ -29,7 +29,7 @@ private @Autowired ${name}Service    ${nameLow}Service;
 @RequestMapping(value = "/index", method = RequestMethod.GET)
 public String index(ModelMap model)
 {
-return AD_HTML + "${nameLow}/index";
+return ADMIN + "${nameLow}/index";
 }
 
 /**
@@ -62,15 +62,15 @@ Map
 <String, Object> result = getResultMap();
 try {
 if (${nameLow}Service.add(vo)) {
-result.put(RESULT, true);
-result.put(MESSAGE, "新增成功！");
+result.put(R, true);
+result.put(M, "新增成功！");
 } else {
-result.put(RESULT, false);
-result.put(MESSAGE, "新增失败！");
+result.put(R, false);
+result.put(M, "新增失败！");
 }
 } catch (Exception e) {
-result.put(RESULT, false);
-result.put(MESSAGE, "系统异常，操作失败！");
+result.put(R, false);
+result.put(M, "系统异常，操作失败！");
 getLog(this).error(e.getMessage(), e);
 }
 return result;
@@ -90,18 +90,18 @@ Map
 <String, Object> result = getResultMap();
 try {
 if (vo.getId() == null) {
-result.put(RESULT, false);
-result.put(MESSAGE, "提交数据不完整！");
+result.put(R, false);
+result.put(M, "提交数据不完整！");
 } else if (${nameLow}Service.updateByPk(vo)) {
-result.put(RESULT, true);
-result.put(MESSAGE, "修改成功！");
+result.put(R, true);
+result.put(M, "修改成功！");
 } else {
-result.put(RESULT, false);
-result.put(MESSAGE, "修改失败！");
+result.put(R, false);
+result.put(M, "修改失败！");
 }
 } catch (Exception e) {
-result.put(RESULT, false);
-result.put(MESSAGE, "系统异常，操作失败！");
+result.put(R, false);
+result.put(M, "系统异常，操作失败！");
 getLog(this).error(e.getMessage(), e);
 }
 return result;
@@ -121,15 +121,15 @@ Map
 <String, Object> result = getResultMap();
 try {
 if (id != null && ${nameLow}Service.deleteById(id) > 0) {
-result.put(RESULT, true);
-result.put(MESSAGE, "删除成功！");
+result.put(R, true);
+result.put(M, "删除成功！");
 } else {
-result.put(RESULT, false);
-result.put(MESSAGE, "删除失败！");
+result.put(R, false);
+result.put(M, "删除失败！");
 }
 } catch (Exception e) {
-result.put(RESULT, false);
-result.put(MESSAGE, "系统异常，操作失败！");
+result.put(R, false);
+result.put(M, "系统异常，操作失败！");
 getLog(this).error(e.getMessage(), e);
 }
 return result;
@@ -149,15 +149,15 @@ Map
 <String, Object> result = getResultMap();
 try {
 if (!StringUtils.isBlank(ids) && ${nameLow}Service.batchDelete(ids) > 0) {
-result.put(RESULT, true);
-result.put(MESSAGE, "删除成功！");
+result.put(R, true);
+result.put(M, "删除成功！");
 } else {
-result.put(RESULT, false);
-result.put(MESSAGE, "删除失败！");
+result.put(R, false);
+result.put(M, "删除失败！");
 }
 } catch (Exception e) {
-result.put(RESULT, false);
-result.put(MESSAGE, "系统异常，操作失败！");
+result.put(R, false);
+result.put(M, "系统异常，操作失败！");
 getLog(this).error(e.getMessage(), e);
 }
 return result;

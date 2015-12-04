@@ -1,6 +1,6 @@
 package com.${project}.web.core.${module};
 
-import com.${project}.lang.Pager;
+import com.${project}.lang.mybatis.Pager;
 import com.${project}.web.persist.entity.${name};
 
 public interface ${name}Service {

@@ -7,13 +7,7 @@ _rootPath+= _location.port == '' ? '' : ':' + _location.port;
 _rootPath+= _basePath;
 window.rootPath = _rootPath;
 window.resVersion = '${v}';
-<#if link?starts_with("/menus/")>document.write('
-    <base href="' + window.rootPath + '/"/>
-    ');
-</#if>
-<#if user??>window.user = {nick:'${user.nick!'""'}', userId:${user.userId!'""'}, username:'${user.username!'""'}',
-    email:'${user.email!'""'}',
-    postId:${user.postId!'""'},roleId:${user.roleId!'""'},parentRole:${user.parentRole!'""'}};
-</#if>
+<#if link?starts_with("/menus/")>document.write('<base href="' + window.rootPath + '/" />');</#if>
+<#if user??>window.user = {nick:'${user.nick!'""'}', userId:${user.userId!'""'}, username:'${user.username!'""'}', email:'${user.email!'""'}', postId:${user.postId!'""'},roleId:${user.roleId!'""'},parentRole:${user.parentRole!'""'}};</#if>
 })();
 </@compress>

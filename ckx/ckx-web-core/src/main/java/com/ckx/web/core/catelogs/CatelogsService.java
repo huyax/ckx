@@ -5,14 +5,14 @@ import com.ckx.web.persist.entity.Catelogs;
 
 public interface CatelogsService {
 
-    void paginate(Pager pager);
+void paginate(Pager pager);
 
-    boolean add(Catelogs catelogs);
+boolean add(Catelogs catelogs);
 
-    boolean updateByPk(Catelogs catelogs);
+boolean updateByPk(Catelogs catelogs);
 
-    int deleteById(Integer id);
+int deleteById(Integer id);
 
-    int batchDelete(String ids);
+int batchDelete(String ids);
 
 }

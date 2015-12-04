@@ -1,7 +1,6 @@
 package com.ckx.web.action.catelogs;
 
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
@@ -12,10 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.ckx.lang.mybatis.Pager;
 import com.ckx.web.action.base.BaseAction;
 import com.ckx.web.core.catelogs.CatelogsService;
+import com.ckx.lang.mybatis.Pager;
 import com.ckx.web.persist.entity.Catelogs;
 
 @RequestMapping(value = "/catelogs")
@@ -64,7 +62,8 @@ public class CatelogsAction extends BaseAction {
     @ResponseBody
     @RequestMapping(method = RequestMethod.POST)
     public Object post(Catelogs vo, HttpServletRequest request, ModelMap model) {
-        Map<String, Object> result = getResultMap();
+        Map
+                <String, Object> result = getResultMap();
         try {
             if (catelogsService.add(vo)) {
                 result.put(R, true);
@@ -84,6 +83,7 @@ public class CatelogsAction extends BaseAction {
     /**
      * 修改
      *
+     * @param vo
      * @param request
      * @param model
      * @return
@@ -91,7 +91,8 @@ public class CatelogsAction extends BaseAction {
     @ResponseBody
     @RequestMapping(method = RequestMethod.PUT)
     public Object put(Catelogs vo, HttpServletRequest request, ModelMap model) {
-        Map<String, Object> result = getResultMap();
+        Map
+                <String, Object> result = getResultMap();
         try {
             if (vo.getId() == null) {
                 result.put(R, false);
@@ -122,7 +123,8 @@ public class CatelogsAction extends BaseAction {
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public Object delete(@PathVariable Integer id, HttpServletRequest request, ModelMap model) {
-        Map<String, Object> result = getResultMap();
+        Map
+                <String, Object> result = getResultMap();
         try {
             if (id != null && catelogsService.deleteById(id) > 0) {
                 result.put(R, true);
@@ -150,7 +152,8 @@ public class CatelogsAction extends BaseAction {
     @ResponseBody
     @RequestMapping(value = "/batch", method = RequestMethod.POST)
     public Object batchDel(String ids, HttpServletRequest request, ModelMap model) {
-        Map<String, Object> result = getResultMap();
+        Map
+                <String, Object> result = getResultMap();
         try {
             if (!StringUtils.isBlank(ids) && catelogsService.batchDelete(ids) > 0) {
                 result.put(R, true);

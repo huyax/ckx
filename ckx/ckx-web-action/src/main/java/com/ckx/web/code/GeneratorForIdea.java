@@ -11,50 +11,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.HashMap;
 
 /**
- * <p>
- * 文件名称: GeneratorCode.java
- * </p>
- * <p>
- * 文件描述: 用于生产基础CRUD代码 生产Action及Service类以及html、js 持久层代码请于persist模块运行mybatis 插件生产
- * </p>
- * <p>
- * 内容摘要:
- * </p>
- * <p>
- * 其他说明:
- * </p>
- * <p>
- * 完成日期：2015年11月12日
- * </p>
- * <p>
- * 修改记录0：无
- * </p>
- *
- * @author 胡亚雄
- * @version 1.0
+ * Created by Administrator on 2015/12/4.
  */
-public class GeneratorCode {
+public class GeneratorForIdea {
     private static final String PROJECT_NAME = "ckx";
 
     private static final String SERVICE = "core";
 
     private static final String PATH = "\\src\\main\\java\\com\\ckx\\web\\code\\";
 
-    private static final String PATH_HTML = "\\src\\main\\webapp\\pager\\biz-logic\\";
+    private static final String PATH_HTML = "\\src\\main\\webapp\\pager\\admin\\";
 
-    private static final String PATH_JAVASCRIPT = "\\src\\main\\webapp\\assets\\biz-logic\\js\\";
+    private static final String PATH_JAVASCRIPT = "\\src\\main\\webapp\\assets\\admin\\js\\";
 
     public static void main(String[] args) {
-       /* Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<String, Object>();
         map.put("name", "Catelogs");
         //map.put("name", "Movie");
         //map.put("name", "Location");
         map.put("project", PROJECT_NAME);
-        create(map);*/
-        System.out.print("heh");
-
+        create(map);
     }
 
     private static void create(Map<String, Object> map) {
@@ -75,7 +54,7 @@ public class GeneratorCode {
     }
 
     public static void createAction(Map<String, Object> data) {
-        String root = System.getProperty("user.dir");
+        String root = System.getProperty("user.dir")+ "\\ckx-web-action";
         String name = (String) data.get("name");
         data.put("nameLow", name.toLowerCase());
         data.put("module", name.toLowerCase());
@@ -84,8 +63,7 @@ public class GeneratorCode {
         TemplateLoader templateLoader = null;
         try {
             // 使用FileTemplateLoader
-            templateLoader = new FileTemplateLoader(new File(
-                    System.getProperty("user.dir")));
+            templateLoader = new FileTemplateLoader(new File(root));
 
             cfg.setTemplateLoader(templateLoader);
             Template template = cfg.getTemplate(PATH + "action.ftl", "UTF-8");
@@ -112,8 +90,7 @@ public class GeneratorCode {
     }
 
     public static void createService(Map<String, Object> data) {
-        String root = System.getProperty("user.dir").replace("-action",
-                "-" + SERVICE);
+        String root = System.getProperty("user.dir");
         String name = (String) data.get("name");
         data.put("nameLow", name.toLowerCase());
         data.put("module", name.toLowerCase());
@@ -122,13 +99,12 @@ public class GeneratorCode {
         TemplateLoader templateLoader = null;
         try {
             // 使用FileTemplateLoader
-            templateLoader = new FileTemplateLoader(new File(
-                    System.getProperty("user.dir")));
+            templateLoader = new FileTemplateLoader(new File(root + "\\ckx-web-action"));
 
             cfg.setTemplateLoader(templateLoader);
             Template template = cfg.getTemplate(PATH + "service.ftl", "UTF-8");
             template.setEncoding("UTF-8");
-            String dir = root + PATH.replace("web\\code", "web\\core")
+            String dir = root + "\\ckx-web-core" + PATH.replace("web\\code", "web\\core")
                     + name.toLowerCase();
             File dirFile = new File(dir);
             if (!dirFile.exists()) {
@@ -150,8 +126,7 @@ public class GeneratorCode {
     }
 
     public static void createServiceImpl(Map<String, Object> data) {
-        String root = System.getProperty("user.dir").replace("-action",
-                "-" + SERVICE);
+        String root = System.getProperty("user.dir");
         String name = (String) data.get("name");
         data.put("nameLow", name.toLowerCase());
         data.put("module", name.toLowerCase());
@@ -160,14 +135,13 @@ public class GeneratorCode {
         TemplateLoader templateLoader = null;
         try {
             // 使用FileTemplateLoader
-            templateLoader = new FileTemplateLoader(new File(
-                    System.getProperty("user.dir")));
+            templateLoader = new FileTemplateLoader(new File(root + "\\ckx-web-action"));
 
             cfg.setTemplateLoader(templateLoader);
             Template template = cfg.getTemplate(PATH + "serviceImpl.ftl",
                     "UTF-8");
             template.setEncoding("UTF-8");
-            String dir = root + PATH.replace("web\\code", "web\\core")
+            String dir = root + "\\ckx-web-core" + PATH.replace("web\\code", "web\\core")
                     + name.toLowerCase() + File.separator + "impl";
             File dirFile = new File(dir);
             if (!dirFile.exists()) {
@@ -190,7 +164,7 @@ public class GeneratorCode {
     }
 
     public static void createHtml(Map<String, Object> data) {
-        String root = System.getProperty("user.dir");
+        String root = System.getProperty("user.dir") + "\\ckx-web-action";
         String name = (String) data.get("name");
         List<String> columns = new ArrayList<String>();
         try {
@@ -213,8 +187,7 @@ public class GeneratorCode {
         TemplateLoader templateLoader = null;
         try {
             // 使用FileTemplateLoader
-            templateLoader = new FileTemplateLoader(new File(
-                    System.getProperty("user.dir")));
+            templateLoader = new FileTemplateLoader(new File(root));
 
             cfg.setTemplateLoader(templateLoader);
             Template template = cfg
@@ -241,7 +214,7 @@ public class GeneratorCode {
     }
 
     public static void createJavaScript(Map<String, Object> data) {
-        String root = System.getProperty("user.dir");
+        String root = System.getProperty("user.dir")+ "\\ckx-web-action";
         String name = (String) data.get("name");
 
         data.put("nameLow", name.toLowerCase());
@@ -251,8 +224,7 @@ public class GeneratorCode {
         TemplateLoader templateLoader = null;
         try {
             // 使用FileTemplateLoader
-            templateLoader = new FileTemplateLoader(new File(
-                    System.getProperty("user.dir")));
+            templateLoader = new FileTemplateLoader(new File(root));
 
             cfg.setTemplateLoader(templateLoader);
             Template template = cfg.getTemplate(PATH + "javascript.ftl",

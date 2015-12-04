@@ -363,7 +363,7 @@ Number.prototype.toQianPercent = function () {
                 }
                 input_tag.css({
                     border: 'solid 1px #679FD2',
-                    background: 'url(' + window.rootPath + '/assets/biz-logic/images/input_bg_d.jpg) repeat-x',
+                    background: 'url(' + window.rootPath + '/assets/admin/images/input_bg_d.jpg) repeat-x',
                     color: '#999',
                     height: '18px'
                 });
@@ -531,7 +531,7 @@ Number.prototype.toQianPercent = function () {
                 });
                 target.css({
                     border: 'solid 1px #B1C242',
-                    background: 'url(' + window.rootPath + '/assets/biz-logic/images/input_bg_d.jpg) repeat-x',
+                    background: 'url(' + window.rootPath + '/assets/admin/images/input_bg_d.jpg) repeat-x',
                     color: '#999',
                     height: '18px'
                 });

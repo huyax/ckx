@@ -35,7 +35,7 @@ import java.util.Map;
  * @author 胡亚雄
  * @version 1.0
  */
-public class GeneratorCode {
+public class GeneratorForEclipse {
     private static final String PROJECT_NAME = "ckx";
 
     private static final String SERVICE = "core";

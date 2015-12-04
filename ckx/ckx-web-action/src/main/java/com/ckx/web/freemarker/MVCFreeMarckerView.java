@@ -31,7 +31,6 @@ public class MVCFreeMarckerView extends FreeMarkerView {
     /**
      * 获取web应用的根路径
      *
-     * @param request
      * @return
      */
     private String getRootPath() {
