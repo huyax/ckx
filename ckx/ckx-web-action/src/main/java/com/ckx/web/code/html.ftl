@@ -31,7 +31,7 @@ ${r'<#include "/pager/common/quote.html" />'}
 <div class="hide-panel">
     <div id="editDialog" style="width:500px;height:300px;padding-left:50px;"
          data-options="resizable:false,modal:true,closed: true">
-        <form id="editForm" class="form_style" method="post" onsubmit="return false;">
+        <form id="editForm" action="${r'${base}'}/${nameLow}" class="form_style" method="post" onsubmit="return false;">
             <input　type="hidden"　name="_method" id="_method"　value="put"/>
             <input type="hidden" name="id" id="edit_id"/>
 
