@@ -78,7 +78,7 @@ return result;
 
 /**
 * 修改
-* @param config
+* @param vo
 * @param request
 * @param model
 * @return
@@ -110,7 +110,6 @@ return result;
 /**
 * 删除
 * @param id
-* @param ids
 * @param request
 * @param model
 * @return

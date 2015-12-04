@@ -36,7 +36,7 @@ public class RoleMgrAction extends BaseAction {
         } catch (Exception e) {
             getLog(this).error(e.getMessage(), e);
         }
-        return AD_HTML + "base/role_mgr";
+        return ADMIN + "base/role_mgr";
     }
 
     @ResponseBody
@@ -44,11 +44,11 @@ public class RoleMgrAction extends BaseAction {
     public Object list(HttpServletRequest request, ModelMap model) {
         Map<String, Object> result = getResultMap();
         try {
-            result.put(RESULT, true);
+            result.put(R, true);
             result.put(DATA, roleSv.getRoleByParent(getUser().getRoleId()));
         } catch (Exception e) {
-            result.put(RESULT, false);
-            result.put(MESSAGE, "系统异常，获取数据失败！");
+            result.put(R, false);
+            result.put(M, "系统异常，获取数据失败！");
             getLog(this).error("系统异常，获取数据失败！", e);
         }
         return result;
@@ -60,21 +60,21 @@ public class RoleMgrAction extends BaseAction {
         Map<String, Object> result = getResultMap();
         try {
             if (role.getParentRole() == null || StringUtils.isBlank(role.getRoleName())) {
-                result.put(RESULT, false);
-                result.put(MESSAGE, "提交数据无效！");
+                result.put(R, false);
+                result.put(M, "提交数据无效！");
             } else {
                 if (roleSv.addRole(role) > 0) {
-                    result.put(RESULT, true);
+                    result.put(R, true);
                     result.put("roleId", role.getRoleId());
-                    result.put(MESSAGE, "新增成功！");
+                    result.put(M, "新增成功！");
                 } else {
-                    result.put(RESULT, false);
-                    result.put(MESSAGE, "新增失败！");
+                    result.put(R, false);
+                    result.put(M, "新增失败！");
                 }
             }
         } catch (Exception e) {
-            result.put(RESULT, false);
-            result.put(MESSAGE, "系统异常，操作失败！");
+            result.put(R, false);
+            result.put(M, "系统异常，操作失败！");
             getLog(this).error(e.getMessage(), e);
         }
         return result;
@@ -86,20 +86,20 @@ public class RoleMgrAction extends BaseAction {
         Map<String, Object> result = getResultMap();
         try {
             if (role.getRoleId() == null || StringUtils.isBlank(role.getRoleName())) {
-                result.put(RESULT, false);
-                result.put(MESSAGE, "修改失败！");
+                result.put(R, false);
+                result.put(M, "修改失败！");
             } else {
                 if (roleSv.updRole(role) > 0) {
-                    result.put(RESULT, true);
-                    result.put(MESSAGE, "修改成功！");
+                    result.put(R, true);
+                    result.put(M, "修改成功！");
                 } else {
-                    result.put(RESULT, false);
-                    result.put(MESSAGE, "修改失败！");
+                    result.put(R, false);
+                    result.put(M, "修改失败！");
                 }
             }
         } catch (Exception e) {
-            result.put(RESULT, false);
-            result.put(MESSAGE, "系统异常，操作失败！");
+            result.put(R, false);
+            result.put(M, "系统异常，操作失败！");
             getLog(this).error(e.getMessage(), e);
         }
         return result;
@@ -111,15 +111,15 @@ public class RoleMgrAction extends BaseAction {
         Map<String, Object> result = getResultMap();
         try {
             if (roleId != null && roleSv.delRole(roleId) > 0) {
-                result.put(RESULT, true);
-                result.put(MESSAGE, "删除成功！");
+                result.put(R, true);
+                result.put(M, "删除成功！");
             } else {
-                result.put(RESULT, false);
-                result.put(MESSAGE, "删除失败！");
+                result.put(R, false);
+                result.put(M, "删除失败！");
             }
         } catch (Exception e) {
-            result.put(RESULT, false);
-            result.put(MESSAGE, "系统异常，操作失败！");
+            result.put(R, false);
+            result.put(M, "系统异常，操作失败！");
             getLog(this).error(e.getMessage(), e);
         }
         return result;
@@ -131,15 +131,15 @@ public class RoleMgrAction extends BaseAction {
         Map<String, Object> result = getResultMap();
         try {
             if (roleId != null) {
-                result.put(RESULT, true);
+                result.put(R, true);
                 result.put(DATA, roleSv.getRoleMenus(roleId));
             } else {
-                result.put(RESULT, false);
-                result.put(MESSAGE, "参数错误，获取数据失败！");
+                result.put(R, false);
+                result.put(M, "参数错误，获取数据失败！");
             }
         } catch (Exception e) {
-            result.put(RESULT, false);
-            result.put(MESSAGE, "系统异常，获取数据失败！");
+            result.put(R, false);
+            result.put(M, "系统异常，获取数据失败！");
             getLog(this).error(e.getMessage(), e);
         }
         return result;
@@ -151,15 +151,15 @@ public class RoleMgrAction extends BaseAction {
         Map<String, Object> result = getResultMap();
         try {
             if (checked != null && roleMenu.getRoleId() != null && roleMenu.getMenuId() != null) {
-                result.put(RESULT, true);
+                result.put(R, true);
                 roleSv.changeRoleMenu(roleMenu, checked);
             } else {
-                result.put(RESULT, false);
-                result.put(MESSAGE, "参数错误，获取数据失败！");
+                result.put(R, false);
+                result.put(M, "参数错误，获取数据失败！");
             }
         } catch (Exception e) {
-            result.put(RESULT, false);
-            result.put(MESSAGE, "系统异常，获取数据失败！");
+            result.put(R, false);
+            result.put(M, "系统异常，获取数据失败！");
         }
         return result;
     }

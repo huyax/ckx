@@ -40,13 +40,13 @@ public class UserMgrAction extends BaseAction {
     public String index(ModelMap model) {
         model.put("posts", postSv.getAllPost());
         model.put("allRole", roleSv.getAllRoles());
-        return AD_HTML + "base/user_mgr";
+        return ADMIN + "base/user_mgr";
     }
 
     @RequestMapping(value = "/user/message.html", method = RequestMethod.GET)
     public String _index(ModelMap model) {
         model.put("user", userSv.getByUserId(getUser().getUserId()));
-        return AD_HTML + "base/user_message";
+        return ADMIN + "base/user_message";
     }
 
     //廖江洪 添加快捷创建用户界面
@@ -58,7 +58,7 @@ public class UserMgrAction extends BaseAction {
         //model.put("showAllPosts", PostUtils.createAllUsers.contains(user.getPostId()));//查看所有用户,除了超级管理员
         model.put("superPost", SysConstants.POST_SUPER_ADMIN);//超级管理员
 
-        return AD_HTML + "base/create_new_user";
+        return ADMIN + "base/create_new_user";
     }
 
     @ResponseBody
@@ -67,19 +67,19 @@ public class UserMgrAction extends BaseAction {
                                 HttpServletRequest request, ModelMap model) {
         Map<String, Object> result = new HashMap<String, Object>();
         if (StringUtils.isBlank(oldPassword)) {
-            result.put(ERROR, "旧密码不能为空！");
+            result.put(E, "旧密码不能为空！");
             return result;
         }
         if (StringUtils.isBlank(newPassword)) {
-            result.put(ERROR, "新密码不能为空！");
+            result.put(E, "新密码不能为空！");
             return result;
         }
         if (StringUtils.isBlank(entPassword)) {
-            result.put(ERROR, "确认密码不能为空！");
+            result.put(E, "确认密码不能为空！");
             return result;
         }
         if (!newPassword.equals(entPassword)) {
-            result.put(ERROR, "两次密码不相同！");
+            result.put(E, "两次密码不相同！");
             return result;
         }
 
@@ -87,22 +87,22 @@ public class UserMgrAction extends BaseAction {
         try {
             String oldPass = MD5Encrypt.MD5(oldPassword);
             if (!user.getPassword().equals(oldPass)) {
-                result.put(ERROR, "旧密码错误！");
+                result.put(E, "旧密码错误！");
                 return result;
             } else {
                 user.setPassword(MD5Encrypt.MD5(newPassword));
                 if (userSv.updateUser(user)) {
-                    result.put(RESULT, true);
-                    result.put(MESSAGE, "密码修改成功！");
+                    result.put(R, true);
+                    result.put(M, "密码修改成功！");
                 } else {
-                    result.put(RESULT, false);
-                    result.put(ERROR, "密码修改失败！");
+                    result.put(R, false);
+                    result.put(E, "密码修改失败！");
                     return result;
                 }
             }
         } catch (Exception e) {
-            result.put(RESULT, false);
-            result.put(ERROR, "系统异常，修改密码失败！");
+            result.put(R, false);
+            result.put(E, "系统异常，修改密码失败！");
             getLog(this).error(e.getMessage(), e);
         }
         return result;
@@ -130,21 +130,21 @@ public class UserMgrAction extends BaseAction {
         Map<String, Object> result = getResultMap();
         try {
             if (postId == null || roleId == null || StringUtils.isBlank(user.getUsername())) {
-                result.put(RESULT, false);
-                result.put(MESSAGE, "提交信息不完整！");
+                result.put(R, false);
+                result.put(M, "提交信息不完整！");
             } else if (userSv.getByName(user.getUsername()) != null) {
-                result.put(RESULT, false);
-                result.put(MESSAGE, "用户已存在！");
+                result.put(R, false);
+                result.put(M, "用户已存在！");
             } else if (userSv.addUser(user, postId, roleId) > 0) {
-                result.put(RESULT, true);
-                result.put(MESSAGE, "新增成功！");
+                result.put(R, true);
+                result.put(M, "新增成功！");
             } else {
-                result.put(RESULT, false);
-                result.put(MESSAGE, "新增失败！");
+                result.put(R, false);
+                result.put(M, "新增失败！");
             }
         } catch (Exception e) {
-            result.put(RESULT, false);
-            result.put(MESSAGE, "系统异常，操作失败！");
+            result.put(R, false);
+            result.put(M, "系统异常，操作失败！");
             getLog(this).error(e.getMessage(), e);
         }
         return result;
@@ -157,18 +157,18 @@ public class UserMgrAction extends BaseAction {
         Map<String, Object> result = getResultMap();
         try {
             if (user.getUserId() == null || postId == null || roleId == null) {
-                result.put(RESULT, false);
-                result.put(MESSAGE, "提交数据不完整！");
+                result.put(R, false);
+                result.put(M, "提交数据不完整！");
             } else if (userSv.updateUser(user, postId, roleId)) {
-                result.put(RESULT, true);
-                result.put(MESSAGE, "修改成功！");
+                result.put(R, true);
+                result.put(M, "修改成功！");
             } else {
-                result.put(RESULT, false);
-                result.put(MESSAGE, "修改失败！");
+                result.put(R, false);
+                result.put(M, "修改失败！");
             }
         } catch (Exception e) {
-            result.put(RESULT, false);
-            result.put(MESSAGE, "系统异常，操作失败！");
+            result.put(R, false);
+            result.put(M, "系统异常，操作失败！");
             getLog(this).error(e.getMessage(), e);
         }
         return result;
@@ -180,21 +180,21 @@ public class UserMgrAction extends BaseAction {
         Map<String, Object> result = getResultMap();
         try {
             if (user.getUserId() == null) {
-                result.put(RESULT, false);
-                result.put(MESSAGE, "提交数据不完整！");
+                result.put(R, false);
+                result.put(M, "提交数据不完整！");
             } else if (userSv.updateUser(user)) {
                 SysUsers _user = getUser();
                 _user.setEmail(user.getEmail());
                 _user.setNick(user.getNick());
-                result.put(RESULT, true);
-                result.put(MESSAGE, "修改成功！");
+                result.put(R, true);
+                result.put(M, "修改成功！");
             } else {
-                result.put(RESULT, false);
-                result.put(MESSAGE, "修改失败！");
+                result.put(R, false);
+                result.put(M, "修改失败！");
             }
         } catch (Exception e) {
-            result.put(RESULT, false);
-            result.put(MESSAGE, "系统异常，操作失败！");
+            result.put(R, false);
+            result.put(M, "系统异常，操作失败！");
             getLog(this).error(e.getMessage(), e);
         }
         return result;
@@ -206,15 +206,15 @@ public class UserMgrAction extends BaseAction {
         Map<String, Object> result = getResultMap();
         try {
             if (userId != null && userSv.deleteUser(userId) > 0) {
-                result.put(RESULT, true);
-                result.put(MESSAGE, "删除成功！");
+                result.put(R, true);
+                result.put(M, "删除成功！");
             } else {
-                result.put(RESULT, false);
-                result.put(MESSAGE, "删除失败！");
+                result.put(R, false);
+                result.put(M, "删除失败！");
             }
         } catch (Exception e) {
-            result.put(RESULT, false);
-            result.put(MESSAGE, "系统异常，操作失败！");
+            result.put(R, false);
+            result.put(M, "系统异常，操作失败！");
             getLog(this).error(e.getMessage(), e);
         }
         return result;
@@ -227,15 +227,15 @@ public class UserMgrAction extends BaseAction {
         Map<String, Object> result = getResultMap();
         try {
             if (checked != null && userRole.getRoleId() != null && userRole.getUserId() != null) {
-                result.put(RESULT, true);
+                result.put(R, true);
                 userSv.changeUserRole(userRole, checked);
             } else {
-                result.put(RESULT, false);
-                result.put(MESSAGE, "参数错误，获取数据失败！");
+                result.put(R, false);
+                result.put(M, "参数错误，获取数据失败！");
             }
         } catch (Exception e) {
-            result.put(RESULT, false);
-            result.put(MESSAGE, "系统异常，获取数据失败！");
+            result.put(R, false);
+            result.put(M, "系统异常，获取数据失败！");
         }
         return result;
     }
@@ -246,15 +246,15 @@ public class UserMgrAction extends BaseAction {
         Map<String, Object> result = getResultMap();
         try {
             if (userId != null) {
-                result.put(RESULT, true);
+                result.put(R, true);
                 result.put(DATA, userSv.getAllRole(userId));
             } else {
-                result.put(RESULT, false);
-                result.put(MESSAGE, "参数错误，获取数据失败！");
+                result.put(R, false);
+                result.put(M, "参数错误，获取数据失败！");
             }
         } catch (Exception e) {
-            result.put(RESULT, false);
-            result.put(MESSAGE, "系统异常，获取数据失败！");
+            result.put(R, false);
+            result.put(M, "系统异常，获取数据失败！");
             getLog(this).error(e.getMessage(), e);
         }
         return result;
@@ -266,15 +266,15 @@ public class UserMgrAction extends BaseAction {
         Map<String, Object> result = getResultMap();
         try {
             if (!StringUtils.isBlank(userIds) && userSv.batchDeleteUser(userIds) > 0) {
-                result.put(RESULT, true);
-                result.put(MESSAGE, "删除成功！");
+                result.put(R, true);
+                result.put(M, "删除成功！");
             } else {
-                result.put(RESULT, false);
-                result.put(MESSAGE, "删除失败！");
+                result.put(R, false);
+                result.put(M, "删除失败！");
             }
         } catch (Exception e) {
-            result.put(RESULT, false);
-            result.put(MESSAGE, "系统异常，操作失败！");
+            result.put(R, false);
+            result.put(M, "系统异常，操作失败！");
             getLog(this).error(e.getMessage(), e);
         }
         return result;
@@ -294,15 +294,15 @@ public class UserMgrAction extends BaseAction {
         Map<String, Object> result = getResultMap();
         try {
             if (userId != null && userSv.resetPassword(userId)) {
-                result.put(RESULT, true);
-                result.put(MESSAGE, "密码重置成功！");
+                result.put(R, true);
+                result.put(M, "密码重置成功！");
             } else {
-                result.put(RESULT, false);
-                result.put(MESSAGE, "密码重置失败！");
+                result.put(R, false);
+                result.put(M, "密码重置失败！");
             }
         } catch (Exception e) {
-            result.put(RESULT, false);
-            result.put(MESSAGE, "系统异常，操作失败！");
+            result.put(R, false);
+            result.put(M, "系统异常，操作失败！");
             getLog(this).error(e.getMessage(), e);
         }
         return result;

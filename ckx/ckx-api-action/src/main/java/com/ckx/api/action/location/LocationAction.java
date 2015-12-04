@@ -23,10 +23,6 @@ public class LocationAction extends BaseAction {
 
     /**
      * 坐标上报
-     *
-     * @param request
-     * @param model
-     * @return
      */
     @ResponseBody
     @RequestMapping(value = "/{uid}/{longitude}/{latitude}", method = RequestMethod.GET)

@@ -11,7 +11,7 @@ public class HomePageAction extends BaseAction {
     @RequestMapping(value = "/menus/home.html", method = RequestMethod.GET)
     public String index(ModelMap model) {
 
-        return AD_HTML + "home";
+        return ADMIN + "home";
     }
 
 }

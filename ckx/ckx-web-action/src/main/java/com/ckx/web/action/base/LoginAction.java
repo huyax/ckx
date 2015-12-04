@@ -27,12 +27,12 @@ public class LoginAction extends BaseAction {
 
     @RequestMapping(value = "/login.html", method = RequestMethod.GET)
     public String login(HttpServletRequest request, ModelMap model) {
-        return AD_HTML + "login";
+        return ADMIN + "login";
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String _login() {
-        return AD_HTML + "login";
+        return ADMIN + "login";
     }
 
     @ResponseBody
@@ -41,11 +41,11 @@ public class LoginAction extends BaseAction {
                          HttpServletRequest request, ModelMap model) {
         Map<String, Object> result = getResultMap();
         if (StringUtils.isBlank(username)) {
-            result.put(ERROR, "用户名不能为空！");
+            result.put(E, "用户名不能为空！");
             return result;
         }
         if (StringUtils.isBlank(password)) {
-            result.put(ERROR, "密码不能为空！");
+            result.put(E, "密码不能为空！");
             return result;
         }
         Subject subject = SecurityUtils.getSubject();
@@ -61,13 +61,13 @@ public class LoginAction extends BaseAction {
             } else {
                 subject.login(token);
             }
-            result.put(RESULT, true);
+            result.put(R, true);
         } catch (AuthenticationException e) {
-            result.put(ERROR, "用户名或密码错误！");
+            result.put(E, "用户名或密码错误！");
             token.clear();
             getLog(this).error("登录失败错误信息:" + e);
         } catch (NullPointerException e) {
-            result.put(ERROR, "用户未分配岗位！");
+            result.put(E, "用户未分配岗位！");
             token.clear();
             getLog(this).error("登录失败错误信息:" + e);
         }
@@ -92,6 +92,6 @@ public class LoginAction extends BaseAction {
         model.put("menus", user.getMenus());
         model.put("nick", user.getNick());
 
-        return AD_HTML + "main";
+        return ADMIN + "main";
     }
 }

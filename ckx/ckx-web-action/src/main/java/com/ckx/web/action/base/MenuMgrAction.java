@@ -30,7 +30,7 @@ public class MenuMgrAction extends BaseAction {
         } catch (Exception e) {
             getLog(this).error(e.getMessage(), e);
         }
-        return AD_HTML + "base/menu_mgr";
+        return ADMIN + "base/menu_mgr";
     }
 
     @ResponseBody
@@ -40,16 +40,16 @@ public class MenuMgrAction extends BaseAction {
         try {
 
             if (menuSv.insertMenu(menu) > 0) {
-                result.put(RESULT, true);
-                result.put(MESSAGE, "新增成功！");
+                result.put(R, true);
+                result.put(M, "新增成功！");
                 result.put("menuId", menu.getMenuId());
             } else {
-                result.put(RESULT, false);
-                result.put(MESSAGE, "新增失败！");
+                result.put(R, false);
+                result.put(M, "新增失败！");
             }
         } catch (Exception e) {
-            result.put(RESULT, false);
-            result.put(MESSAGE, "系统异常处理失败！");
+            result.put(R, false);
+            result.put(M, "系统异常处理失败！");
             getLog(this).error(e.getMessage(), e);
         }
         return result;
@@ -61,15 +61,15 @@ public class MenuMgrAction extends BaseAction {
         Map<String, Object> result = getResultMap();
         try {
             if (menu.getMenuId() != null && menuSv.updateMenu(menu) > 0) {
-                result.put(RESULT, true);
-                result.put(MESSAGE, "更新成功！");
+                result.put(R, true);
+                result.put(M, "更新成功！");
             } else {
-                result.put(RESULT, false);
-                result.put(MESSAGE, "更新失败！");
+                result.put(R, false);
+                result.put(M, "更新失败！");
             }
         } catch (Exception e) {
-            result.put(RESULT, false);
-            result.put(MESSAGE, "系统异常处理失败！");
+            result.put(R, false);
+            result.put(M, "系统异常处理失败！");
             getLog(this).error(e.getMessage(), e);
         }
         return result;
@@ -81,15 +81,15 @@ public class MenuMgrAction extends BaseAction {
         Map<String, Object> result = getResultMap();
         try {
             if (menuId != null && menuSv.deleteMenu(menuId) > 0) {
-                result.put(RESULT, true);
-                result.put(MESSAGE, "删除成功！");
+                result.put(R, true);
+                result.put(M, "删除成功！");
             } else {
-                result.put(RESULT, false);
-                result.put(MESSAGE, "删除失败！");
+                result.put(R, false);
+                result.put(M, "删除失败！");
             }
         } catch (Exception e) {
-            result.put(RESULT, false);
-            result.put(MESSAGE, "系统异常处理失败！");
+            result.put(R, false);
+            result.put(M, "系统异常处理失败！");
             getLog(this).error(e.getMessage(), e);
         }
         return result;

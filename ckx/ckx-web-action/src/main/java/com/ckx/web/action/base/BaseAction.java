@@ -30,13 +30,13 @@ public class BaseAction {
 
     protected final String DATA = "d";
 
-    protected final String ERROR = "e";
+    protected final String E = "e";
 
-    protected final String RESULT = "r";
+    protected final String R = "r";
 
-    protected final String MESSAGE = "m";
+    protected final String M = "m";
 
-    protected final String AD_HTML = "admin/";
+    protected final String ADMIN = "admin/";
 
     private int defaultPageSize = 40;
 
@@ -180,7 +180,6 @@ public class BaseAction {
     /**
      * 获取系统登录用户
      *
-     * @param request
      * @return
      */
     public static SysUsers getUser() {
@@ -327,8 +326,6 @@ public class BaseAction {
 
     /**
      * 获取web应用的根路径
-     *
-     * @param request
      * @return
      */
     public String getRootPath() {

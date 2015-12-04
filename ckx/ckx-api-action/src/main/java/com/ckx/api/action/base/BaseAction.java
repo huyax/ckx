@@ -18,10 +18,9 @@ public class BaseAction {
 
     public static org.apache.commons.logging.Log log = LogFactory.getLog(BaseAction.class);
     protected final String DATA = "d";
-    protected final String ERROR = "e";
-    protected final String RESULT = "r";
-    protected final String MESSAGE = "m";
-    protected final String AD_HTML = "biz-logic/";
+    protected final String E = "e";
+    protected final String R = "r";
+    protected final String M = "m";
 
     private int defaultPageSize = 40;
 
