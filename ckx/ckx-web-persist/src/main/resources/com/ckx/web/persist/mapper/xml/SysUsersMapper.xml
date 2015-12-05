@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ckx.web.persist.mapper.SysUsersMapper">
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+    <resultMap id="BaseResultMap" type="com.ckx.web.persist.entity.SysUsers">
+        <id column="user_id" property="userId" jdbcType="INTEGER" />
+        <result column="nick" property="nick" jdbcType="VARCHAR" />
+        <result column="username" property="username" jdbcType="VARCHAR" />
+        <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="qq" property="qq" jdbcType="INTEGER" />
+        <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+        <result column="status" property="status" jdbcType="INTEGER" />
+        <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+
+    </resultMap>
+    <resultMap id="CascadeRole" type="com.ckx.web.persist.entity.SysUsers"
+               extends="BaseResultMap">
+        <collection property="roles" ofType="com.ckx.web.persist.entity.SysRoles"
+                    resultMap="com.ckx.web.persist.mapper.SysRolesMapper.BaseResultMap" />
+        <collection property="posts" ofType="com.ckx.web.persist.entity.SysPosts"
+                    resultMap="com.ckx.web.persist.mapper.SysPostsMapper.BaseResultMap" />
+    </resultMap>
+    <resultMap id="CascadeRoleMenu" type="com.ckx.web.persist.entity.SysUsers"
+               extends="BaseResultMap">
+        <collection column="user_id" property="roles"
+                    ofType="com.ckx.web.persist.entity.SysRoles" select="com.ckx.web.persist.mapper.SysRolesMapper.getRolesByUserId" />
+        <collection column="user_id" property="menus"
+                    ofType="com.ckx.web.persist.entity.SysMenus" select="com.ckx.web.persist.mapper.SysMenusMapper.getMenusByUserId" />
+        <collection column="user_id" property="posts"
+                    ofType="com.ckx.web.persist.entity.SysPosts" select="com.ckx.web.persist.mapper.SysPostsMapper.getPostsByUserId" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        user_id, nick, username, password, email,qq,telephone, status, update_date, create_date
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap"
+            parameterType="java.lang.Integer">
+        select 'false' as QUERYID,
+        <include refid="Base_Column_List" />
+        from sys_users a where a.user_id = #{userId,jdbcType=INTEGER}
+    </select>
+    <select id="getAllUsers" resultMap="BaseResultMap">
+        SELECT user_id, nick FROM sys_userss
+    </select>
+    <select id="selectByUsername" resultMap="CascadeRoleMenu"
+            parameterType="java.lang.String" useCache="false">
+        select u.*,r.role_id from sys_users u,sys_user_role r where u.user_id =
+        r.user_id and u.username = #{u.username,jdbcType=VARCHAR} limit 0,1
+    </select>
+    <select id="selectPager" resultMap="CascadeRole" parameterType="map">
+        select a.user_id, a.nick, a.username, a.email, a.status,a.qq,a.telephone,
+        a.update_date, a.create_date, b.role_id, c.post_id from
+        (select * from sys_users u
+        <where>
+            <if test="username != null">and u.username like
+                CONCAT('%',#{username,jdbcType=VARCHAR},'%')</if>
+            <if test="nick != null">and u.nick like CONCAT('%',#{nick,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="status != null">and u.status = #{status,jdbcType=INTEGER}</if>
+        </where>
+        order by u.create_date desc ) a
+        LEFT JOIN sys_user_role b ON a.user_id = b.user_id LEFT JOIN sys_user_post
+        c ON a.user_id = c.user_id
+        WHERE b.role_id <![CDATA[<>]]>
+        #{role,jdbcType=VARCHAR} AND FIND_IN_SET(b.role_id,
+        #{childRole,jdbcType=VARCHAR})
+        <if test="roleId != null">and b.role_id = #{roleId,jdbcType=VARCHAR}</if>
+        order by a.create_date desc limit #{begRow}, #{pageSize}
+    </select>
+    <select id="selectPagerCount" resultType="java.lang.Integer"
+            parameterType="map">
+        select count(0) as count from (select a.*,count(a.user_id) from
+        sys_users a LEFT JOIN sys_user_role b ON a.user_id = b.user_id LEFT
+        JOIN sys_user_post c ON a.user_id = c.user_id
+        <where>
+            <if test="username != null">and a.username like
+                CONCAT('%',#{username,jdbcType=VARCHAR},'%')</if>
+            <if test="nick != null">and a.nick like CONCAT('%',#{nick,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="status != null">and a.status = #{status,jdbcType=INTEGER}</if>
+            <if test="roleId != null">and b.role_id = #{roleId,jdbcType=VARCHAR}</if>
+            AND b.role_id <![CDATA[<>]]>
+            #{role,jdbcType=VARCHAR}
+            AND FIND_IN_SET(b.role_id, #{childRole,jdbcType=VARCHAR})
+        </where>
+        group by a.user_id) c
+    </select>
+    <select id="selectByParams" resultMap="BaseResultMap"
+            parameterType="map">
+        select
+        <include refid="Base_Column_List" />
+        from sys_users
+        <where>
+            <if test="username != null">and username = #{username}</if>
+        </where>
+    </select>
+    <select id="selectRoleChild" resultMap="BaseResultMap">
+        SELECT s.* FROM sys_users s, sys_user_role r WHERE s.user_id =
+        r.user_id AND FIND_IN_SET(r.role_id,#{childRole,jdbcType=VARCHAR}) AND
+        r.role_id <![CDATA[<>]]>
+        #{roleId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from sys_users where user_id = #{userId,jdbcType=INTEGER}
+    </delete>
+    <delete id="batchDeleteUser" parameterType="arraylist">
+        delete from sys_users where user_id in
+        <foreach collection="ids" item="id" index="i" open="("
+                 separator="," close=")">
+            #{id,jdbcType=INTEGER}
+        </foreach>
+    </delete>
+    <insert id="insert" parameterType="com.ckx.web.persist.entity.SysUsers"
+            keyProperty="userId">
+        insert into sys_users (user_id, nick, username, password, email,qq,telephone,status,
+        update_date, create_date)
+        values (#{userId,jdbcType=INTEGER}, #{nick,jdbcType=VARCHAR},
+        #{username,jdbcType=VARCHAR},
+        #{password,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},#{qq,jdbcType=BIGINT}, #{telephone,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
+        #{updateDate,jdbcType=TIMESTAMP}, #{createDate,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.ckx.web.persist.entity.SysUsers">
+        insert into sys_users
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="nick != null">
+                nick,
+            </if>
+            <if test="username != null">
+                username,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="updateDate != null">
+                update_date,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="nick != null">
+                #{nick,jdbcType=VARCHAR},
+            </if>
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.ckx.web.persist.entity.SysUsers">
+        update sys_users
+        <set>
+            <if test="nick != null">
+                nick = #{nick,jdbcType=VARCHAR},
+            </if>
+            <if test="username != null">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="telephone != null">
+                telephone = #{telephone,jdbcType=VARCHAR},
+            </if>
+            <if test="qq != null">
+                qq = #{qq,jdbcType=BIGINT},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where user_id = #{userId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.ckx.web.persist.entity.SysUsers">
+        update sys_users
+        set nick = #{nick,jdbcType=VARCHAR},
+        username = #{username,jdbcType=VARCHAR},
+        password = #{password,jdbcType=VARCHAR},
+        email = #{email,jdbcType=VARCHAR},
+        status = #{status,jdbcType=INTEGER},
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+        create_date = #{createDate,jdbcType=TIMESTAMP}
+        where user_id = #{userId,jdbcType=INTEGER}
+    </update>
+</mapper>

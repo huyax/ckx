@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ckx.web.persist.mapper.SysRolesMapper" >
+    <cache-ref namespace="com.ckx.web.persist.mapper.SysUsersMapper" />
+    <resultMap id="BaseResultMap" type="com.ckx.web.persist.entity.SysRoles" >
+        <id column="role_id" property="roleId" jdbcType="INTEGER" />
+        <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+        <result column="parent_role" property="parentRole" jdbcType="INTEGER" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        role_id, role_name, parent_role
+    </sql>
+    <select id="getRolesByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select b.* from sys_user_role a left join sys_roles b on a.role_id = b.role_id where a.user_id = #{userId,jdbcType=INTEGER}
+    </select>
+    <select id="getRoles" resultMap="BaseResultMap" parameterType="Pager" useCache="false">
+        select <include refid="Base_Column_List" /> from sys_roles order by role_id asc
+    </select>
+    <select id="getAllRoles" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from sys_roles order by role_id asc
+    </select>
+    <select id="selectRoleByParent" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT <include refid="Base_Column_List" /> FROM sys_roles r WHERE FIND_IN_SET( r.role_id, #{childRole,jdbcType=VARCHAR})
+    </select>
+    <select id="getRoleTree" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT GET_ROLE_TREE(#{roleId,jdbcType=INTEGER})
+    </select>
+    <select id="getRoleChild" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT GET_ROLE_CHILD(#{roleId,jdbcType=INTEGER})
+    </select>
+    <select id="getRoleParent" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT GET_ROLE_PARENT(#{roleId,jdbcType=INTEGER})
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select 'false' as QUERYID, <include refid="Base_Column_List" /> from sys_roles where role_id = #{roleId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from sys_roles where role_id = #{roleId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.ckx.web.persist.entity.SysRoles" keyProperty="roleId">
+        insert into sys_roles (role_id, role_name, parent_role) values (#{roleId,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{parentRole,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="com.ckx.web.persist.entity.SysRoles" >
+        insert into sys_roles
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="roleId != null" >
+                role_id,
+            </if>
+            <if test="roleName != null" >
+                role_name,
+            </if>
+            <if test="parentRole != null" >
+                parent_role,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="roleId != null" >
+                #{roleId,jdbcType=INTEGER},
+            </if>
+            <if test="roleName != null" >
+                #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="parentRole != null" >
+                #{parentRole,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.ckx.web.persist.entity.SysRoles" >
+        update sys_roles
+        <set >
+            <if test="roleName != null" >
+                role_name = #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="parentRole != null" >
+                parent_role = #{parentRole,jdbcType=INTEGER},
+            </if>
+        </set>
+        where role_id = #{roleId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.ckx.web.persist.entity.SysRoles" >
+        update sys_roles
+        set role_name = #{roleName,jdbcType=VARCHAR},
+        parent_role = #{parentRole,jdbcType=INTEGER}
+        where role_id = #{roleId,jdbcType=INTEGER}
+    </update>
+
+    <!-- 添加 通过名字查询对应id -->
+    <select id="selectIdByName" resultType="Integer">
+        SELECT role_id from sys_roles where role_name='渠道商'
+    </select>
+    <!-- 获取产品组的角色组 -->
+    <!--     <select id="getRolesByPkey" resultMap="BaseResultMap">
+          select <include refid="Base_Column_List" /> from sys_roles
+          <where>
+          <if test="isOrNoPro==0">
+              role_id not in (SELECT role_id from product_role where product_key=#{pkey,jdbcType=VARCHAR})
+          </if>
+          <if test="isOrNoPro==1">
+              role_id in (SELECT role_id from product_role where product_key=#{pkey,jdbcType=VARCHAR})
+          </if>
+          </where>
+           order by role_id asc
+      </select> -->
+</mapper>

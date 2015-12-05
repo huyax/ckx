@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ckx.web.persist.mapper.SysPostsMapper" >
+    <cache-ref namespace="com.ckx.web.persist.mapper.SysUsersMapper" />
+    <resultMap id="BaseResultMap" type="com.ckx.web.persist.entity.SysPosts" >
+        <id column="post_id" property="postId" jdbcType="INTEGER" />
+        <result column="post_name" property="postName" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        post_id, post_name
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select 'false' as QUERYID, <include refid="Base_Column_List" /> from sys_posts where post_id = #{postId,jdbcType=INTEGER}
+    </select>
+    <select id="getPostsByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT b.* FROM sys_user_post a LEFT JOIN sys_posts b ON a.post_id = b.post_id WHERE a.user_id = #{userId,jdbcType=INTEGER}
+    </select>
+    <select id="getAllPosts" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from sys_posts order by post_id asc
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from sys_posts where post_id = #{postId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.ckx.web.persist.entity.SysPosts" >
+        insert into sys_posts (post_id, post_name) values (#{postId,jdbcType=INTEGER}, #{postName,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.ckx.web.persist.entity.SysPosts" >
+        insert into sys_posts
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="postId != null" >
+                post_id,
+            </if>
+            <if test="postName != null" >
+                post_name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="postId != null" >
+                #{postId,jdbcType=INTEGER},
+            </if>
+            <if test="postName != null" >
+                #{postName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.ckx.web.persist.entity.SysPosts" >
+        update sys_posts
+        <set >
+            <if test="postName != null" >
+                post_name = #{postName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where post_id = #{postId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.ckx.web.persist.entity.SysPosts" >
+        update sys_posts
+        set post_name = #{postName,jdbcType=VARCHAR}
+        where post_id = #{postId,jdbcType=INTEGER}
+    </update>
+</mapper>

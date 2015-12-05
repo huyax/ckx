@@ -24,7 +24,7 @@
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="com.ckx.web.persist.mapper.xml" targetProject="../src/main/java">
+        <sqlMapGenerator targetPackage="com.ckx.web.persist.mapper.xml" targetProject="../src/main/resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 

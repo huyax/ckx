@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ckx.web.persist.mapper.SysMenusMapper" >
+    <cache-ref namespace="com.ckx.web.persist.mapper.SysUsersMapper" />
+    <resultMap id="BaseResultMap" type="com.ckx.web.persist.entity.SysMenus" >
+        <id column="menu_id" property="menuId" jdbcType="INTEGER" />
+        <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+        <result column="show_name" property="showName" jdbcType="VARCHAR" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+        <result column="is_parent" property="isParent" jdbcType="BIT" />
+        <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+        <result column="url" property="url" jdbcType="VARCHAR" />
+        <result column="status" property="status" jdbcType="INTEGER" />
+        <result column="sort" property="sort" jdbcType="INTEGER" />
+    </resultMap>
+    <resultMap id="CascadeResultMap" type="com.ckx.web.persist.entity.SysMenus" extends="BaseResultMap">
+        <collection property="childrens" ofType="com.ckx.web.persist.entity.SysMenus">
+            <id column="c_menu_id" property="menuId" jdbcType="INTEGER" />
+            <result column="c_menu_name" property="menuName" jdbcType="VARCHAR" />
+            <result column="c_remark" property="remark" jdbcType="VARCHAR" />
+            <result column="c_is_parent" property="isParent" jdbcType="BIT" />
+            <result column="c_parent_id" property="parentId" jdbcType="INTEGER" />
+            <result column="c_url" property="url" jdbcType="VARCHAR" />
+            <result column="c_status" property="status" jdbcType="INTEGER" />
+            <result column="c_sort" property="sort" jdbcType="INTEGER" />
+        </collection>
+    </resultMap>
+    <sql id="Base_Column_List" >
+        menu_id, menu_name, remark, is_parent, parent_id, url, status, sort
+    </sql>
+    <select id="getMenusByUserId" resultMap="CascadeResultMap" parameterType="map">
+        SELECT c.*, COUNT(DISTINCT c.c_menu_id) FROM ( SELECT a.*,
+        b.menu_id AS c_menu_id, b.menu_name AS c_menu_name, b.remark as
+        c_remark, b.is_parent AS c_is_parent,b.parent_id AS c_parent_id,
+        b.url AS c_url, b.`status` AS c_status, b.sort AS c_sort FROM ( SELECT
+        sm.* FROM sys_user_role u LEFT JOIN sys_roles r ON u.role_id =
+        r.role_id LEFT JOIN sys_role_menu m ON r.role_id = m.role_id LEFT JOIN
+        sys_menus sm ON m.menu_id = sm.menu_id WHERE sm.`status` = 1 AND
+        u.user_id = #{userId,jdbcType=INTEGER} AND sm.is_parent = 1 ) a LEFT JOIN ( SELECT
+        sm.* FROM sys_user_role u LEFT JOIN sys_roles r ON u.role_id = r.role_id
+        LEFT JOIN sys_role_menu m ON r.role_id = m.role_id LEFT JOIN sys_menus
+        sm ON m.menu_id = sm.menu_id WHERE sm.`status` = 1 AND u.user_id =
+        #{userId,jdbcType=INTEGER} AND sm.is_parent = 0 ) b ON b.parent_id = a.menu_id ) c
+        GROUP BY c.c_menu_id ORDER BY sort ASC, c_sort ASC
+    </select>
+    <select id="getAllMenus" resultMap="BaseResultMap">
+        SELECT IF(a.remark, CONCAT(a.menu_name,'[',a.remark,']'), a.menu_name) AS show_name, a.* FROM sys_menus a ORDER BY sort ASC
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select 'false' as QUERYID, <include refid="Base_Column_List" /> from sys_menus where menu_id = #{menuId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from sys_menus where menu_id = #{menuId,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByMenuId" parameterType="java.lang.Integer" >
+        delete from sys_menus where menu_id = #{menuId,jdbcType=INTEGER} or parent_id = #{menuId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.ckx.web.persist.entity.SysMenus" keyProperty="menuId">
+        insert into sys_menus (menu_id, menu_name, remark, is_parent, parent_id, url, status, sort)
+        values (#{menuId,jdbcType=INTEGER}, #{menuName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{isParent,jdbcType=BIT},
+        #{parentId,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
+        #{sort,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="com.ckx.web.persist.entity.SysMenus" keyProperty="menuId">
+        insert into sys_menus
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="menuId != null" >
+                menu_id,
+            </if>
+            <if test="menuName != null" >
+                menu_name,
+            </if>
+            <if test="remark != null" >
+                remark,
+            </if>
+            <if test="isParent != null" >
+                is_parent,
+            </if>
+            <if test="parentId != null" >
+                parent_id,
+            </if>
+            <if test="url != null" >
+                url,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+            <if test="sort != null" >
+                sort,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="menuId != null" >
+                #{menuId,jdbcType=INTEGER},
+            </if>
+            <if test="menuName != null" >
+                #{menuName,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null" >
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="isParent != null" >
+                #{isParent,jdbcType=BIT},
+            </if>
+            <if test="parentId != null" >
+                #{parentId,jdbcType=INTEGER},
+            </if>
+            <if test="url != null" >
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="sort != null" >
+                #{sort,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.ckx.web.persist.entity.SysMenus" >
+        update sys_menus
+        <set >
+            <if test="menuName != null" >
+                menu_name = #{menuName,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null" >
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="isParent != null" >
+                is_parent = #{isParent,jdbcType=BIT},
+            </if>
+            <if test="parentId != null" >
+                parent_id = #{parentId,jdbcType=INTEGER},
+            </if>
+            <if test="url != null" >
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="sort != null" >
+                sort = #{sort,jdbcType=INTEGER},
+            </if>
+        </set>
+        where menu_id = #{menuId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.ckx.web.persist.entity.SysMenus" >
+        update sys_menus
+        set menu_name = #{menuName,jdbcType=VARCHAR},
+        remark = #{remark,jdbcType=VARCHAR},
+        is_parent = #{isParent,jdbcType=BIT},
+        parent_id = #{parentId,jdbcType=INTEGER},
+        url = #{url,jdbcType=VARCHAR},
+        status = #{status,jdbcType=INTEGER},
+        sort = #{sort,jdbcType=INTEGER}
+        where menu_id = #{menuId,jdbcType=INTEGER}
+    </update>
+</mapper>
