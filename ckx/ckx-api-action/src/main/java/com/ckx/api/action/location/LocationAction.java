@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ckx.api.action.base.BaseAction;
 import com.ckx.api.core.location.LocationService;
-
+/**
+ * Created by 寒远黛 on 2015/12/5.
+ */
 @RequestMapping(value = "/location")
 @Controller
 public class LocationAction extends BaseAction {
@@ -25,18 +27,15 @@ public class LocationAction extends BaseAction {
     @ResponseBody
     @RequestMapping(value = "/{uid}/{longitude}/{latitude}", method = RequestMethod.GET)
     public Object post(@PathVariable Integer uid, @PathVariable String longitude, @PathVariable String latitude) {
-        Map<String, Object> result = getResultMap();
+        Map<String, Object> result;
         try {
             if (locationService.post(uid, longitude, latitude)) {
-                result.put("error", 0);
-                result.put("message", "success");
+                result = getResult(true,null);
             } else {
-                result.put("error", 1);
-                result.put("message", "fail");
+                result = getResult(false,null);
             }
         } catch (Exception e) {
-            result.put("error", 0);
-            result.put("message", "系统异常，上报失败！");
+            result = getResult(false,null);
             getLog(this).error(e.getMessage(), e);
         }
         return result;

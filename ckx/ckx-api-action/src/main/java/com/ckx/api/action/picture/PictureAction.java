@@ -1,8 +1,8 @@
 package com.ckx.api.action.picture;
 
 import com.ckx.api.action.base.BaseAction;
-import com.ckx.api.core.location.LocationService;
 import com.ckx.api.core.picture.PictureService;
+import com.ckx.api.persist.entity.Picture;
 import com.ckx.api.persist.entity.PictureMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by 95 on 2015/12/5.
+ * Created by 寒远黛 on 2015/12/5.
  */
 @RequestMapping(value = "/pic")
 @Controller
@@ -26,20 +26,34 @@ public class PictureAction extends BaseAction {
 
 
     /**
-     * 获取相册List
+     * 获取相册
      */
     @ResponseBody
     @RequestMapping(value = "/album/{page}/{size}", method = RequestMethod.GET)
     public Object albumList(@PathVariable Integer page, @PathVariable Integer size) {
-        Map<String, Object> result = getResultMap();
+        Map<String, Object> result;
         try {
             List<PictureMap> list = pictureService.albumList(page, size);
-            result.put(E, 0);
-            result.put(M, "success");
-            result.put(DATA, list);
+            result = getResult(true,list);
         } catch (Exception e) {
-            result.put(E, 0);
-            result.put(M, "系统异常，上报失败！");
+            result = getResult(false,null);
+            getLog(this).error(e.getMessage(), e);
+        }
+        return result;
+    }
+
+    /**
+     * 获取相册图片
+     */
+    @ResponseBody
+    @RequestMapping(value = "/{mapId}", method = RequestMethod.GET)
+    public Object picList(@PathVariable Integer mapId) {
+        Map<String, Object> result;
+        try {
+            List<Picture> list = pictureService.picList(mapId);
+            result = getResult(true,list);
+        } catch (Exception e) {
+            result = getResult(false,null);
             getLog(this).error(e.getMessage(), e);
         }
         return result;

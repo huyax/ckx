@@ -1,8 +1,10 @@
 package com.ckx.api.core.picture.impl;
 
 import com.ckx.api.core.picture.PictureService;
+import com.ckx.api.persist.entity.Picture;
 import com.ckx.api.persist.entity.PictureMap;
 import com.ckx.api.persist.mapper.PictureMapMapper;
+import com.ckx.api.persist.mapper.PictureMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,9 @@ public class PictureServiceImpl implements PictureService{
     private @Autowired
     PictureMapMapper pictureMapMapper;
 
+    private @Autowired
+    PictureMapper pictureMapper;
+
     @Override
     public List<PictureMap> albumList(int page, int size) {
         int start = (page - 1) * size;
@@ -27,5 +32,10 @@ public class PictureServiceImpl implements PictureService{
         params.put("start",start);
         params.put("size",size);
         return pictureMapMapper.paginate(params);
+    }
+
+    @Override
+    public List<Picture> picList(int mapId) {
+        return pictureMapper.getByMap(mapId);
     }
 }

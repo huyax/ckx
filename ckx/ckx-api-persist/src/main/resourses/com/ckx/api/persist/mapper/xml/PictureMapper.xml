@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ckx.api.persist.mapper.PictureMapper">
+  <resultMap id="BaseResultMap" type="com.ckx.api.persist.entity.Picture">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="seat" jdbcType="INTEGER" property="seat" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="map_id" jdbcType="VARCHAR" property="mapId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, seat, url, map_id
+  </sql>
+
+  <select id="getByMap" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from picture
+    where map_id = #{mapId,jdbcType=INTEGER}
+  </select>
+
+
+</mapper>
