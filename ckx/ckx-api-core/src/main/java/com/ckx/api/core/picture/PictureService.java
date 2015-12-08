@@ -9,6 +9,6 @@ import java.util.List;
  */
 public interface PictureService {
 
-    public List<PictureMap> albumList(int page, int size);
+     List<PictureMap> albumList(int page, int size);
 
 }
