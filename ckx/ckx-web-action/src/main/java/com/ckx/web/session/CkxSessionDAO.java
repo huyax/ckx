@@ -86,6 +86,8 @@ public class CkxSessionDAO extends AbstractSessionDAO {
     public void update(Session session) throws UnknownSessionException {
         this.saveSession(session);
 
+
+
     }
 
 }

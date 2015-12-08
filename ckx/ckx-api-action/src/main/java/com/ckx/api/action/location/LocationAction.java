@@ -16,9 +16,7 @@ import com.ckx.api.core.location.LocationService;
 @Controller
 public class LocationAction extends BaseAction {
 
-    private
-    @Autowired
-    LocationService locationService;
+    private @Autowired LocationService locationService;
 
 
     /**

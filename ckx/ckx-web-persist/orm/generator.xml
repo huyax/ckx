@@ -38,7 +38,7 @@
          -->
         <!-- <table tableName="movie" domainObjectName="Movie" enableCountByExample="false" enableSelectByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" selectByPrimaryKeyQueryId="true" selectByExampleQueryId="false"></table>
         -->
-        <table tableName="location" domainObjectName="Location" enableCountByExample="false"
+        <table tableName="picture_map" domainObjectName="PictureMap" enableCountByExample="false"
                enableSelectByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
                selectByPrimaryKeyQueryId="true" selectByExampleQueryId="false"></table>
 

@@ -21,7 +21,7 @@ public class MVCFreeMarckerView extends FreeMarkerView {
         model.put("url", request.getRequestURI().replaceAll(request.getContextPath(), ""));
         model.put("debug", SysConstants.DEBUG);
         model.put("isCompress", SysConstants.HTML_IS_COMPRESS);
-        // 用户信息
+        /* 用户信息 */
         model.put("user", BaseAction.getUser());
         // JS，CSS文件自动引入
         model.put("jsPath", getResJsPath(this.getBeanName()));
