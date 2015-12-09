@@ -103,4 +103,25 @@
       context = #{context,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+	<select id="paginate" resultMap="BaseResultMap" parameterType="map">
+		select 'false' as QUERYID,
+		<include refid="Base_Column_List" />
+		 from picture
+		<where>
+			<if test="id != null">
+				 and id = #{id,jdbcType=INTEGER}
+			</if>
+		</where>
+		order by id desc
+		limit #{begRow}, #{pageSize}
+	</select>
+	<select id="paginateCount" resultType="java.lang.Integer" parameterType="map">
+		select count(0) 
+		from picture
+		<where>
+			<if test="id != null">
+				 and id = #{id,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
 </mapper>

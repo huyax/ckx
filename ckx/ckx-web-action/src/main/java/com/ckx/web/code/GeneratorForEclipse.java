@@ -72,6 +72,10 @@ public class GeneratorForEclipse {
 
         // script
         createJavaScript(map);
+
+        //mapper 分页方法
+        MapperGenerator.createMapperClass(map.get("name") + "");
+        MapperGenerator.createMapperXml(map.get("name") + "");
     }
 
     public static void createAction(Map<String, Object> data) {
