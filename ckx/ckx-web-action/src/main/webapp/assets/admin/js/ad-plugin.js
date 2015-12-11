@@ -530,7 +530,7 @@ Number.prototype.toQianPercent = function () {
                     $(this).blur();
                 });
                 target.css({
-                    border: 'solid 1px #B1C242',
+                    border: 'solid 1px #679FD2',
                     background: 'url(' + window.rootPath + '/assets/admin/images/input_bg_d.jpg) repeat-x',
                     color: '#999',
                     height: '18px'

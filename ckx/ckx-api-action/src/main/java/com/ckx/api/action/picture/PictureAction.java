@@ -17,7 +17,6 @@ import java.util.Map;
 /**
  * Created by 寒远黛 on 2015/12/5.
  */
-@RequestMapping(value = "/pic")
 @Controller
 public class PictureAction extends BaseAction {
 
@@ -46,7 +45,7 @@ public class PictureAction extends BaseAction {
      * 获取相册图片
      */
     @ResponseBody
-    @RequestMapping(value = "/{mapId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/pic/{mapId}", method = RequestMethod.GET)
     public Object picList(@PathVariable Integer mapId) {
         Map<String, Object> result;
         try {

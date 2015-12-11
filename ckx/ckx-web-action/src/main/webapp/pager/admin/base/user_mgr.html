@@ -49,7 +49,7 @@
     </table>
 </div>
 <div class="hide-panel">
-    <div id="userEditDialog" style="width:430px;height:350px;" data-options="resizable:false,modal:true,closed: true">
+    <!--<div id="userEditDialog" style="width:430px;height:350px;" data-options="resizable:false,modal:true,closed: true">
         <form id="userEditForm" class="form_style" method="post" onsubmit="return false;">
             <input type="hidden" name="userId" id="userId"/>
 
@@ -98,7 +98,62 @@
                 </select>
             </div>
         </form>
+    </div>-->
+
+    <div id="userEditDialog" class="easyui-dialog" style="width:430px;height:400px; padding:10px 20px"" data-options="resizable:false,modal:true,closed: true">
+    <div class="ftitle">User Information</div>
+    <form id="userEditForm" class="form_style" method="post" onsubmit="return false;">
+            <input type="hidden" name="userId" id="userId"/>
+
+            <div class="form-field">
+                <label >用户名：<font color="red">*</font></label>
+                <input class="easyui-validatebox" type="text" name="username" id="username" maxlength="30"
+                       data-options="required:true,validType:'username'"/>
+            </div>
+            <div class="form-field">
+                <label >昵称：<font color="red">*</font></label>
+                <input class="easyui-validatebox" type="text" name="nick" maxlength="30" data-options="required:true"/>
+            </div>
+            <div class="form-field">
+                <label>Email：<font color="red">*</font></label>
+                <input class="easyui-validatebox" type="text" name="email" maxlength="50"
+                       data-options="required:true,validType:'email'"/>
+            </div>
+            <div class="form-field">
+                <label>电话：<font color="red">*</font></label>
+                <input class="easyui-validatebox" type="text" name="telephone" maxlength="25"
+                       data-options="required:true"/>
+            </div>
+            <div class="form-field">
+                <label>QQ：</label>
+                <input class="easyui-validatebox" type="text" name="qq" maxlength="19"
+                       data-options="required:true,validType:'QQ'"/>
+            </div>
+            <div class="form-field">
+                <label>状态：<font color="red">*</font></label>
+                <input type="radio" name="status" value="1" checked="checked" /><span class="check-label">正常</span>
+                <input type="radio" name="status" value="0"/><span class="check-label">停用</span>
+            </div>
+            <div class="form-field">
+                <label>角色：<font color="red">*</font></label>
+                <input class="easyui-validatebox" type="text" name="roleId" id="roleId" data-options="required:true"/>
+            </div>
+            <div class="form-field">
+                <label>岗位：<font color="red">*</font></label>
+                <select class="easyui-validatebox" name="postId" data-options="required:true">
+                    <option value="">==请选择==</option>
+                    <#if posts?? && posts?size gt 0>
+                        <#list posts as p>
+                            <option value="${p.postId}">${p.postName}</option>
+                        </#list>
+                    </#if>
+                </select>
+            </div>
+        </form>
     </div>
+
+
+
 </div>
 </body>
 </html>
