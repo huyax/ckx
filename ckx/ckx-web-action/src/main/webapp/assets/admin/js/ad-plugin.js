@@ -362,7 +362,7 @@ Number.prototype.toQianPercent = function () {
                     target.removeAttr('data-options').removeAttr('class').removeAttr('required');
                 }
                 input_tag.css({
-                    border: 'solid 1px #679FD2',
+                    border: 'solid 1px #ccc',
                     background: 'url(' + window.rootPath + '/assets/admin/images/input_bg_d.jpg) repeat-x',
                     color: '#999',
                     height: '18px'
@@ -530,7 +530,7 @@ Number.prototype.toQianPercent = function () {
                     $(this).blur();
                 });
                 target.css({
-                    border: 'solid 1px #679FD2',
+                    border: 'solid 1px #ccc',
                     background: 'url(' + window.rootPath + '/assets/admin/images/input_bg_d.jpg) repeat-x',
                     color: '#999',
                     height: '18px'

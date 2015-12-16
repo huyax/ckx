@@ -13,11 +13,11 @@ body, html, form {
 
 .form_style textarea {
     background: url("../images/input_bg.gif") repeat-x;
-    border: solid 1px #679FD2;
+    border: solid 1px #ccc;
 }
 
 .form_style input[type=text], .form_style input[type=password] {
-    border: solid 1px #679FD2;
+    border: solid 1px #ccc;
     height: 18px;
     width: 150px;
     background: url("../images/input_bg.gif") repeat-x;
@@ -32,7 +32,7 @@ textarea[readonly=readonly] {
 .form_style select {
     width: 152px;
     padding: 1px 0 1px 0;
-    border: solid 1px #679FD2;
+    border: solid 1px #ccc;
 }
 
 .form_style input[type=submit], .form_style input[type=reset],
@@ -362,7 +362,7 @@ div, body, html {
 .pull-down-list-input .input-text {
     background: url("../images/input_bg_d.jpg") repeat-x;
     color: #999;
-    border: solid 1px #679FD2;
+    border: solid 1px #ccc;
     height: 18px;
     cursor: default;
 }
@@ -389,7 +389,7 @@ div, body, html {
     display: none;
     position: absolute;
     margin-top: -2px;
-    border: solid 1px #679FD2;
+    border: solid 1px #ccc;
     z-index: 9999;
     background: #FFF;
 }
@@ -415,7 +415,8 @@ div, body, html {
 
 .pull-down-list li.selected {
     background: #FFEBC0;
-    border: solid 1px #FFC774;
+    /*background: #0081c2;*/
+    /*border: solid 1px #FFC774;*/
 }
 
 .icon-remove:before {
